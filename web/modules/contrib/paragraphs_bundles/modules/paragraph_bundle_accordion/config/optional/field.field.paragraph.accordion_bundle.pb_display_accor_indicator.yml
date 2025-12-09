@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.pb_display_accor_indicator
+    - paragraphs.paragraphs_type.accordion_bundle
+id: paragraph.accordion_bundle.pb_display_accor_indicator
+field_name: pb_display_accor_indicator
+entity_type: paragraph
+bundle: accordion_bundle
+label: 'Show Indicators'
+description: 'The plus sign, located at the top of the tab, can be used to expand or collapse the tab. Upon clicking, it transforms into a minus sign.'
+required: false
+translatable: false
+default_value:
+  -
+    value: 1
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

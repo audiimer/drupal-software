@@ -1,0 +1,26 @@
+# Composer dependencies
+/vendor/
+
+# Node dependencies
+/node_modules/
+
+# Drupal files directories (user uploads, generated files)
+web/sites/*/files/
+web/sites/*/private/
+
+# Environment-specific settings
+web/sites/*/settings.local.php
+web/sites/*/services.local.yml
+
+# OS / IDE junk
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Logs
+*.log
+
+# Docker/runtime data (if any)
+*.pid
+web/sites/default/files.zip

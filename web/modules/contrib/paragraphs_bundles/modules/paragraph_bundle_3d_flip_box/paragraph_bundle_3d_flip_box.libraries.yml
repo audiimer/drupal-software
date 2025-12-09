@@ -1,0 +1,4 @@
+paragraph-bundle-3d-flip-box:
+  css:
+    theme:
+      css/paragraph-bundle-3d-flip-box.css: { }

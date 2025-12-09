@@ -1,0 +1,18 @@
+{
+    "/build/js/main.script.js": "/build/js/main.script.js",
+    "/build/css/main.style.css": "/build/css/main.style.css",
+    "/components/button/button.css": "/components/button/button.css",
+    "/components/breadcrumb/breadcrumb.css": "/components/breadcrumb/breadcrumb.css",
+    "/components/block/block.css": "/components/block/block.css",
+    "/components/alert/alert.css": "/components/alert/alert.css",
+    "/components/table/table.css": "/components/table/table.css",
+    "/components/pagination/pagination.css": "/components/pagination/pagination.css",
+    "/components/page/page.css": "/components/page/page.css",
+    "/components/page-title/page-title.css": "/components/page-title/page-title.css",
+    "/components/page-navigation/page-navigation.css": "/components/page-navigation/page-navigation.css",
+    "/components/node/node.css": "/components/node/node.css",
+    "/components/navbar/navbar.css": "/components/navbar/navbar.css",
+    "/components/html/html.css": "/components/html/html.css",
+    "/components/form/form.css": "/components/form/form.css",
+    "/components/card/card.css": "/components/card/card.css"
+}

@@ -1,0 +1,61 @@
+{#
+  Tabbed view for Software Library / Audience tabs block.
+#}
+
+{{ attach_library('playground/audience_tabs') }}
+
+{# 1) Define the audiences and their keys #}
+{% set audiences = {
+  'students': 'Students',
+  'faculty_staff': 'Faculty/Staff',
+  'lts': 'LTS',
+  'public_sites': 'Public Sites',
+  'hpc': 'HPC',
+  'luapps': 'LUapps'
+} %}
+
+<div class="audience-tabs">
+
+  {# TAB BUTTONS (one per audience, no duplicates) #}
+  <div class="tab">
+    {% for akey, label in audiences %}
+      <button
+        type="button"
+        class="tablinks {{ loop.first ? 'active' }}"
+        data-audience="{{ akey }}"
+      >
+        {{ label }}
+      </button>
+    {% endfor %}
+  </div>
+
+  {# TAB CONTENT: one item per *software title*, with audience classes #}
+  {% set seen_titles = [] %}
+
+  <div class="tab-items">
+    {% for key, row in rows %}
+      {# Title (to dedupe) #}
+      {% set title = view.style_plugin.getField(key, 'title')|striptags %}
+
+      {% if title not in seen_titles %}
+        {% set seen_titles = seen_titles|merge([title]) %}
+
+        {# Audience string, e.g. "Students, Faculty/Staff, LTS, LUapps" #}
+        {% set raw = view.style_plugin.getField(key, 'field_audience')|striptags %}
+
+        {# Build CSS classes like aud-students aud-faculty_staff #}
+        {% set class_list = [] %}
+        {% for part in raw|split(',') %}
+          {% set normalized = part|trim|lower|replace({' ':'_', '/':'_', '&':'and'}) %}
+          {% set class_list = class_list|merge(['aud-' ~ normalized]) %}
+        {% endfor %}
+
+        <div class="audience-item {{ class_list|join(' ') }}">
+          {{ row.content }}
+        </div>
+
+      {% endif %}
+    {% endfor %}
+  </div>
+
+</div>

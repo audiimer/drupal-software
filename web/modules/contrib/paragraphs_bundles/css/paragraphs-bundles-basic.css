@@ -1,0 +1,482 @@
+/**
+ * @file
+ * Paragraphs.
+ *
+ * Filename:     paragraphs-bundles-basic.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com
+ */
+:root {
+  --pb-px2560: 160rem;
+  --pb-px1920: 120rem;
+  --pb-px1600: 100rem;
+  --pb-px1440: 90rem;
+  --pb-px1400: 87.5rem;
+  --pb-px1280: 80rem;
+  --pb-px1200: 75rem;
+  --pb-px1024: 64rem;
+  --pb-px992: 62rem;
+  --pb-px800: 50rem;
+  --pb-px768: 48rem;
+  --pb-px600: 37.5rem;
+  --pb-px576: 36rem;
+  --pb-px420: 26.25rem;
+  --pb-px320: 20rem;
+  --pb-px64: 4rem;
+  --pb-px48: 3rem;
+  --pb-px36: 2.25rem;
+  --pb-px32: 2rem;
+  --pb-px28: 1.75rem;
+  --pb-px24: 1.5rem;
+  --pb-px22: 1.375rem;
+  --pb-px20: 1.25rem;
+  --pb-px18: 1.125rem;
+  --pb-px17: 1.063rem;
+  --pb-px16: 1rem;
+  --pb-px15: 0.938rem;
+  --pb-px14: 0.875rem;
+  --pb-px13: 0.8125rem;
+  --pb-px12: 0.75rem;
+  --pb-px11: 0.688rem;
+  --pb-px10: 0.625rem;
+  --pb-px8: 0.5rem;
+  --pb-px6: 0.375rem;
+  --pb-px5: 0.313rem;
+  --pb-px4: 0.25rem;
+  --pb-px3: 0.188rem;
+  --pb-px2: 0.125rem;
+  --pb-px1: 0.063rem;
+  --pb-px0: 0;
+  --pb-bg: initial;
+  --pb-bg-h: initial;
+  --pb-br: initial;
+  --pb-br-h: initial;
+  --pb-tx: initial;
+  --pb-tx-h: initial;
+  --pb-width: initial;
+  --pb-bt-a: initial;
+  --pb-text-align-start: left;
+  --pb-text-align-end: right;
+}
+
+:root:dir(rtl) {
+  --pb-text-align-start: right;
+  --pb-text-align-end: left;
+}
+
+.paragraph * {
+  box-sizing: border-box;
+}
+
+.paragraph a,
+.paragraph button {
+  all: unset;
+  outline: revert;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* Button */
+.paragraph .button,
+.paragraph .pb__button {
+  display: inline-flex;
+  padding-block: var(--pb-px8);
+  padding-inline: var(--pb-px16);
+  line-height: inherit;
+  vertical-align: middle;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  background-color: inherit;
+  text-align: center;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.paragraph a.pb__link {
+  z-index: 1;
+  display: block;
+}
+
+.paragraph .pb__row:after,
+.paragraph .pb__row:before {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.paragraph .pb__bar {
+  width: 100%;
+  overflow: hidden;
+}
+
+.paragraph .pb__bar .button,
+.paragraph .pb__bar .pb__button {
+  white-space: normal;
+}
+
+.paragraph .pb__bar:before,
+.paragraph .pb__bar:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Borders */
+.pb__circle {
+  border-radius: 50%;
+}
+
+.pb__round_small {
+  border-radius: var(--pb-px2);
+}
+
+.pb__round,
+.pb__round_medium {
+  border-radius: var(--pb-px4);
+}
+
+.pb__round_large {
+  border-radius: var(--pb-px8);
+}
+
+.pb__round_xlarge {
+  border-radius: var(--pb-px16);
+}
+
+.pb__round_xxlarge {
+  border-radius: var(--pb-px32);
+}
+
+.pb__border {
+  border-width: var(--pb-px1);
+  border-style: solid;
+}
+
+.pb__border_3px {
+  border-width: var(--pb-px3);
+  border-style: solid;
+}
+
+.pb__border_6px {
+  border-width: var(--pb-px6);
+  border-style: solid;
+}
+
+.pb__border_top {
+  border-block-start-width: var(--pb-px1);
+  border-block-start-style: solid;
+}
+
+.pb__border_bottom {
+  border-block-end-width: var(--pb-px1);
+  border-block-end-style: solid;
+}
+
+.pb__border_left {
+  border-inline-start-width: var(--pb-px1);
+  border-inline-start-style: solid;
+}
+
+.pb__border_right {
+  border-inline-end-width: var(--pb-px1);
+  border-inline-end-style: solid;
+}
+
+.pb__top_bar {
+  border-block-start-width: var(--pb-px6);
+  border-block-start-style: solid;
+}
+
+.pb__bottom_bar {
+  border-block-end-width: var(--pb-px6);
+  border-block-end-style: solid;
+}
+
+.pb__left_bar {
+  border-inline-start-width: var(--pb-px6);
+  border-inline-start-style: solid;
+}
+
+.pb__right_bar {
+  border-inline-end-width: var(--pb-px6);
+  border-inline-end-style: solid;
+}
+
+/* Shadows */
+.pb__card,
+.pb__card_2 {
+  box-shadow: 0 var(--pb-px2) var(--pb-px5) 0 rgba(0, 0, 0, 0.16), 0 var(--pb-px2) var(--pb-px10) 0 rgba(0, 0, 0, 0.12);
+  margin: var(--pb-px10);
+}
+
+.pb__card_4 {
+  box-shadow: 0 var(--pb-px4) var(--pb-px10) 0 rgba(0, 0, 0, 0.2), 0 var(--pb-px4) var(--pb-px20) 0 rgba(0, 0, 0, 0.19);
+  margin: var(--pb-px20);
+}
+
+/* Margin */
+.pb__margin {
+  margin: var(--pb-px16);
+}
+
+.pb__margin_top {
+  margin-block-start: var(--pb-px16);
+}
+
+.pb__margin_bottom {
+  margin-block-end: var(--pb-px16);
+}
+
+.pb__margin_left {
+  margin-inline-start: var(--pb-px16);
+}
+
+.pb__margin_right {
+  margin-inline-end: var(--pb-px16);
+}
+
+.pb__section {
+  margin-block-start: var(--pb-px16);
+  margin-block-end: var(--pb-px16);
+}
+
+/* Padding */
+.pb__padding_small {
+  padding-block: var(--pb-px4);
+  padding-inline: var(--pb-px8);
+}
+
+.pb__padding {
+  padding-block: var(--pb-px8);
+  padding-inline: var(--pb-px16);
+}
+
+.pb__padding_large {
+  padding-block: var(--pb-px12);
+  padding-inline: var(--pb-px24);
+}
+
+.pb__padding_16 {
+  padding-block-start: var(--pb-px16);
+  padding-block-end: var(--pb-px16);
+}
+
+.pb__padding_24 {
+  padding-block-start: var(--pb-px24);
+  padding-block-end: var(--pb-px24);
+}
+
+.pb__padding_32 {
+  padding-block-start: var(--pb-px32);
+  padding-block-end: var(--pb-px32);
+}
+
+.pb__padding_48 {
+  padding-block-start: var(--pb-px48);
+  padding-block-end: var(--pb-px48);
+}
+
+.pb__padding_64 {
+  padding-block-start: var(--pb-px64);
+  padding-block-end: var(--pb-px64);
+}
+
+/* Display Container */
+.pb__display-container {
+  position: relative;
+}
+
+.pb__ds_top_left {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+}
+
+.pb__ds_top_right {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-start: 0;
+}
+
+.pb__ds_bottom_left {
+  position: absolute;
+  inset-inline-start: 0;
+  inset-block-end: 0;
+}
+
+.pb__ds_bottom_right {
+  position: absolute;
+  inset-inline-end: 0;
+  inset-block-end: 0;
+}
+
+.pb__ds_middle {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  min-width: 70%;
+}
+
+.pb__ds_left {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 0%;
+  transform: translate(0%, -50%);
+  -ms-transform: translate(-0%, -50%);
+}
+
+.pb__ds_right {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-end: 0%;
+  transform: translate(0%, -50%);
+  -ms-transform: translate(0%, -50%);
+}
+
+.pb__ds_top_middle {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 0;
+  transform: translate(-50%, 0%);
+  -ms-transform: translate(-50%, 0%);
+}
+
+.pb__ds_bottom_middle {
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-end: 0;
+  transform: translate(-50%, 0%);
+  -ms-transform: translate(-50%, 0%);
+}
+
+/* Border Colors */
+.pb__animate-fading {
+  animation: fading 5s ease-in-out infinite;
+}
+
+@keyframes fading {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+
+}
+
+.pb__animate_opacity {
+  animation: opac 0.8s ease-out;
+}
+
+@keyframes opac {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+
+}
+
+.pb__animate_top {
+  position: relative;
+  animation: animatetop 0.6s ease-out;
+}
+
+@keyframes animatetop {
+  from {
+    inset-block-start: -100px;
+    opacity: 0;
+  }
+
+  to {
+    inset-block-start: 0;
+    opacity: 1;
+  }
+
+}
+
+.pb__animate_left {
+  position: relative;
+  animation: animateleft 0.6s ease-out;
+}
+
+@keyframes animateleft {
+  from {
+    inset-inline-start: -100px;
+    opacity: 0;
+  }
+
+  to {
+    inset-inline-start: 0;
+    opacity: 1;
+  }
+
+}
+
+.pb__animate_right {
+  position: relative;
+  animation: animateright 0.6s ease-out;
+}
+
+@keyframes animateright {
+  from {
+    inset-inline-end: -100px;
+    opacity: 0;
+  }
+
+  to {
+    inset-inline-end: 0;
+    opacity: 1;
+  }
+
+}
+
+.pb__animate_bottom {
+  position: relative;
+  animation: animatebottom 0.6s ease-out;
+}
+
+@keyframes animatebottom {
+  from {
+    inset-block-end: -100px;
+    opacity: 0;
+  }
+
+  to {
+    inset-block-end: 0;
+    opacity: 1;
+  }
+
+}
+
+.pb__animate_zoom {
+  animation: animatezoom 0.6s ease-out;
+}
+
+@keyframes animatezoom {
+  from {
+    transform: scale(0);
+  }
+
+  to {
+    transform: scale(1.05);
+  }
+
+}

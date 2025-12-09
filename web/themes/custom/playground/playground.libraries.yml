@@ -1,0 +1,100 @@
+meta_labels:
+  css:
+    theme:
+      css/meta-labels.css: {}
+global-styling:
+  css:
+    theme:
+      css/style.css: {}
+      # css/bootswatch.css: {}
+      # External CDNs MUST be quoted
+      https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css:
+        { type: external }
+
+style:
+  css:
+    theme:
+      build/css/main.style.css: {}
+  js:
+    build/js/main.script.js: {}
+  dependencies:
+    - core/drupal
+audience_tabs:
+  css:
+    theme:
+      css/audience_tabs.css: {}
+  js:
+    js/audience_tabs.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.once
+
+drupal.ajax:
+  js:
+    src/js/overrides/ajax.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.checkbox:
+  js:
+    src/js/overrides/checkbox.js: {}
+  dependencies:
+    - core/drupal
+
+drupal.dialog:
+  js:
+    src/js/overrides/dialog.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+drupal.dialog.ajax:
+  js:
+    src/js/overrides/dialog.ajax.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.ajax
+
+drupal.message:
+  js:
+    src/js/overrides/message.js: {}
+
+drupal.progress:
+  js:
+    src/js/overrides/progress.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+
+drupal.text:
+  js:
+    src/js/overrides/text.js: {}
+  dependencies:
+    - core/jquery
+    - core/once
+    - core/drupal
+
+jquery.validate:
+  js:
+    src/js/overrides/validate.js: {}
+  dependencies:
+    - core/jquery
+
+flatly-cdn:
+  css:
+    theme:
+      https://cdn.jsdelivr.net/npm/bootswatch@5/dist/flatly/bootstrap.min.css:
+        { type: external }
+
+# TESTING MODAL IF IT DOESNT WORK WE CAN REMOVE IT
+installer_modal:
+  js:
+    js/installer-modal.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/bootstrap5
+    - core/once

@@ -1,0 +1,5 @@
+acquia_flush_varnish.cache:
+  route_name: acquia_flush_varnish.cache
+  title: 'Clear varnish cache'
+  description: 'Clear caches for Varnish and Platform CDN (if Platform CDN is enabled).'
+  parent: system.admin_config_development

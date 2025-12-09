@@ -1,0 +1,49 @@
+/**
+ * @file
+ * Paragraph Bundle Alert.
+ *
+ * Filename:     paragraph-bundle-alert.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+.paragraph--type--alert-bundle.alert-is-closed {
+  display: none;
+  height: 0;
+  width: 0;
+}
+
+.paragraph--type--alert-bundle .pb__content-alert {
+  display: grid;
+  grid-auto-flow: row;
+}
+
+.paragraph--type--alert-bundle button.pb__close-alert {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border: none;
+  border-radius: 50%;
+  float: inline-end;
+}
+
+.paragraph--type--alert-bundle .pb__close-alert:hover svg {
+  fill: red;
+}
+
+.paragraph--type--alert-bundle .pb__alert-top.Off .pb__content-title {
+  width: 100%;
+}
+
+.paragraph--type--alert-bundle .pb__alert-top.On .pb__content-title {
+  margin-block: 0;
+  margin-inline: auto;
+  width: calc(100% - var(--pb-px36));
+  min-height: var(--pb-px36);
+}

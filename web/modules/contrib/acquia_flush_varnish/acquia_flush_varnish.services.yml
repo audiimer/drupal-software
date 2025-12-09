@@ -1,0 +1,4 @@
+services:
+  acquia_flush_varnish.cloudutility:
+    class: '\Drupal\acquia_flush_varnish\AcquiaCloudUtility'
+    arguments: ['@request_stack', '@messenger', '@config.factory']

@@ -1,0 +1,35 @@
+<?php
+
+/**
+ * @file
+ * Paragraph Bundle Hero.
+ *
+ * Filename:     paragraph_bundle_hero.module
+ * Website:      https://www.flashwebcenter.com
+ * Description:  template.
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function paragraph_bundle_hero_help($route_name, RouteMatchInterface $route_match) {
+  if ($route_name === 'help.page.paragraph_bundle_hero') {
+    return paragraphs_bundles__helper_render_readme();
+  }
+  return NULL;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function paragraph_bundle_hero_theme($existing, $type, $theme, $path) {
+  return [
+    'paragraph__hero_bundle' => [
+      'base hook' => 'paragraph',
+    ],
+
+  ];
+}

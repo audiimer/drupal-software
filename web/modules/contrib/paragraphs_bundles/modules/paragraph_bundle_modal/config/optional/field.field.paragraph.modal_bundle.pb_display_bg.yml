@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.pb_display_bg
+    - paragraphs.paragraphs_type.modal_bundle
+  module:
+    - paragraphs_bundles
+id: paragraph.modal_bundle.pb_display_bg
+field_name: pb_display_bg
+entity_type: paragraph
+bundle: modal_bundle
+label: 'Background Color'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    value: '#000000'
+default_value_callback: ''
+settings: {  }
+field_type: paragraphs_bundles_rgb

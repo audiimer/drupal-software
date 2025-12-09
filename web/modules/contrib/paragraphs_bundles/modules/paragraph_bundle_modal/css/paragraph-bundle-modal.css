@@ -1,0 +1,122 @@
+/**
+ * @file
+ * Paragraph Bundle Modal.
+ *
+ * Filename:     paragraph-bundle-modal.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+.pb__modal-wrapper * {
+  color: var(--pb-tx);
+}
+
+.pb__modal-wrapper *:hover {
+  color: var(--pb-tx-h, var(--pb-tx));
+}
+
+.pb-modal {
+  z-index: 10000 !important;
+  display: none;
+  padding-block-start: calc(2 * var(--pb-px48));
+  position: fixed;
+  inset-inline-start: 0;
+  inset-block-start: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.pb-modal-content {
+  margin: auto;
+  position: relative;
+  padding: 0;
+  outline: 0;
+}
+
+.pb-modal-content .pb__modal__inner {
+  display: grid;
+}
+
+.pb__modal__inner.pb__pmw_100 {
+  max-width: 61.99875.5rem!important;
+}
+
+.pb-modal-content .pb__modal__inner>* {
+  width: 100%;
+}
+
+.pb-modal-content .pb-modal-header {
+  display: flex;
+}
+
+.pb-modal-content .pb-modal-header button {
+  width: var(--pb-px48);
+  height: var(--pb-px48);
+  font-size: var(--pb-px48);
+  margin-inline-start: auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.pb-modal-content .pb-modal-header .pb-modal-title {
+  width: calc(100% - var(--pb-px48));
+  justify-content: start;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.pb-modal-content .pb-modal-header .pb-modal-title div {
+  display: flex;
+  height: 100%;
+  justify-content: start;
+  align-items: center;
+}
+
+.pb-modal-button button div {
+  margin-block: 0 !important;
+  margin-inline: auto !important;
+}
+
+.paragraph--type--pbcss-modal {
+  overflow: hidden;
+}
+
+.pb-modal-header .pb__button.pb__ds_top_right {
+  position: absolute;
+}
+
+.paragraph--type--modal-bundle.pb__card_2 {
+  margin-block: var(--pb-px10) !important;
+  margin-inline: auto !important;
+  width: auto;
+  max-width: var(--pb-px992);
+}
+
+.paragraph--type--modal-bundle.pb__card_4 {
+  margin-block: var(--pb-px20) !important;
+  margin-inline: auto !important;
+  width: auto;
+  max-width: var(--pb-px992);
+}
+
+@media (max-width:35.99875rem) {
+  .pb-modal-content {
+    margin-block: 0;
+    margin-inline: var(--pb-px10);
+  }
+
+  .pb-modal {
+    padding-block-start: var(--pb-px32);
+  }
+
+}
+
+@media (max-width:47.99875rem) {
+  .pb-modal {
+    padding-block-start: var(--pb-px48);
+  }
+
+}

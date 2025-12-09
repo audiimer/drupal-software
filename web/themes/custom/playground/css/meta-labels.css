@@ -1,0 +1,17 @@
+.software-meta .field__label {
+    font-weight: 600;
+    /* bold every label      */
+}
+
+.software-meta .field__label::after {
+    content: ':';
+    /* add colon after label */
+    margin-right: .25rem;
+    /* small gap if value follows on same line */
+}
+
+/* vertical rhythm – works for both Inline & Above labels */
+.software-meta .field {
+    margin-bottom: .5rem;
+    /* adjust to taste (e.g. .75rem) */
+}

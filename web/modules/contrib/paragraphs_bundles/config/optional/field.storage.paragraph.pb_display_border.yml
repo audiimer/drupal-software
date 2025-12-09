@@ -1,0 +1,53 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.pb_display_border
+field_name: pb_display_border
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: pb__border
+      label: 'Adds 1px borders (top, right, bottom, left) to an element'
+    -
+      value: pb__border_3px
+      label: 'Adds 3px borders (top, right, bottom, left) to an element'
+    -
+      value: pb__border_6px
+      label: 'Adds 6px borders (top, right, bottom, left) to an element'
+    -
+      value: pb__border_top
+      label: 'Adds a 1px top border to an element'
+    -
+      value: pb__border_right
+      label: 'Adds a 1px right border to an element'
+    -
+      value: pb__border_bottom
+      label: 'Adds a 1px bottom border to an element'
+    -
+      value: pb__border_left
+      label: 'Adds a 1px left border to an element'
+    -
+      value: pb__bottom_bar
+      label: 'Adds a 6px thick bottom border to an element'
+    -
+      value: pb__left_bar
+      label: 'Adds a 6px thick left border to an element'
+    -
+      value: pb__right_bar
+      label: 'Adds a 6px thick right border to an element'
+    -
+      value: pb__top_bar
+      label: 'Adds a 6px thick top border to an element'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

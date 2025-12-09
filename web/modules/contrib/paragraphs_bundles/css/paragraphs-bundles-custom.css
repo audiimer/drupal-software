@@ -1,0 +1,243 @@
+/**
+ * @file
+ * Paragraphs Bundles.
+ *
+ * Filename:     paragraphs-bundles-base.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com
+ */
+body .page-wrapper tr,
+body .page-wrapper td,
+body .page-wrapper th,
+body .page-wrapper hr,
+body .page-wrapper table,
+body .page-wrapper ul,
+body .page-wrapper li {
+  border-color: var(--pb-br, var(--r-br, inherit));
+  background-color: inherit;
+}
+
+.paragraph .paragraph__inner p,
+.paragraph .paragraph__inner a,
+.paragraph .paragraph__inner h1,
+.paragraph .paragraph__inner h2,
+.paragraph .paragraph__inner h3,
+.paragraph .paragraph__inner div {
+  border-color: var(--pb-br, var(--r-br, inherit));
+}
+
+.paragraph .paragraph__inner a:hover,
+.paragraph .paragraph__inner p:hover,
+.paragraph .paragraph__inner h1:hover,
+.paragraph .paragraph__inner h2:hover,
+.paragraph .paragraph__inner h3:hover,
+.paragraph .paragraph__inner div:hover {
+  border-color: var(--pb-br-h, var(--pb-br, var(--r-br)));
+}
+
+.paragraph .paragraph__inner .paragraph__inner,
+.paragraph .paragraph__inner .paragraph__inner .paragraph__inner {
+  --pb-bg: transparent;
+}
+
+.paragraph>.paragraph__inner {
+  background-color: var(--pb-bg, inherit);
+  border-color: var(--pb-br, var(--r-br, inherit));
+  color: var(--pb-tx, var(--r-tx, inherit));
+}
+
+.paragraph>.paragraph__inner:hover {
+  background-color: var(--pb-bg-h, var(--pb-bg));
+  border-color: var(--pb-br-h, var(--pb-br));
+  color: var(--pb-tx-h, var(--pb-tx));
+}
+
+.paragraph .paragraph__inner p,
+.paragraph .paragraph__inner div:not(h1 div,
+h2 div,
+h3 div,
+div h3,
+div h2,
+div h1) {
+  color: var(--pb-tx, var(--r-tx, inherit));
+}
+
+.paragraph .paragraph__inner p:hover {
+  color: var(--pb-tx-h, var(--pb-tx));
+}
+
+.paragraph .paragraph__inner a:not(h1 a,
+h2 a,
+h3 a) {
+  color: var(--pb-tx, var(--r-lk, var(--r-tx)));
+}
+
+.paragraph .paragraph__inner a:hover {
+  color: var(--pb-tx-h, var(--pb-tx));
+}
+
+.paragraph .paragraph__inner h1,
+.paragraph .paragraph__inner h2,
+.paragraph .paragraph__inner h3 {
+  color: var(--pb-tx, var(--r-h1, var(--r-tx)));
+}
+
+.paragraph .paragraph__inner h1:hover,
+.paragraph .paragraph__inner h2:hover,
+.paragraph .paragraph__inner h3:hover {
+  color: var(--pb-tx-h, var(--r-h1, var(--r-tx)));
+}
+
+.paragraph .paragraph__inner h1:hover div,
+.paragraph .paragraph__inner h2:hover div,
+.paragraph .paragraph__inner h3:hover div,
+.paragraph .paragraph__inner h1:hover span,
+.paragraph .paragraph__inner h2:hover span,
+.paragraph .paragraph__inner h3:hover span {
+  color: var(--pb-tx-h, var(--pb-tx, var(--r-h1)));
+}
+
+.paragraph,
+.paragraph .pb__one-column {
+  margin: 0;
+  display: grid;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+}
+
+.paragraph > .paragraph__inner {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
+
+.paragraph h1,
+.paragraph h2,
+.paragraph h3 {
+  background-color: transparent !important;
+}
+
+.paragraph .pb__content-title {
+  display: block;
+  width: 100%;
+}
+
+.pb__img-auto .field--name-pb-media-image img {
+  width: auto !important;
+}
+
+.field--name-pb-media-image picture,
+.paragraph .pb__img-wrapper {
+  float: none !important;
+  display: block;
+}
+
+.paragraph .field--name-pb-image-field {
+  margin-block-end: 0 !important;
+}
+
+.paragraph .field--name-pb-image-caption {
+  font-size: var(--pb-px12);
+}
+
+.pparagraph .pb__img-wrapper div {
+  float: inline-start;
+}
+
+.pb__img-wrapper.pb__dis-top-left-right {
+  border-block-start-left-radius: 0 !important;
+  border-block-start-right-radius: 0 !important;
+}
+
+.pb__image-w__inner > a,
+.pb__image-n__inner > a,
+.pb__image__inner > a {
+  display: block;
+  height: 100%;
+}
+
+.pb__img-wrapper.pb__dis-radius {
+  border-radius: 0 !important;
+}
+
+.paragraph:not(.page-node-type-pb-content .paragraph) > .simple__inner {
+  margin-inline-start: auto;
+  margin-inline-end: auto;
+  width: 100%;
+  max-width: 100%;
+}
+
+.paragraph .pb__hero-txt-wrapper-inner:not(.page-node-type-pb-content .pb__hero-txt-wrapper-inner) {
+  width: 100%;
+  max-width: var(--pb-width);
+}
+
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_100,
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_900,
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_800,
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_700,
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_600,
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_500,
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_400,
+.paragraph:not(.page-node-type-pb-content .paragraph) > .pb__pmw_300 {
+  margin-inline-start: auto !important;
+  margin-inline-end: auto !important;
+  width: 100%;
+  max-width: var(--pb-width);
+}
+
+.paragraph > .pb__pmw_100,
+.paragraph .pb__parallax-text.pb__pmw_100,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_100 {
+  --pb-width: 100%;
+}
+
+.paragraph > .pb__pmw_300,
+.paragraph .pb__parallax-text.pb__pmw_300,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_300 {
+  --pb-width: 18.75rem;
+}
+
+.paragraph > .pb__pmw_400,
+.paragraph .pb__parallax-text.pb__pmw_400,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_400 {
+  --pb-width: 25rem;
+}
+
+.paragraph > .pb__pmw_500,
+.paragraph .pb__parallax-text.pb__pmw_500,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_500 {
+  --pb-width: 31.25rem;
+}
+
+.paragraph > .pb__pmw_600,
+.paragraph .pb__parallax-text.pb__pmw_600,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_600 {
+  --pb-width: 37.5rem;
+}
+
+.paragraph > .pb__pmw_700,
+.paragraph .pb__parallax-text.pb__pmw_700,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_700 {
+  --pb-width: 43.75rem;
+}
+
+.paragraph > .pb__pmw_800,
+.paragraph .pb__parallax-text.pb__pmw_800,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_800 {
+  --pb-width: 50rem;
+}
+
+.paragraph > .pb__pmw_900,
+.paragraph .pb__parallax-text.pb__pmw_900,
+.paragraph .pb__hero-txt-wrapper-inner.pb__pmw_900 {
+  --pb-width: 56.25rem;
+}
+
+@media (max-width:35.99875rem) {
+  .paragraph .button,
+  .paragraph .pb__button {
+    white-space: normal;
+  }
+
+}

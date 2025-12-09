@@ -1,0 +1,45 @@
+<nav class="lts-navbar">
+  <div class="container d-flex align-items-center justify-content-between py-3">
+
+    {# Left: Logo + LTS Text #}
+    <div class="d-flex align-items-center">
+      <a href="/" class="lts-logo d-flex align-items-center">
+        <img src="https://www2.lehigh.edu/themes/custom/lehigh/Lehigh-University-Logo_Brown.png" alt="Lehigh University" class="me-2 lts-logo-img">
+      </a>
+      <div class="lts-title">
+        <div class="lts-university">LEHIGH<br>UNIVERSITY</div>
+        <div class="lts-subtitle">Library &amp;<br>Technology<br>Services</div>
+      </div>
+    </div>
+
+    {# Center: Horizontal Menu (Students | Faculty | Staff | Visitors) #}
+    <ul class="lts-top-menu d-none d-md-flex">
+      <li><a href="/students">Students</a></li>
+      <li><a href="/faculty">Faculty</a></li>
+      <li><a href="/staff">Staff</a></li>
+      <li><a href="/visitors">Visitors</a></li>
+    </ul>
+
+    {# Right: Search Box #}
+    <div class="lts-search d-none d-md-block">
+      <form action="/search" method="get" class="d-flex">
+        <input class="form-control lts-search-input" type="text" name="q" placeholder="What are you looking for?">
+        <button class="lts-search-btn">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+
+  {# Lower dark-blue menu #}
+  <div class="lts-lower-menu">
+    <div class="container d-flex justify-content-between py-2">
+      <a href="http://drupal-software.ddev.site/software-library">Software Library</a>
+      <a href="#">Research, Teaching &amp; Learning</a>
+      <a href="#">Access Popular Technology</a>
+      <a href="#">Visit Our Spaces</a>
+      <a href="#">About LTS</a>
+      <a href="https://lts.lehigh.edu/help/email-call-chat-or-text">Get Help</a>
+    </div>
+  </div>
+</nav>

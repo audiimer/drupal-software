@@ -1,0 +1,5 @@
+# Schema for the configuration files of the playground theme.
+
+playground.settings:
+  type: theme_settings
+  label: 'playground settings'

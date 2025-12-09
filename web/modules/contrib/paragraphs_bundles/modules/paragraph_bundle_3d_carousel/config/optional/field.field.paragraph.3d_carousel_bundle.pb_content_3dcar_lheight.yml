@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.pb_content_3dcar_lheight
+    - paragraphs.paragraphs_type.3d_carousel_bundle
+  module:
+    - options
+id: paragraph.3d_carousel_bundle.pb_content_3dcar_lheight
+field_name: pb_content_3dcar_lheight
+entity_type: paragraph
+bundle: 3d_carousel_bundle
+label: 'Large Screen Height'
+description: 'The selected breakpoint will determine the height applied uniformly to all carousel items.'
+required: true
+translatable: false
+default_value:
+  -
+    value: '300'
+default_value_callback: ''
+settings: {  }
+field_type: list_string

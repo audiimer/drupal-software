@@ -1,0 +1,4 @@
+clear varnish cache:
+  title: 'Clear Acquia Varnish Cache'
+  description: 'Access to clear acquia varnish cache.'
+  restrict access: true

@@ -1,0 +1,258 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.parallax_section_bundle.pb_display_para_anim_easing
+    - field.field.paragraph.parallax_section_bundle.pb_display_para_bg_anim_speed
+    - field.field.paragraph.parallax_section_bundle.pb_display_parallax_bg_position
+    - field.field.paragraph.parallax_section_bundle.pb_display_para_height_unit
+    - field.field.paragraph.parallax_section_bundle.pb_display_parallax_breakpoints
+    - field.field.paragraph.parallax_section_bundle.pb_display_parallax_scroll
+    - field.field.paragraph.parallax_section_bundle.pb_display_parallax_speed
+    - field.field.paragraph.parallax_section_bundle.pb_content_body
+    - field.field.paragraph.parallax_section_bundle.pb_content_image
+    - field.field.paragraph.parallax_section_bundle.pb_display_bg
+    - field.field.paragraph.parallax_section_bundle.pb_display_bg_hover
+    - field.field.paragraph.parallax_section_bundle.pb_display_bg_opacity
+    - field.field.paragraph.parallax_section_bundle.pb_display_border
+    - field.field.paragraph.parallax_section_bundle.pb_display_border_color
+    - field.field.paragraph.parallax_section_bundle.pb_display_border_hover
+    - field.field.paragraph.parallax_section_bundle.pb_display_border_radius
+    - field.field.paragraph.parallax_section_bundle.pb_display_margin
+    - field.field.paragraph.parallax_section_bundle.pb_display_padding
+    - field.field.paragraph.parallax_section_bundle.pb_display_parallax_height
+    - field.field.paragraph.parallax_section_bundle.pb_display_shadow
+    - field.field.paragraph.parallax_section_bundle.pb_display_text
+    - field.field.paragraph.parallax_section_bundle.pb_display_text_hover
+    - field.field.paragraph.parallax_section_bundle.pb_display_width
+    - paragraphs.paragraphs_type.parallax_section_bundle
+  module:
+    - field_group
+    - media_library
+    - paragraphs_bundles
+    - text
+third_party_settings:
+  field_group:
+    group_pb_tabs_wrapper:
+      children:
+        - group_pb_tab_content
+        - group_pb_tab_display
+      label: 'Tabs Wrapper'
+      region: content
+      parent_name: ''
+      weight: 0
+      format_type: tabs
+      format_settings:
+        classes: pb__tabs-wrapper
+        show_empty_fields: false
+        id: ''
+        direction: horizontal
+        width_breakpoint: 992
+    group_pb_tab_content:
+      children:
+        - pb_content_image
+        - pb_content_body
+      label: Content
+      region: content
+      parent_name: group_pb_tabs_wrapper
+      weight: 20
+      format_type: tab
+      format_settings:
+        classes: pb__tab-content
+        show_empty_fields: false
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+    group_pb_tab_display:
+      children:
+        - pb_display_bg_opacity
+        - pb_display_bg
+        - pb_display_bg_hover
+        - pb_display_text
+        - pb_display_text_hover
+        - pb_display_border_color
+        - pb_display_border_hover
+        - pb_display_border
+        - pb_display_border_radius
+        - pb_display_margin
+        - pb_display_padding
+        - pb_display_width
+        - pb_display_shadow
+        - pb_display_parallax_bg_position
+        - pb_display_para_anim_easing
+        - pb_display_parallax_scroll
+        - pb_display_parallax_breakpoints
+        - pb_display_parallax_height
+        - pb_display_para_height_unit
+        - pb_display_parallax_speed
+        - pb_display_para_bg_anim_speed
+      label: Display
+      region: content
+      parent_name: group_pb_tabs_wrapper
+      weight: 21
+      format_type: tab
+      format_settings:
+        classes: pb__tab-display
+        show_empty_fields: false
+        id: ''
+        formatter: closed
+        description: ''
+        required_fields: true
+id: paragraph.parallax_section_bundle.default
+targetEntityType: paragraph
+bundle: parallax_section_bundle
+mode: default
+content:
+  pb_content_body:
+    type: text_textarea
+    weight: 4
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  pb_content_image:
+    type: media_library_widget
+    weight: 3
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  pb_display_bg:
+    type: color_text_widget
+    weight: 17
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_bg_hover:
+    type: color_text_widget
+    weight: 18
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_bg_opacity:
+    type: range_number_widget
+    weight: 16
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_border:
+    type: options_select
+    weight: 23
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_border_color:
+    type: color_text_widget
+    weight: 21
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_border_hover:
+    type: color_text_widget
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_border_radius:
+    type: options_select
+    weight: 24
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_margin:
+    type: options_select
+    weight: 25
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_padding:
+    type: options_select
+    weight: 26
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_para_anim_easing:
+    type: options_select
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_para_bg_anim_speed:
+    type: number
+    weight: 36
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  pb_display_para_height_unit:
+    type: options_select
+    weight: 34
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_parallax_bg_position:
+    type: options_select
+    weight: 29
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_parallax_breakpoints:
+    type: options_select
+    weight: 32
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_parallax_height:
+    type: number
+    weight: 33
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  pb_display_parallax_scroll:
+    type: options_select
+    weight: 31
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_parallax_speed:
+    type: number
+    weight: 35
+    region: content
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  pb_display_shadow:
+    type: options_select
+    weight: 28
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_text:
+    type: color_text_widget
+    weight: 19
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_text_hover:
+    type: color_text_widget
+    weight: 20
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  pb_display_width:
+    type: options_select
+    weight: 27
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  translation:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

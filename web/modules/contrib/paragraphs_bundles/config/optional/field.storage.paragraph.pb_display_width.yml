@@ -1,0 +1,44 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.pb_display_width
+field_name: pb_display_width
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: pb__pmw_300
+      label: '300 px'
+    -
+      value: pb__pmw_400
+      label: '400 px'
+    -
+      value: pb__pmw_500
+      label: '500 px'
+    -
+      value: pb__pmw_600
+      label: '600 px'
+    -
+      value: pb__pmw_700
+      label: '700 px'
+    -
+      value: pb__pmw_800
+      label: '800 px'
+    -
+      value: pb__pmw_900
+      label: '900 px'
+    -
+      value: pb__pmw_100
+      label: '100 %'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

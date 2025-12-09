@@ -1,0 +1,4 @@
+paragraph-bundle-hero:
+  css:
+    theme:
+      css/paragraph-bundle-hero.css: { }

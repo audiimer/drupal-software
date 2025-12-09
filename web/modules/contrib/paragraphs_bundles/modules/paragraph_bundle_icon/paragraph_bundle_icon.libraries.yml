@@ -1,0 +1,31 @@
+paragraph-bundle-icon:
+  css:
+    theme:
+      css/paragraph-bundle-icon.css: { }
+  js:
+    js/paragraph-bundle-icon.js: { }
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupalSettings
+    - core/once
+
+paragraph-bundle-icon-outlined:
+  css:
+    theme:
+      css/material-symbols-outlined.css: {}
+
+paragraph-bundle-icon-rounded:
+  css:
+    theme:
+      css/material-symbols-rounded.css: {}
+
+paragraph-bundle-icon-sharp:
+  css:
+    theme:
+      css/material-symbols-sharp.css: {}
+
+paragraph-bundle-icon-admin:
+  css:
+    theme:
+      css/paragraph-bundle-icon-admin.css: {}

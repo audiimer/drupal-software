@@ -1,0 +1,87 @@
+{{ attach_library('playground/installer_modal') }}
+
+{% set modal_id = 'installer-modal-' ~ paragraph.id() %}
+
+<button type="button"
+        class="btn btn-success"
+        data-bs-toggle="modal"
+        data-bs-target="#{{ modal_id }}">
+  Download
+</button>
+
+<div id="{{ modal_id }}" class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">{{ content.field_title }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <h6 class="mb-3">Select Installer</h6>
+
+        <form class="installer-form">
+
+          {# WINDOWS #}
+          {% if not paragraph.field_windows_installer.isEmpty() %}
+            {% set win_uri = paragraph.field_windows_installer.0.entity.uri.value %}
+            <div class="form-check mb-2">
+              <input class="form-check-input"
+                     type="radio"
+                     name="os_selector"
+                     id="os-win-{{ paragraph.id() }}"
+                     value="{{ file_url(win_uri) }}">
+              <label class="form-check-label" for="os-win-{{ paragraph.id() }}">Windows</label>
+            </div>
+          {% endif %}
+
+          {# MACOS #}
+          {% if not paragraph.field_mac_installer.isEmpty() %}
+            {% set mac_uri = paragraph.field_mac_installer.0.entity.uri.value %}
+            <div class="form-check mb-2">
+              <input class="form-check-input"
+                     type="radio"
+                     name="os_selector"
+                     id="os-mac-{{ paragraph.id() }}"
+                     value="{{ file_url(mac_uri) }}">
+              <label class="form-check-label" for="os-mac-{{ paragraph.id() }}">macOS</label>
+            </div>
+          {% endif %}
+
+          {# LINUX #}
+          {% if not paragraph.field_linux_installer.isEmpty() %}
+            {% set lin_uri = paragraph.field_linux_installer.0.entity.uri.value %}
+            <div class="form-check mb-2">
+              <input class="form-check-input"
+                     type="radio"
+                     name="os_selector"
+                     id="os-lin-{{ paragraph.id() }}"
+                     value="{{ file_url(lin_uri) }}">
+              <label class="form-check-label" for="os-lin-{{ paragraph.id() }}">Linux</label>
+            </div>
+          {% endif %}
+
+          <div class="form-check mt-4">
+            <input class="form-check-input agree-checkbox"
+                   type="checkbox"
+                   id="agree-{{ paragraph.id() }}">
+            <label class="form-check-label small" for="agree-{{ paragraph.id() }}">
+              Yes, I agree to the terms of use.
+            </label>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer border-0 justify-content-center">
+        <button type="button"
+                class="btn btn-success w-100 download-btn disabled"
+                disabled>
+          Agree & Download
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

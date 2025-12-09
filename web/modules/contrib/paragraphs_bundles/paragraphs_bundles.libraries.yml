@@ -1,0 +1,34 @@
+paragraphs-bundles:
+  css:
+    theme:
+      css/paragraphs-bundles-basic.css: { }
+      css/paragraphs-bundles-custom.css: { }
+
+paragraphs-bundles-admin:
+  css:
+    theme:
+      css/paragraphs-bundles-admin.css: { }
+
+color-picker:
+  css:
+    theme:
+      css/paragraphs-bundles-color-picker.css: { }
+  js:
+    js/paragraphs-bundles-color-picker.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupalSettings
+    - core/once
+
+opacity-range:
+  css:
+    theme:
+      css/paragraphs-bundles-opacity-range.css: { }
+  js:
+    js/paragraphs-bundles-opacity-range.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupalSettings
+    - core/once

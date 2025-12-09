@@ -1,0 +1,15 @@
+name: Paragraph Bundle Node Reference
+type: module
+description: A reusable Paragraph Bundle Node Reference.
+core_version_requirement: ^9.4 || ^10 || ^11
+package: Paragraphs
+dependencies:
+  - paragraphs_bundles:paragraphs_bundles
+  - paragraph_bundle_image:paragraph_bundle_image
+  - paragraph_bundle_3d_carousel:paragraph_bundle_3d_carousel
+  - paragraph_bundle_slideshow:paragraph_bundle_slideshow
+
+# Information added by Drupal.org packaging script on 2025-09-29
+version: '1.0.14'
+project: 'paragraphs_bundles'
+datestamp: 1759151847

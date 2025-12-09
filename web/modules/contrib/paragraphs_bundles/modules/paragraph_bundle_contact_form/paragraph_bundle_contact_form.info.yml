@@ -1,0 +1,14 @@
+name: Paragraph Bundle Contact Form
+type: module
+description: A reusable Paragraph Bundle Contact Form.
+core_version_requirement: ^9.4 || ^10 || ^11
+package: Paragraphs
+dependencies:
+  - drupal:contact
+  - contact_formatter:contact_formatter
+  - paragraphs_bundles:paragraphs_bundles
+
+# Information added by Drupal.org packaging script on 2025-09-29
+version: '1.0.14'
+project: 'paragraphs_bundles'
+datestamp: 1759151847

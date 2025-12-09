@@ -1,0 +1,48 @@
+{# paragraph--installer-modal.html.twig #}
+
+<div class="modal-content-wrapper">
+  <h3>{{ content.field_title }}</h3>
+
+  <div class="installer-selection">
+    <h4>Select Installer</h4>
+
+    <form id="download-form">
+      <div class="os-options">
+
+        {# WINDOWS LOGIC #}
+        {% if content.field_file_windows|render %}
+          <div class="os-option">
+            <input type="radio" name="os_select" id="os-win" value="{{ file_url(paragraph.field_file_windows.entity.uri.value) }}">
+            <label for="os-win">Windows</label>
+          </div>
+        {% endif %}
+
+        {# MACOS LOGIC #}
+        {% if content.field_file_macos|render %}
+          <div class="os-option">
+            <input type="radio" name="os_select" id="os-mac" value="{{ file_url(paragraph.field_file_macos.entity.uri.value) }}">
+            <label for="os-mac">macOS</label>
+          </div>
+        {% endif %}
+
+        {# LINUX LOGIC #}
+        {% if content.field_file_linux|render %}
+          <div class="os-option">
+            <input type="radio" name="os_select" id="os-linux" value="{{ file_url(paragraph.field_file_linux.entity.uri.value) }}">
+            <label for="os-linux">Linux</label>
+          </div>
+        {% endif %}
+
+      </div>
+
+      <div class="terms-agreement">
+        <input type="checkbox" id="agree-checkbox">
+        <label for="agree-checkbox">Yes, I agree to the terms of use.</label>
+      </div>
+
+      <button id="agreeDownloadBtn" class="modal-download-btn" disabled>
+        Agree & Download
+      </button>
+    </form>
+  </div>
+</div>

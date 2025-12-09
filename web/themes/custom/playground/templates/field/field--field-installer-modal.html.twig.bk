@@ -1,0 +1,177 @@
+{#
+  Field template for field_installer_modal on Software node.
+  File name: field--field-installer-modal.html.twig
+#}
+
+{{ attach_library('playground/installer_modal') }}
+
+{# Get the first referenced paragraph from this field #}
+{% set field_item = items[0]['#item'] ?? null %}
+{% set paragraph = field_item ? field_item.entity : null %}
+{% set node = paragraph ? paragraph.getParentEntity() : null %}
+
+{# Decide modal title #}
+{% if paragraph and paragraph.field_title is defined and paragraph.field_title.value %}
+  {% set modal_title = paragraph.field_title.value %}
+{% elseif node %}
+  {% set modal_title = node.label %}
+{% else %}
+  {% set modal_title = 'Download' %}
+{% endif %}
+
+{# Build URLs for each OS #}
+
+{# WINDOWS: paragraph.field_file_windows, then fallback to node.field_software_file #}
+{% set win_url = '' %}
+{% if paragraph and paragraph.field_file_windows is defined and not paragraph.field_file_windows.isEmpty() %}
+  {% set win_file = paragraph.field_file_windows.entity %}
+  {% if win_file %}
+    {% set win_url = file_url(win_file.uri.value) %}
+  {% endif %}
+{% elseif node and node.field_software_file is defined and not node.field_software_file.isEmpty() %}
+  {# CHANGE field_software_file to your node file-field machine name if different #}
+  {% set node_win_file = node.field_software_file.entity %}
+  {% if node_win_file %}
+    {% set win_url = file_url(node_win_file.uri.value) %}
+  {% endif %}
+{% endif %}
+
+{# MACOS: from paragraph only #}
+{% set mac_url = '' %}
+{% if paragraph and paragraph.field_file_macos is defined and not paragraph.field_file_macos.isEmpty() %}
+  {% set mac_file = paragraph.field_file_macos.entity ?? paragraph.field_file_macos.0.entity %}
+  {% if mac_file %}
+    {% set mac_url = file_url(mac_file.uri.value) %}
+  {% endif %}
+{% endif %}
+
+{# LINUX: from paragraph only #}
+{% set lin_url = '' %}
+{% if paragraph and paragraph.field_file_linux is defined and not paragraph.field_file_linux.isEmpty() %}
+  {% set lin_file = paragraph.field_file_linux.entity ?? paragraph.field_file_linux.0.entity %}
+  {% if lin_file %}
+    {% set lin_url = file_url(lin_file.uri.value) %}
+  {% endif %}
+{% endif %}
+
+{# Unique modal id per paragraph or field instance #}
+{% if paragraph %}
+  {% set modal_id = 'installer-modal-' ~ paragraph.id() %}
+{% else %}
+  {% set modal_id = 'installer-modal-' ~ field_name ~ '-' ~ delta %}
+{% endif %}
+
+{# If we have absolutely no URLs, show a disabled button and stop #}
+{% if not win_url and not mac_url and not lin_url %}
+  <button type="button" class="btn btn-secondary" disabled>
+    No installer configured
+  </button>
+{% else %}
+
+  {# 1. Trigger button on the page #}
+  <button
+    type="button"
+    class="btn btn-success"
+    data-bs-toggle="modal"
+    data-bs-target="#{{ modal_id }}"
+  >
+    Download
+  </button>
+
+  {# 2. The Modal #}
+  <div id="{{ modal_id }}" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+
+        <div class="modal-header border-0">
+          <h5 class="modal-title fw-bold">
+            {{ modal_title }}
+          </h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <h6 class="mb-3">Select Installer</h6>
+
+          <form class="installer-form">
+
+            {# WINDOWS OPTION #}
+            {% if win_url %}
+              <div class="form-check mb-2">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="os_selector"
+                  id="os-win-{{ modal_id }}"
+                  value="{{ win_url|e('html_attr') }}"
+                >
+                <label class="form-check-label" for="os-win-{{ modal_id }}">
+                  Windows
+                </label>
+              </div>
+            {% endif %}
+
+            {# MACOS OPTION #}
+            {% if mac_url %}
+              <div class="form-check mb-2">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="os_selector"
+                  id="os-mac-{{ modal_id }}"
+                  value="{{ mac_url|e('html_attr') }}"
+                >
+                <label class="form-check-label" for="os-mac-{{ modal_id }}">
+                  macOS
+                </label>
+              </div>
+            {% endif %}
+
+            {# LINUX OPTION #}
+            {% if lin_url %}
+              <div class="form-check mb-2">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="os_selector"
+                  id="os-lin-{{ modal_id }}"
+                  value="{{ lin_url|e('html_attr') }}"
+                >
+                <label class="form-check-label" for="os-lin-{{ modal_id }}">
+                  Linux
+                </label>
+              </div>
+            {% endif %}
+
+            {# Terms checkbox #}
+            <div class="form-check mt-4">
+              <input
+                class="form-check-input agree-checkbox"
+                type="checkbox"
+                id="agree-{{ modal_id }}"
+              >
+              <label class="form-check-label small" for="agree-{{ modal_id }}">
+                Yes, I agree to the terms of use.
+              </label>
+            </div>
+
+          </form>
+        </div>
+
+        <div class="modal-footer border-0 justify-content-center">
+          {# Link styled as button; JS will populate href when ready #}
+          <a
+            href="#"
+            class="btn btn-success w-100 download-btn disabled"
+            role="button"
+            aria-disabled="true"
+          >
+            Agree &amp; Download
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+{% endif %}

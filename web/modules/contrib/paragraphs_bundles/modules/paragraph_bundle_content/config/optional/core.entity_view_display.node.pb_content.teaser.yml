@@ -1,0 +1,40 @@
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.pb_content.pb_content_reference_para_block
+    - field.field.node.pb_content.pb_content_type_body
+    - field.field.node.pb_content.pb_display_content_bg
+    - field.field.node.pb_content.pb_display_content_bg_opacity
+    - field.field.node.pb_content.pb_display_content_width
+    - field.field.node.pb_content.pb_display_disable_region
+    - node.type.pb_content
+  module:
+    - entity_reference_revisions
+    - user
+id: node.pb_content.teaser
+targetEntityType: node
+bundle: pb_content
+mode: teaser
+content:
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  pb_content_type_body:
+    type: entity_reference_revisions_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  pb_content_reference_para_block: true
+  pb_display_content_bg: true
+  pb_display_content_bg_opacity: true
+  pb_display_content_width: true
+  pb_display_disable_region: true

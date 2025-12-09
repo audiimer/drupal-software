@@ -1,0 +1,36 @@
+paragraph-bundle-layout:
+  css:
+    theme:
+      css/paragraph-bundle-layout.css: { }
+  js:
+    js/paragraph-bundle-layout.js: { }
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupalSettings
+    - core/once
+
+paragraph-bundle-layout-pb__576:
+  css:
+    theme:
+      css/paragraph-bundle-layout-pb-576.css: { }
+
+paragraph-bundle-layout-pb__768:
+  css:
+    theme:
+      css/paragraph-bundle-layout-pb-768.css: { }
+
+paragraph-bundle-layout-pb__992:
+  css:
+    theme:
+      css/paragraph-bundle-layout-pb-992.css: { }
+
+paragraph-bundle-layout-pb__1200:
+  css:
+    theme:
+      css/paragraph-bundle-layout-pb-1200.css: { }
+
+paragraph-bundle-layout-pb__1400:
+  css:
+    theme:
+      css/paragraph-bundle-layout-pb-1400.css: { }

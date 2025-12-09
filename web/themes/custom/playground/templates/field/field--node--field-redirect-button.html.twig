@@ -1,0 +1,19 @@
+{# field--node--field-redirect-button.html.twig #}
+{% if items|length %}
+  {# grab the link render array #}
+  {% set item  = items.0.content %}
+  {% set url   = item['#url'] %}
+  {% set attrs = create_attribute( url.getOption('attributes') ?: {} ) %}
+
+  {% include 'playground:button' with {
+    button_html_tag:       'a',
+    url:                   url.toString(),
+    content:               item['#title'],
+    color:                 'primary',
+    outline:               true,
+    button_utility_classes:[
+      'card-link', 'float-start', 'mt-3', 'read-more'
+    ],
+    button_attributes:     attrs
+  } %}
+{% endif %}

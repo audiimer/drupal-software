@@ -1,0 +1,76 @@
+/* ===== CSS FOR HARD CODED TABS WHICH WE DON"T HAVE AVAILABLE NOW ===== */
+.audience-tabs .tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f5f5f5;
+}
+
+.audience-tabs .tab button {
+    background-color: inherit;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 10px 18px;
+    transition: 0.2s;
+    font-size: 15px;
+}
+
+.audience-tabs .tab button:hover {
+    background-color: #e2e2e2;
+}
+
+.audience-tabs .tab button.active {
+    background-color: #ccc;
+}
+
+/* GRID LAYOUT */
+.audience-tabs .tab-items {
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Each software card */
+.audience-tabs .audience-item {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Wrapper for the logo field */
+.audience-tabs .audience-item .views-field-field-software-logo-image {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* <-- centers the image horizontally */
+    margin-bottom: 0.75rem;
+}
+
+/* The image itself */
+.audience-tabs .audience-item .views-field-field-software-logo-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Title under the logo */
+.audience-tabs .audience-item .views-field-title {
+    margin-top: 0.25rem;
+}
+
+.audience-tabs .audience-item .views-field-title a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+}
+
+/* Optional: tighten the row spacing inside the card */
+.audience-tabs .audience-item .views-field {
+    margin-bottom: 0.25rem;
+}

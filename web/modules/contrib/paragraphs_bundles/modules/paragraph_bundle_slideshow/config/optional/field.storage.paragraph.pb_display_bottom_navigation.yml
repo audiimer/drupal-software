@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.pb_display_bottom_navigation
+field_name: pb_display_bottom_navigation
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: play
+      label: 'Play/Pause button only (requires non-zero slide time)'
+    -
+      value: dot
+      label: 'Dots with Play/Pause button'
+    -
+      value: dot_play
+      label: 'Dots only (no Play/Pause button)'
+    -
+      value: nav
+      label: 'Numbers with Play/Pause button'
+    -
+      value: nav_play
+      label: 'Numbers only (no Play/Pause button)'
+
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

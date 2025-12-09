@@ -1,0 +1,11 @@
+paragraph-bundle-alert:
+  css:
+    theme:
+      css/paragraph-bundle-alert.css: { }
+  js:
+    js/paragraph-bundle-alert.js: { }
+  dependencies:
+    - core/drupal
+    - core/drupal.ajax
+    - core/drupalSettings
+    - core/once

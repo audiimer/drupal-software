@@ -1,0 +1,8 @@
+acquia_flush_varnish.cache:
+  path: '/admin/config/development/flush-all-cache'
+  defaults:
+    _title: 'Clear varnish cache'
+    _controller: 'acquia_flush_varnish.cloudutility:acquiaFlushVarnishCache'
+  requirements:
+    _permission: 'clear varnish cache'
+    _csrf_token: 'TRUE'

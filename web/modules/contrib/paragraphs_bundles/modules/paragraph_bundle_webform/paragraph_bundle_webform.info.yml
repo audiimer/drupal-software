@@ -1,0 +1,13 @@
+name: Paragraph Bundle Webform
+type: module
+description: A reusable Paragraph Bundle Webform.
+core_version_requirement: ^9.4 || ^10 || ^11
+package: Paragraphs
+dependencies:
+  - webform:webform
+  - paragraphs_bundles:paragraphs_bundles
+
+# Information added by Drupal.org packaging script on 2025-09-29
+version: '1.0.14'
+project: 'paragraphs_bundles'
+datestamp: 1759151847

@@ -1,0 +1,346 @@
+/* --------------------------- */
+/* LTS NAVBAR STYLING          */
+/* --------------------------- */
+
+.lts-navbar {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+/* Logo area */
+.lts-logo-img {
+    height: 45px;
+}
+
+.lts-title {
+    line-height: 1.1;
+    font-family: serif;
+}
+
+.lts-university {
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+.lts-subtitle {
+    font-size: 13px;
+    color: #444;
+}
+
+/* Top Menu */
+.lts-top-menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+}
+
+.lts-top-menu a {
+    font-size: 16px;
+    font-weight: 600;
+    color: #0b3c63;
+    text-decoration: none;
+}
+
+.lts-top-menu a:hover {
+    color: #00466a;
+}
+
+/* Search bar */
+.lts-search-input {
+    border-radius: 6px 0 0 6px;
+    border: 1px solid #ccc;
+    padding-left: 12px;
+}
+
+.lts-search-btn {
+    background: #0b3c63;
+    border-radius: 0 6px 6px 0;
+    border: none;
+    padding: 8px 12px;
+    color: white;
+    cursor: pointer;
+}
+
+.lts-search-btn:hover {
+    background: #072c4a;
+}
+
+/* Lower Menu Bar */
+.lts-lower-menu {
+    background: #15556b;
+}
+
+.lts-lower-menu a {
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 15px;
+}
+
+.lts-lower-menu a:hover {
+    text-decoration: underline;
+}
+
+/* ------------------------------------------------------------ */
+/* LTS FOOTER STYLE DUMMY                                       */
+/* ------------------------------------------------------------ */
+.lts-footer .container {
+    max-width: 1200px;
+}
+
+.lts-footer .row.align-items-start {
+    align-items: flex-start;
+}
+
+
+
+.lts-footer {
+    background: #1a1d21;
+    color: #ffffff;
+}
+
+.lts-footer-logo {
+    height: 55px;
+    width: auto;
+    display: block;
+}
+
+
+
+.lts-footer-heading {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.lts-footer-social a {
+    font-size: 24px;
+    color: #ffd847;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.lts-footer-middle i {
+    color: #ffd847;
+    margin-right: 8px;
+}
+
+.lts-footer-address {
+    font-size: 14px;
+    color: #dddddd;
+}
+
+.lts-footer-btn-blue {
+    background: #15556b !important;
+    border-radius: 6px;
+    padding: 10px 18px;
+    color: white !important;
+    font-weight: bold;
+}
+
+.lts-footer-btn-blue:hover {
+    background: #0d3c50;
+}
+
+.lts-footer-btn-gold {
+    background: #ffd847 !important;
+    color: #000 !important;
+    padding: 12px 22px;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.lts-footer-btn-gold:hover {
+    background: #ffcd1a;
+}
+
+/* Bottom links */
+.lts-footer-bottom {
+    border-top: 1px solid #333;
+}
+
+.lts-footer-links a {
+    color: #dddddd;
+    margin: 0 12px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.lts-footer-links a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.lts-footer-links.small a {
+    font-size: 12px;
+}
+
+
+/* =========================================================
+   Software Catalog – QuickTabs styling
+   Applies to any .quicktabs-wrapper
+   ========================================================= */
+
+/* ---------- Tabs bar ---------- */
+
+#quicktabs-software_catalog .quicktabs-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #15556b;
+    background-color: #15556b;
+    display: flex;
+}
+
+#quicktabs-software_catalog .quicktabs-tabs li {
+    margin: 0;
+}
+
+#quicktabs-software_catalog .quicktabs-tabs a {
+    display: block;
+    padding: 10px 18px;
+    text-decoration: none;
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+#quicktabs-software_catalog .quicktabs-tabs a:hover {
+    background-color: #fff6da;
+    color: #15556b;
+}
+
+#quicktabs-software_catalog .quicktabs-tabs li.active a {
+    background-color: #ffffff;
+    color: #15556b;
+}
+
+/* Content area under the tabs */
+#quicktabs-software_catalog .quicktabs_main {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 2.5rem 1.5rem 1.5rem 1.5rem;
+    background: #fff;
+}
+
+/* ---------- Grid of cards ---------- */
+
+/* Make the view output a responsive grid */
+#quicktabs-software_catalog .view-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Each software item as a card */
+#quicktabs-software_catalog .views-row {
+    border: 1px solid #ddd;
+    padding: 1rem;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+/* Center the logo/image inside the card */
+#quicktabs-software_catalog .views-field-field-software-logo-image {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+#quicktabs-software_catalog .views-field-field-software-logo-image img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* Title below the image */
+#quicktabs-software_catalog .views-field-title {
+    margin-top: 0.25rem;
+}
+
+#quicktabs-software_catalog .views-field-title a {
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+}
+
+/* Tighten spacing between fields in the card */
+#quicktabs-software_catalog .views-field {
+    margin-bottom: 0.25rem;
+}
+
+
+/* TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
+
+/* The way this was implemented is by using the advance settings in the views and in CSS class we added software-library-search
+this is just for testing purposes */
+/* Wrap: the view that contains the exposed form */
+.software-library-search .views-exposed-form {
+    display: flex;
+    align-items: stretch;
+}
+
+/* Input wrapper should stretch */
+.software-library-search .views-exposed-form .form-item-title {
+    flex: 1 1 auto;
+    margin: 0;
+}
+
+/* Text input (left white part) */
+.software-library-search .views-exposed-form .form-item-title input.form-text {
+    height: 38px;
+    border-radius: 4px 0 0 4px;
+    border: 1px solid #d0d3d4;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.05);
+    padding: 6px 12px;
+    font-size: 14px;
+}
+
+/* Hide the label visually, keep for a11y */
+.software-library-search .views-exposed-form .form-item-title>label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+/* Actions wrapper (right blue button) */
+.software-library-search .views-exposed-form .form-actions {
+    margin: 0;
+}
+
+/* Submit button = blue square with magnifier icon */
+.software-library-search .views-exposed-form .form-actions input[type="submit"] {
+    height: 38px;
+    width: 46px;
+    /* fixed square-ish width */
+    padding: 0;
+    border-radius: 0 4px 4px 0;
+    border: 1px solid #0b3f63;
+    background-color: #0b3f63;
+    color: #fff;
+
+    /* hide the "Search" text visually but keep it for SRs */
+    text-indent: -9999px;
+    overflow: hidden;
+    white-space: nowrap;
+
+    /* icon */
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 18px 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23ffffff' d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");
+}

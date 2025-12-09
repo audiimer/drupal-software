@@ -1,0 +1,12 @@
+name: Paragraph Bundle 3D Flip Box
+type: module
+description: A reusable Paragraph Bundle 3D Flip Box.
+core_version_requirement: ^9.4 || ^10 || ^11
+package: Paragraphs
+dependencies:
+  - paragraphs_bundles:paragraphs_bundles
+
+# Information added by Drupal.org packaging script on 2025-09-29
+version: '1.0.14'
+project: 'paragraphs_bundles'
+datestamp: 1759151847

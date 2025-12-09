@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.pb_display_hero
+field_name: pb_display_hero
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: pb__ds_top_left
+      label: 'Displays content at the top left corner of the pb-display-container'
+    -
+      value: pb__ds_top_right
+      label: 'Displays content at the top right corner of the pb-display-container'
+    -
+      value: pb__ds_bottom_left
+      label: 'Displays content at the bottom left corner of the pb-display-container'
+    -
+      value: pb__ds_bottom_right
+      label: 'Displays content at the bottom right corner of the pb-display-container'
+    -
+      value: pb__ds_left
+      label: 'Displays content to the left (middle left) of the pb-display-container'
+    -
+      value: pb__ds_right
+      label: 'Displays content to the right (middle right) of the pb-display-container'
+    -
+      value: pb__ds_middle
+      label: 'Displays content in the middle (center) of the pb-display-container'
+    -
+      value: pb__ds_top_middle
+      label: 'Displays content at the top middle of the pb-display-container'
+    -
+      value: pb__ds_bottom_middle
+      label: 'Displays content at the bottom middle of the pb-display-container'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

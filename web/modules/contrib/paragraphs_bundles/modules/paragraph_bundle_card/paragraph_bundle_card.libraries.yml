@@ -1,0 +1,41 @@
+paragraph-bundle-card:
+  css:
+    theme:
+      css/paragraph-bundle-card.css: { }
+  js:
+    js/paragraph-bundle-card.js: { }
+
+paragraph-bundle-image-section:
+  css:
+    theme:
+      css/paragraph-bundle-image-section.css: { }
+
+paragraph-bundle-text-section:
+  css:
+    theme:
+      css/paragraph-bundle-text-section.css: { }
+
+paragraph-bundle-card-pb__576:
+  css:
+    theme:
+      css/paragraph-bundle-card-pb-576.css: { }
+
+paragraph-bundle-card-pb__768:
+  css:
+    theme:
+      css/paragraph-bundle-card-pb-768.css: { }
+
+paragraph-bundle-card-pb__992:
+  css:
+    theme:
+      css/paragraph-bundle-card-pb-992.css: { }
+
+paragraph-bundle-card-pb__1200:
+  css:
+    theme:
+      css/paragraph-bundle-card-pb-1200.css: { }
+
+paragraph-bundle-card-pb__1400:
+  css:
+    theme:
+      css/paragraph-bundle-card-pb-1400.css: { }

@@ -1,0 +1,25 @@
+{
+    "name": "drupal/paragraph_bundle_content",
+    "description": "A reusable Content Type for all Paragraphs Bundles to create full width content.",
+    "type": "drupal-module",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "Alaa Haddad (alaahaddad.com)",
+            "homepage": "https://www.drupal.org/u/flashwebcenter",
+            "role": "Maintainer"
+        }
+    ],
+    "homepage": "https://drupal.org/project/paragraph_bundle_content",
+  "require": {
+    "drupal/core": "*",
+    "drupal/node": "*",
+    "drupal/paragraphs_bundles": "*"
+  },
+    "support": {
+        "issues": "https://drupal.org/project/issues/paragraph_bundle_content",
+        "source": "https://git.drupalcode.org/project/paragraph_bundle_content"
+    }
+}
+

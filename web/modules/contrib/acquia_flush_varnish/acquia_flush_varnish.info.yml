@@ -1,0 +1,9 @@
+name: 'Acquia Flush Varnish'
+type: module
+description: 'Module to purge acquia varnish and associated CDN cache from drupal admin side.'
+core_version_requirement: ^9 || ^10 || ^11
+
+# Information added by Drupal.org packaging script on 2024-11-14
+version: '2.0.4'
+project: 'acquia_flush_varnish'
+datestamp: 1731570559

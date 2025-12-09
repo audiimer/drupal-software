@@ -1,0 +1,31 @@
+.pb__icon-header .pb__content-title {
+  margin: 0;
+}
+
+.paragraph--type--icon-bundle .material-icons-hidden.icon-wrapper {
+  opacity: 0;
+  visibility: visible;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* animation */
+.paragraph--type--icon-bundle > .pb__icon__inner {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paragraph--type--icon-bundle > .pb__icon__inner:hover {
+  box-shadow: 0 20px 40px 0 rgba(0, 0, 0, 0.35);
+  transform: scale(1.01);
+}

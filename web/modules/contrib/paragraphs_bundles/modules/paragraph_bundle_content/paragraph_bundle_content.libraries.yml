@@ -1,0 +1,19 @@
+paragraph-bundle-content-admin:
+  css:
+    theme:
+      css/paragraph-bundle-content-admin.css: { }
+
+paragraph-bundle-content-base:
+  css:
+    theme:
+      css/paragraph-bundle-content-base.css: { }
+
+hide-footer-menu:
+  css:
+    theme:
+      css/hide-footer-menu.css: { }
+
+hide-copyright:
+  css:
+    theme:
+      css/hide-copyright.css: { }

@@ -1,0 +1,58 @@
+/**
+ * @file
+ * Paragraph Bundle 3D Flip box.
+ *
+ * Filename:     paragraphs-bundle-3d-flip-box.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+.paragraph--type--3d-flip-box-bundle .pb__flip-box {
+  overflow: hidden;
+  background-color: transparent;
+  width: 100%;
+  perspective: var(--pb-px1600);
+}
+
+.paragraph--type--3d-flip-box-bundle .pb__flip-box-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.8s;
+  transform-style: preserve-3d;
+  transform: translateZ(0);
+}
+
+.paragraph--type--3d-flip-box-bundle .pb__flip-box.flip_x:hover .pb__flip-box-inner {
+  transform: rotateX(180deg);
+}
+
+.paragraph--type--3d-flip-box-bundle .pb__flip-box.flip_y:hover .pb__flip-box-inner {
+  transform: rotateY(180deg);
+}
+
+.paragraph--type--3d-flip-box-bundle .pb__3d-front,
+.paragraph--type--3d-flip-box-bundle .pb__3d-back {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+}
+
+.paragraph--type--3d-flip-box-bundle .pb__3d-back.flip_y {
+  transform: rotateY(180deg);
+}
+
+.paragraph--type--3d-flip-box-bundle .pb__3d-back.flip_x {
+  transform: rotateX(180deg);
+}
+
+.paragraph--type--3d-flip-box-bundle article,
+.paragraph--type--3d-flip-box-bundle .pb__flip-box-inner .paragraph,
+.paragraph--type--3d-flip-box-bundle .field--name-field-image img {
+  width: 100%;
+  height: 100%;
+}

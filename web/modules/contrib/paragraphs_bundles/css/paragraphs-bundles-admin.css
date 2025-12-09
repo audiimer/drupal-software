@@ -1,0 +1,157 @@
+/**
+ * @file
+ * Paragraphs Bundles.
+ *
+ * Filename:     paragraphs-bundles-admin.css
+ * Website:      https://www.flashwebcenter.com
+ * Developer:    Alaa Haddad https://www.alaahaddad.com.
+ */
+.pb__tab-display .form-radios {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pb__tab-display .form-radios>* {
+  margin-inline-end: 20px;
+  width: auto;
+}
+
+.pb__tab-display .form-select {
+  width: 100%;
+}
+
+.paragraphs-add-dialog .paragraphs-add-dialog-list {
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin-block: 0;
+  margin-inline: auto;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.paragraphs-add-dialog .paragraphs-add-dialog-list li {
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 0.5rem;
+}
+
+.paragraphs-add-dialog .paragraphs-add-dialog-list li input {
+  display: flex;
+  flex-grow: 1;
+  flex-basis: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-block: 0.5rem !important;
+  padding-inline: 1rem !important;
+}
+
+.pb__tabs-wrapper .horizontal-tabs .pb__tab-display {
+  box-sizing: border-box;
+  width: auto;
+  min-width: initial;
+  max-width: 1000px;
+  margin-block: 0;
+  margin-inline: auto;
+}
+
+.paragraphs-tabs-wrapper .paragraph-top .paragraphs-actions>input {
+  background-color: #007bff; /* Level 1 */
+  color: #ffffff;
+}
+
+.paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraph-top .paragraphs-actions>input {
+  background-color: #28a745; /* Level 2 */
+  color: #ffffff;
+}
+
+.paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraph-top .paragraphs-actions>input {
+  background-color: #ffc107; /* Level 3 */
+  color: #333333;
+}
+
+.paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraph-top .paragraphs-actions>input {
+  background-color: #fd7e14; /* Level 4 */
+  color: #333333;
+}
+
+.paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraph-top .paragraphs-actions>input {
+  background-color: #dc3545; /* Level 5 */
+  color: #ffffff;
+}
+
+.paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraphs-tabs-wrapper .paragraph-top .paragraphs-actions>input {
+  background-color: #6f42c1; /* Level 6 */
+  color: #ffffff;
+}
+
+.field--name-pb-content-title input {
+  width: 100%;
+}
+
+.horizontal-tabs-panes .claro-details.horizontal-tabs-pane {
+  min-width: calc(100% - 2rem);
+}
+
+.horizontal-tabs-panes .pb__tab-display .claro-details {
+  width: auto;
+}
+
+.pb__tab-display > .details-wrapper > .field--name-pb-display-image-min-height input {
+  width: calc(100% - 40px);
+}
+
+/* Responsive layout */
+.pb__tab-display.large > .details-wrapper {
+  padding: 0 !important;
+  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-image-min-height > div {
+  width: 100%;
+}
+
+/* General rule for any child */
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-width+.field--name-pb-display-bg,
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-image-min-height,
+.pb__tab-display.large > .details-wrapper > * {
+  flex: 1 1 calc(50% - 16px);
+  max-width: calc(50% - 16px);
+}
+
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-bg,
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-bg-hover,
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-text,
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-text-hover,
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-border-color,
+.pb__tab-display.large > .details-wrapper > .field--name-pb-display-border-hover {
+  flex: 0 0 calc(25% - 16px);
+  max-width: calc(25% - 16px);
+}
+
+.pb__tab-display.medium > .details-wrapper {
+  padding: 0 !important;
+  gap: 16px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(50%, 1fr));
+}
+
+.pb__tab-display.medium > .details-wrapper > .field--name-pb-display-bg-opacity:first-child {
+  grid-column: 1 / -1;
+}
+
+.pb__tab-display.small > .details-wrapper {
+  display: grid;
+  gap: 16px;
+  grid-auto-flow: row;
+  grid-template-columns: 1fr;
+}
+
+@media(max-width:47.99875rem) {
+  .pb__tabs-wrapper .horizontal-tabs .pb__tab-display {
+    width: 100%;
+  }
+
+}

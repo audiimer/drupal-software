@@ -1,0 +1,38 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+id: paragraph.pb_display_border_radius
+field_name: pb_display_border_radius
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: pb__round_small
+      label: 'Element rounded (border-radius) 2px'
+    -
+      value: pb__round_medium
+      label: 'Element rounded (border-radius) 4px'
+    -
+      value: pb__round_large
+      label: 'Element rounded (border-radius) 8px'
+    -
+      value: pb__round_xlarge
+      label: 'Element rounded (border-radius) 16px'
+    -
+      value: pb__round_xxlarge
+      label: 'Element rounded (border-radius) 32px'
+    -
+      value: pb__circle
+      label: 'Displays content inside a circle'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
