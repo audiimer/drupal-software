@@ -344,3 +344,264 @@ this is just for testing purposes */
     background-size: 18px 18px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23ffffff' d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85zm-5.242.656a5 5 0 1 1 0-10 5 5 0 0 1 0 10z'/%3E%3C/svg%3E");
 }
+
+
+/* ---------------------------------------------------------------------- HOMEPAGE CSS FILLER  ----------------------------------------------- */
+/* Overall hero background */
+
+
+
+.lts-hero-container {
+    max-width: 1180px;
+}
+
+.lts-hero-row {
+    align-items: stretch;
+}
+
+/* LEFT SIDE: search panel */
+.lts-hero-search {
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 2.25rem 2.5rem;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+}
+
+.lts-hero-eyebrow {
+    margin: 0 0 0.35rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+
+.lts-hero-title {
+    margin: 0 0 0.75rem;
+    font-size: 2.25rem;
+    line-height: 1.2;
+    color: #1b1b1b;
+}
+
+.lts-hero-reg {
+    font-size: 0.75em;
+    vertical-align: super;
+}
+
+.lts-hero-text {
+    margin: 0 0 1.5rem;
+    font-size: 0.98rem;
+    color: #444444;
+}
+
+/* Search form layout */
+.lts-search-form {
+    margin-top: 0.5rem;
+}
+
+.lts-search-main {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.lts-search-input,
+.lts-search-select {
+    border: 1px solid #d2d2d2;
+    border-radius: 3px;
+    padding: 0.65rem 0.75rem;
+    font-size: 0.95rem;
+    line-height: 1.2;
+}
+
+.lts-search-input {
+    flex: 1 1 auto;
+}
+
+.lts-search-select {
+    flex: 0 0 190px;
+    background-color: #ffffff;
+}
+
+/* Search button */
+.lts-search-button {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.65rem 1.1rem;
+    border-radius: 3px;
+    border: none;
+    background-color: #ffc20e;
+    /* LTS gold-ish */
+    color: #1b1b1b;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.lts-search-button:hover {
+    background-color: #e5ac00;
+}
+
+.lts-search-button-icon {
+    font-size: 1.05rem;
+}
+
+/* Search links */
+.lts-search-links {
+    font-size: 0.9rem;
+    color: #006699;
+}
+
+.lts-search-links a {
+    color: #006699;
+    text-decoration: none;
+}
+
+.lts-search-links a:hover {
+    text-decoration: underline;
+}
+
+.lts-search-link-separator {
+    margin: 0 0.4rem;
+    color: #b0b0b0;
+}
+
+/* RIGHT SIDE: carousel card */
+.lts-hero-card-wrapper {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+}
+
+.lts-hero-card {
+    background-color: #ffffff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Image area */
+.lts-hero-card-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.lts-hero-card-image img {
+    display: block;
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+/* Fake arrows */
+.lts-hero-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    border: none;
+    background-color: rgba(0, 0, 0, 0.65);
+    color: #ffffff;
+    font-size: 1.4rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+    /* looks disabled for now */
+}
+
+.lts-hero-arrow-prev {
+    left: 0.75rem;
+}
+
+.lts-hero-arrow-next {
+    right: 0.75rem;
+}
+
+/* Card body */
+.lts-hero-card-body {
+    padding: 1.4rem 1.6rem 1.6rem;
+}
+
+.lts-hero-card-eyebrow {
+    margin: 0 0 0.4rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #7d7d7d;
+}
+
+.lts-hero-card-title {
+    margin: 0 0 1.1rem;
+    font-size: 1.5rem;
+    line-height: 1.25;
+    color: #1b1b1b;
+}
+
+/* CTA button */
+.lts-hero-card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.55rem 1.15rem;
+    border-radius: 3px;
+    border: none;
+    background-color: #ffc20e;
+    color: #1b1b1b;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.lts-hero-card-cta:hover {
+    background-color: #e5ac00;
+}
+
+.lts-hero-card-cta-icon {
+    font-size: 1.1rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+    .lts-hero-search {
+        margin-bottom: 1.5rem;
+    }
+
+    .lts-hero-card-image img {
+        height: 220px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .lts-hero-wrapper {
+        padding: 2rem 0;
+    }
+
+    .lts-hero-search {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .lts-hero-title {
+        font-size: 1.8rem;
+    }
+
+    .lts-search-main {
+        flex-direction: column;
+    }
+
+    .lts-search-select,
+    .lts-search-button {
+        width: 100%;
+    }
+
+    .lts-hero-card-image img {
+        height: 200px;
+    }
+}
