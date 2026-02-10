@@ -98,6 +98,9 @@ class NotificationDocumentMentionSubscriber implements EventSubscriberInterface 
     if (!$this->mentionsIntegrator->isMentionInstalled()) {
       return;
     }
+    if (!ckeditor5_premium_features_check_htmldiff_installed()) {
+      return;
+    }
 
     $documentAuthors = $event->getRelatedDocumentAuthors();
 

@@ -67,6 +67,27 @@ class Realtime extends CKEditor5PluginDefault implements CKEditor5PluginElements
    * {@inheritdoc}
    */
   public function getDynamicPluginConfig(array $static_plugin_config, EditorInterface $editor): array {
+    $static_plugin_config['realtime']['readonly'] = FALSE;
+    if (!ckeditor5_premium_features_check_jwt_installed()) {
+      $static_plugin_config['removePlugins'] = [
+        'PresenceList',
+        'Comments',
+        'TrackChanges',
+        'TrackChangesPreview',
+        'CommentsAdapter',
+        'RealTimeCollaborativeComments',
+        'RealTimeCollaborativeTrackChanges',
+        'RevisionHistory',
+        'RealTimeCollaborativeRevisionHistory',
+        'RealtimeRevisionHistoryAdapter'
+      ];
+      $static_plugin_config['realtime']['readonly'] = TRUE;
+
+      $message = $this->t("Realtime collaboration plugins are disabled because their required dependency <code>firebase/php-jwt</code> is not installed. The editor is initialized in read-only mode.");
+      ckeditor5_premium_features_display_missing_dependency_warning($message);
+
+      return $static_plugin_config;
+    }
     $static_plugin_config['presenceList']['container'] = '';
     if (!$this->collaborationSettings->isPresenceListEnabled()) {
       $static_plugin_config['removePlugins'] = ['PresenceList'];

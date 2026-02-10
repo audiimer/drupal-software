@@ -20,3 +20,10 @@ function ckeditor5_plugin_pack_indent_block_page_attachments(array &$attachments
 function ckeditor5_plugin_pack_indent_block_install($is_syncing): void {
   ckeditor5_plugin_pack_display_trial_info_message();
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_plugin_pack_indent_block_uninstall($is_syncing) {
+  ckeditor5_plugin_pack_remove_ckeditor_plugins([], ['ckeditor5_plugin_pack_indent_block__indent_block']);
+}

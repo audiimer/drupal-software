@@ -12,23 +12,20 @@ interface SettingsConfigHandlerInterface {
   const DLL_PATH_VERSION_TOKEN = 'VERSION_TOKEN';
 
   /**
-   * Gets the DLLs location.
+   * Returns local DLL locations.
    *
-   * @param string $file_name
-   *   Dll file name.
-   *
-   * @return string
-   *   The DLLs location.
+   * @return string[]
+   *   The potential local DLL locations.
    */
-  public function getDllLocation(string $file_name = ''): string;
+  public function getDllLocations(): array;
 
   /**
-   * Gets the default DLL location if it was not overridden in the config.
+   * Gets the remote DLL location.
    *
    * @return string
    *   The URL of the DLL location.
    */
-  public function getDefaultDllLocation(): string;
+  public function getRemoteDllLocation(): string;
 
   /**
    * Gets the DLLs version.
@@ -45,5 +42,12 @@ interface SettingsConfigHandlerInterface {
    * @return bool
    */
   public function isLocalLibraryPathSpecified(): bool;
+
+  /**
+   * Indicates if CDN usage is blocked.
+   *
+   * @return bool
+   */
+  public function isCdnBlocked(): bool;
 
 }

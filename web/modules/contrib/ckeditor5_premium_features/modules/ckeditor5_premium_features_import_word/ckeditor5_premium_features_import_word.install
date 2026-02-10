@@ -24,9 +24,16 @@ function ckeditor5_premium_features_import_word_requirements($phase): array {
     $requirements[] = [
       'title' => t('CKEditor 5 Import from Word'),
       'description' => t('CKEditor 5 Import from Word module requires Ckeditor5 version higher or equal to 35.2.1'),
-      'severity' => REQUIREMENT_ERROR,
+      'severity' => ckeditor5_premium_features_get_error_severity(),
     ];
   }
 
   return $requirements;
+}
+
+/**
+ * Implements hook_install().
+ */
+function ckeditor5_premium_features_import_word_install(): void {
+  ckeditor5_premium_features_display_dependency_general_info_message();
 }

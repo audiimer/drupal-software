@@ -22,3 +22,14 @@ function ckeditor5_plugin_pack_font_library_info_build(): array {
 function ckeditor5_plugin_pack_font_install($is_syncing): void {
   ckeditor5_plugin_pack_display_trial_info_message();
 }
+
+/**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_plugin_pack_font_uninstall($is_syncing) {
+  ckeditor5_plugin_pack_remove_ckeditor_plugins(['fontFamily', 'fontSize', 'fontColor', 'fontBackgroundColor'], [
+    'ckeditor5_plugin_pack_font__font_color',
+    'ckeditor5_plugin_pack_font__font_family',
+    'ckeditor5_plugin_pack_font__font_size'
+  ]);
+}

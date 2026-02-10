@@ -4,7 +4,7 @@ ckeditor5_premium_features_collaboration__track_changes:
       - basicStyles.Bold
       - basicStyles.Italic
       - autoformat.Autoformat
-      - list.DocumentList
+      - list.List
       - comments.Comments
       - commentsAdapter.CommentsAdapter
       - sidebarAdapter.SidebarAdapter
@@ -29,7 +29,7 @@ ckeditor5_premium_features_collaboration__comments:
       - basicStyles.Bold
       - basicStyles.Italic
       - autoformat.Autoformat
-      - list.DocumentList
+      - list.List
       - comments.Comments
       - commentsAdapter.CommentsAdapter
   drupal:

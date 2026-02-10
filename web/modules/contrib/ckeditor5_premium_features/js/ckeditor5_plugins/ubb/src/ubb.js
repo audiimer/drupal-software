@@ -22,7 +22,7 @@ class Ubb {
     const format = this.editor.sourceElement.dataset.editorActiveTextFormat
     const INTEGRATION_NAME = 'drupal';
     let INTEGRATION_USAGE_DATA = {
-      version: '1.4.1',
+      version: '1.6.3',
     };
 
     if (typeof format === "undefined") {

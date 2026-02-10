@@ -9,6 +9,10 @@ class WProofreaderAdapter {
   }
 
   afterInit() {
+    const serviceType = this.editor.config._config.wproofreader.cke5.serviceType;
+    if (serviceType === 'on_premise') {
+      return;
+    }
     this._validatePermission();
     this._validateKey();
   }

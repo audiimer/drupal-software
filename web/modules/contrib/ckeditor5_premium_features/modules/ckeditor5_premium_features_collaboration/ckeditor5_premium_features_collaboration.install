@@ -35,7 +35,7 @@ function ckeditor5_premium_features_collaboration_requirements($phase): array {
     if (\Drupal::moduleHandler()->moduleExists('ckeditor5_premium_features_realtime_collaboration') || defined('COLLABORATION_INSTALLING')) {
       $requirements[] = [
         'description' => t('You cannot install CKEditor 5 Real-time Collaboration and CKEditor 5 Non-realtime Collaboration modules at the same time.'),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => ckeditor5_premium_features_get_error_severity(),
       ];
     } else {
       // phpcs:ignore
@@ -52,12 +52,19 @@ function ckeditor5_premium_features_collaboration_requirements($phase): array {
         'description' => t('You have to define the License Key in the <a href=":url">CKEditor Premium Settings</a>. It is required for Revision History, Track changes and Comments. Otherwise, the WYSIWYG editor may appear broken.', [
           ':url' => Url::fromRoute('ckeditor5_premium_features.form.settings_general')->setAbsolute()->toString(),
         ]),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => ckeditor5_premium_features_get_error_severity(),
       ];
     }
   }
 
   return $requirements;
+}
+
+/*
+ * Implements hook_install().
+ */
+function ckeditor5_premium_features_collaboration_install(): void {
+  ckeditor5_premium_features_display_dependency_general_info_message();
 }
 
 /**

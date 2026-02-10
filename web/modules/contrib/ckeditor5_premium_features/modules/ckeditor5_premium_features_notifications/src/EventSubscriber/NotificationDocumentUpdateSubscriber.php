@@ -21,6 +21,7 @@ use Drupal\ckeditor5_premium_features_notifications\Utility\NotificationSender;
 use Drupal\ckeditor5_premium_features_notifications\Utility\NotificationSettings;
 use Drupal\Component\Plugin\Exception\PluginException;
 use Drupal\Core\Session\AccountInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\filter\FilterPluginManager;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -30,6 +31,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class NotificationDocumentUpdateSubscriber implements EventSubscriberInterface {
 
   use CKeditorPremiumLoggerChannelTrait;
+  use StringTranslationTrait;
 
   /**
    * Collaboration filter.
@@ -84,6 +86,11 @@ class NotificationDocumentUpdateSubscriber implements EventSubscriberInterface {
    *   Suggestion event object.
    */
   public function documentUpdated(CollaborationEventBase $event): void {
+    if (!ckeditor5_premium_features_check_htmldiff_installed()) {
+      $message = $this->t("The content update notifications require a <code>caxy/php-htmldiff</code> library. The notifications weren't sent.");
+      ckeditor5_premium_features_display_missing_dependency_warning($message);
+      return;
+    }
     $body = $event->getRelatedDocumentContent() ?? '';
     $previousBody = $event->getOriginalContent() ?? '';
     $relatedDocumentEntity = $event->getRelatedDocument();

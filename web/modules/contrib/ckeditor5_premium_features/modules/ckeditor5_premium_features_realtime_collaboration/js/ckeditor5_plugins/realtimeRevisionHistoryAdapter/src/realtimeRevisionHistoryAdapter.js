@@ -40,6 +40,15 @@ class RealtimeRevisionHistoryAdapter {
       this.updateStorage(revisionHistoryPlugin, revisionTrackerPlugin)
     });
 
+    // Prevent form submission if pointer type is unknown.
+    form.addEventListener("click", (e) => {
+      console.log(e);
+      console.log("open", revisionHistoryPlugin.isRevisionViewerOpen);
+      if (e.pointerType.length === 0 && revisionHistoryPlugin.isRevisionViewerOpen) {
+        e.preventDefault();
+      }
+    });
+
     this.storage.processRevisionDisable();
 
     this.handleRevisionHistoryActiveClass(revisionHistoryConfig);

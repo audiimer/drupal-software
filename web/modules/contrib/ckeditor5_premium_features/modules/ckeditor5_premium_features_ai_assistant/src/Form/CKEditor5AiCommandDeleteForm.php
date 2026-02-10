@@ -55,7 +55,7 @@ class CKEditor5AiCommandDeleteForm extends ConfirmFormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, ConfigEntityInterface $ckeditor5_ai_command_group = NULL, $uuid = NULL) {
+  public function buildForm(array $form, FormStateInterface $form_state, ?ConfigEntityInterface $ckeditor5_ai_command_group = NULL, ?string $uuid = NULL) {
     $this->commandGroup = $ckeditor5_ai_command_group;
     $this->commandUuid = $uuid;
 

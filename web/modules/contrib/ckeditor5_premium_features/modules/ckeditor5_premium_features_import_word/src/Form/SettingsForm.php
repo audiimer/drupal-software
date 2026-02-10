@@ -59,6 +59,9 @@ class SettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
+    if ($form_state->getFormObject()->getFormId() == 'ckeditor5_premium_features_import_word_settings') {
+      self::checkDependencyPackage();
+    }
     $config = $this->config('ckeditor5_premium_features_import_word.settings');
 
     $form['converter_url'] = [
@@ -112,6 +115,16 @@ class SettingsForm extends ConfigFormBase {
       ->setData($cleanValues)
       ->save();
     parent::submitForm($form, $form_state);
+  }
+
+  /**
+   * Checks if the required library is installed and displays warning message in case it's missing,
+   */
+  public static function checkDependencyPackage(): void {
+    if (!ckeditor5_premium_features_check_dependency_class('Firebase\JWT\JWT')) {
+      $message = t('Import from Word plugin will work in license key authentication mode because its required dependency <code>firebase/php-jwt</code> is not installed. This may result with limited functionality.');
+      ckeditor5_premium_features_display_missing_dependency_warning($message);
+    }
   }
 
 }

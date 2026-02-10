@@ -12,6 +12,14 @@ use Drupal\editor\EditorInterface;
 use Drupal\text\Plugin\Field\FieldType\TextItemBase;
 
 /**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_premium_features_productivity_pack_uninstall($is_syncing) {
+  ckeditor5_premium_features_remove_ckeditor_plugins(['caseChange', 'tableOfContents', 'formatPainter', 'insertTemplate'],
+  ['ckeditor5_premium_features_productivity_pack_base', 'ckeditor5_premium_features_productivity_pack_case_change']);
+}
+
+/**
  * Implements hook_element_info_alter().
  */
 function ckeditor5_premium_features_productivity_pack_element_info_alter(array &$info): void {
@@ -79,14 +87,17 @@ function ckeditor5_premium_features_productivity_pack_preprocess_field(&$variabl
     return;
   }
 
+  $editor_storage = \Drupal::entityTypeManager()->getStorage('editor');
   foreach ($items as $item) {
     if (!$item instanceof TextItemBase) {
       continue;
     }
 
-    $editor = \Drupal::entityTypeManager()
-      ->getStorage('editor')
-      ->load($item->format);
+    if (!isset($item->format)) {
+      continue;
+    }
+
+    $editor = $editor_storage->load($item->format);
     if (!$editor instanceof EditorInterface) {
       continue;
     }

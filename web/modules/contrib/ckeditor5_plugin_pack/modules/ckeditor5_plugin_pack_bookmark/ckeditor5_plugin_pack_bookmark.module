@@ -29,8 +29,34 @@ function ckeditor5_plugin_pack_bookmark_ckeditor5_plugin_info_alter(array &$plug
 }
 
 /**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function ckeditor5_plugin_pack_bookmark_form_filter_format_edit_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+  // Get the filter format entity from the form state.
+  $filter_format = $form_state->getFormObject()->getEntity();
+
+  // Check if CKEditor 5 is the selected editor.
+  $editor = \Drupal::entityTypeManager()->getStorage('editor')->load($filter_format->id());
+  if (!$editor || $editor->getEditor() !== 'ckeditor5') {
+    return;
+  }
+
+  $libraryVersionChecker = \Drupal::service('ckeditor5_plugin_pack.core_library_version_checker');
+  if (!$libraryVersionChecker->isLibraryVersionHigherOrEqual('44.0.0')) {
+    ckeditor5_plugin_pack_old_version_warning_message('Bookmark');
+  }
+}
+
+/**
  * Implements hook_install().
  */
 function ckeditor5_plugin_pack_bookmark_install($is_syncing): void {
   ckeditor5_plugin_pack_display_trial_info_message();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_plugin_pack_bookmark_uninstall($is_syncing) {
+  ckeditor5_plugin_pack_remove_ckeditor_plugins(['bookmark']);
 }

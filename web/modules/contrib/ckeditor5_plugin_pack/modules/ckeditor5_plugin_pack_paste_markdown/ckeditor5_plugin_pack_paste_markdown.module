@@ -15,6 +15,13 @@ function ckeditor5_plugin_pack_paste_markdown_install($is_syncing): void {
 }
 
 /**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_plugin_pack_paste_markdown_uninstall($is_syncing) {
+  ckeditor5_plugin_pack_remove_ckeditor_plugins([], ['ckeditor5_plugin_pack_paste_markdown__paste_markdown']);
+}
+
+/**
  * Implements hook_library_info_build().
  */
 function ckeditor5_plugin_pack_paste_markdown_library_info_build(): array {

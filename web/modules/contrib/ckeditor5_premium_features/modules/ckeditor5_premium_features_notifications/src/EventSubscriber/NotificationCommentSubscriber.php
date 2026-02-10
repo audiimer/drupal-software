@@ -71,7 +71,7 @@ class NotificationCommentSubscriber implements EventSubscriberInterface {
     if ($threadSuggestionAuthor) {
       $participators[] = $threadSuggestionAuthor;
     }
-    $isSuggestionReplay = $this->collaboratorsService->isCommentInSuggestionThread($collaborationEntity);
+    $isSuggestionReply = $this->collaboratorsService->isCommentInSuggestionThread($collaborationEntity);
     $participators = array_unique($participators);
     $replyRecipients = [];
     $authors = $event->getRelatedDocumentAuthors();
@@ -82,20 +82,18 @@ class NotificationCommentSubscriber implements EventSubscriberInterface {
       // If it's not a reply, notify only the document authors.
       $replyRecipients = $authors;
 
-      if (empty($replyRecipients)) {
-        return;
+      if (!empty($replyRecipients)) {
+        // Send notification to the document author.
+        $this->notificationSender->sendNotification(
+          NotificationMessageFactoryInterface::CKEDITOR5_MESSAGE_COMMENT_ADDED,
+          $replyRecipients,
+          $event
+        );
       }
-
-      // Send notification to the document author.
-      $this->notificationSender->sendNotification(
-        NotificationMessageFactoryInterface::CKEDITOR5_MESSAGE_COMMENT_ADDED,
-        $replyRecipients,
-        $event
-      );
     }
 
     if (!empty($participators) && empty($replyRecipients)) {
-      if (!$isSuggestionReplay) {
+      if (!$isSuggestionReply) {
         // Send notification to users participated in a thread.
         $this->notificationSender->sendNotification(
           NotificationMessageFactoryInterface::CKEDITOR5_MESSAGE_THREAD_REPLY,
@@ -117,7 +115,7 @@ class NotificationCommentSubscriber implements EventSubscriberInterface {
     if (!empty($mentions)) {
       $users = $this->collaboratorsService->getUserIdsByNames($mentions);
 
-      if ($isSuggestionReplay) {
+      if ($isSuggestionReply) {
         $users = array_diff($users, $newSuggestionParticipators);
       }
 

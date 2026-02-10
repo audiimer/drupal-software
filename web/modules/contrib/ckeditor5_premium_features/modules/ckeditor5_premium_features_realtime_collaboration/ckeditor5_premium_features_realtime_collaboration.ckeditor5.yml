@@ -7,7 +7,7 @@ ckeditor5_premium_features_realtime_collaboration__comment:
       - basicStyles.Bold
       - basicStyles.Italic
       - autoformat.Autoformat
-      - list.DocumentList
+      - list.List
       - comments.Comments
       - commentsAdapter.CommentsAdapter
       - realTimeCollaboration.RealTimeCollaborativeComments
@@ -34,7 +34,7 @@ ckeditor5_premium_features_realtime_collaboration__track_changes:
       - basicStyles.Bold
       - basicStyles.Italic
       - autoformat.Autoformat
-      - list.DocumentList
+      - list.List
       - comments.Comments
       - trackChanges.TrackChanges
       - trackChanges.TrackChangesPreview

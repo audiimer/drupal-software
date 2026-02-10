@@ -474,7 +474,7 @@ class TextFormat implements Ckeditor5TextFormatInterface {
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  private function handleEntityChannel(EntityInterface $entity, string $entity_channel, string $element_id, string $new_element_id = NULL): ?ChannelInterface {
+  private function handleEntityChannel(EntityInterface $entity, string $entity_channel, string $element_id, ?string $new_element_id = NULL): ?ChannelInterface {
     $channel = $this->channelStorage->load($entity_channel);
 
     if (!$channel) {

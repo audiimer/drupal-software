@@ -35,7 +35,7 @@ class CKEditor5AiCommandAddForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, CKEditor5AiCommandGroup $ckeditor5_ai_command_group = NULL, string $uuid = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, ?CKEditor5AiCommandGroup $ckeditor5_ai_command_group = NULL, ?string $uuid = NULL): array {
     $this->commandGroup = $ckeditor5_ai_command_group;
     $command = [];
     if ($uuid) {

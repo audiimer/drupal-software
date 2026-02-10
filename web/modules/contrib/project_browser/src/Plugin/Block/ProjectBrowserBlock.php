@@ -7,14 +7,15 @@ use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Access\AccessResultInterface;
 use Drupal\Core\Block\Attribute\Block;
 use Drupal\Core\Block\BlockBase;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Render\ElementInfoManagerInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
-use Drupal\project_browser\EnabledSourceHandler;
 use Drupal\project_browser\Plugin\Derivative\BlockDeriver;
 use Drupal\project_browser\Plugin\ProjectBrowserSourceInterface;
+use Drupal\project_browser\Plugin\ProjectBrowserSourceManager;
 use Drupal\project_browser\ProjectBrowser\Filter\FilterBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -32,23 +33,15 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 )]
 final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
-  /**
-   * The source plugin to query for projects.
-   *
-   * @var \Drupal\project_browser\Plugin\ProjectBrowserSourceInterface
-   */
-  private readonly ProjectBrowserSourceInterface $source;
-
   public function __construct(
     array $configuration,
     $plugin_id,
     $plugin_definition,
-    EnabledSourceHandler $enabledSources,
+    private readonly ProjectBrowserSourceManager $sourceManager,
     private readonly ElementInfoManagerInterface $elementInfo,
+    private readonly ConfigFactoryInterface $configFactory,
   ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $source_id = $this->getDerivativeId();
-    $this->source = $enabledSources->getCurrentSources()[$source_id];
   }
 
   /**
@@ -59,8 +52,9 @@ final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPlu
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get(EnabledSourceHandler::class),
+      $container->get(ProjectBrowserSourceManager::class),
       $container->get(ElementInfoManagerInterface::class),
+      $container->get(ConfigFactoryInterface::class),
     );
   }
 
@@ -83,9 +77,36 @@ final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPlu
 
   /**
    * {@inheritdoc}
+   *
+   * Overridden for return type hint.
+   */
+  public function getDerivativeId(): string {
+    $derivative_id = parent::getDerivativeId();
+    assert(is_string($derivative_id));
+    return $derivative_id;
+  }
+
+  /**
+   * Loads the fully configured source plugin this block shows.
+   *
+   * @return \Drupal\project_browser\Plugin\ProjectBrowserSourceInterface
+   *   A source plugin.
+   */
+  private function getSource(): ProjectBrowserSourceInterface {
+    return $this->sourceManager->createInstance($this->getDerivativeId(), NULL);
+  }
+
+  /**
+   * {@inheritdoc}
    */
   protected function blockAccess(AccountInterface $account): AccessResultInterface {
-    return AccessResult::allowedIfHasPermission($account, 'administer modules');
+    return AccessResult::allowedIf(
+      array_key_exists($this->getDerivativeId(), $this->sourceManager->getAllEnabledSources()),
+    )->andIf(
+      AccessResult::allowedIfHasPermission($account, 'administer modules'),
+    )->addCacheableDependency(
+      $this->configFactory->get('project_browser.admin_settings'),
+    );
   }
 
   /**
@@ -94,6 +115,7 @@ final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPlu
   public function blockForm($form, FormStateInterface $form_state): array {
     $form = parent::blockForm($form, $form_state);
 
+    $source = $this->getSource();
     $configuration = $this->getConfiguration();
     $form['paginate'] = [
       '#type' => 'checkbox',
@@ -107,7 +129,7 @@ final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPlu
       '#default_value' => $configuration['page_sizes'],
       '#description' => $this->t('A comma-separated list of choices for how many projects to show per page. Can also be a single number, to only ever show that many projects.'),
     ];
-    $sort_options = $this->source->getSortOptions();
+    $sort_options = $source->getSortOptions();
     $form['sort_options'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Sort options'),
@@ -122,7 +144,7 @@ final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPlu
       '#default_value' => $configuration['default_sort'] ?? array_key_first($sort_options),
       '#options' => $sort_options,
     ];
-    $filter_definitions = $this->source->getFilterDefinitions();
+    $filter_definitions = $source->getFilterDefinitions();
     $form['filters'] = [
       '#type' => 'checkboxes',
       '#title' => $this->t('Enabled filters'),
@@ -176,37 +198,31 @@ final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPlu
    * {@inheritdoc}
    */
   public function build(): array {
-    $source = $this->getDerivativeId();
-    assert(is_string($source));
-
-    $configuration = $this->getConfiguration();
-    // Allow preview mode to be simulated in tests.
-    if (drupal_valid_test_ua() && array_key_exists('simulate_preview', $configuration)) {
-      $this->inPreview = $configuration['simulate_preview'];
-    }
+    $source = $this->getSource();
 
     // We don't want to actually load the project browser in preview mode.
     if ($this->inPreview) {
       return [
         '#markup' => $this->t('Project Browser is being rendered in preview mode, so not loading projects. This block uses the %source source.', [
-          '%source' => $this->source->getPluginDefinition()['label'],
+          '%source' => $source->getPluginDefinition()['label'],
         ]),
         // The preview isn't cacheable.
         '#cache' => ['max-age' => 0],
       ];
     }
 
+    $configuration = $this->getConfiguration();
     if (isset($configuration['sort_options'])) {
       // Only show the sort options that are allowed by our configuration.
       $sort_options = array_intersect_key(
-        $this->source->getSortOptions(),
+        $source->getSortOptions(),
         array_flip($configuration['sort_options']),
       );
     }
     if (isset($configuration['filters'])) {
       // Only show the filters that are allowed by our configuration.
       $filters = array_intersect_key(
-        $this->source->getFilterDefinitions(),
+        $source->getFilterDefinitions(),
         array_flip($configuration['filters']),
       );
       // The render element's #filters property expects an associative array
@@ -221,10 +237,13 @@ final class ProjectBrowserBlock extends BlockBase implements ContainerFactoryPlu
 
     return [
       '#type' => 'project_browser',
-      '#source' => $this->source,
+      '#source' => $source,
       '#cache' => [
         'tags' => [
-          $this->getBaseId(),
+          // This cache tag ensures that when query data for a specific source
+          // is invalidated, this block will be too.
+          // @see \Drupal\project_browser\QueryManager::getProjects()
+          'project_browser:' . $this->getDerivativeId(),
         ],
       ],
       '#paginate' => $configuration['paginate'],

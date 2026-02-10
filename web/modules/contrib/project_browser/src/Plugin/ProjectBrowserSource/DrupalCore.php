@@ -2,7 +2,6 @@
 
 namespace Drupal\project_browser\Plugin\ProjectBrowserSource;
 
-use Drupal\Component\Assertion\Inspector;
 use Drupal\Core\Cache\CacheBackendInterface;
 use Drupal\Core\Extension\Extension;
 use Drupal\Core\Extension\ModuleExtensionList;
@@ -78,7 +77,7 @@ final class DrupalCore extends ProjectBrowserSourceBase {
       unset($modules[$this->installProfile]);
     }
     // If we're including test modules, no further filtering is needed.
-    if (Settings::get('extension_discovery_scan_tests') || drupal_valid_test_ua()) {
+    if (Settings::get('extension_discovery_scan_tests')) {
       return $modules;
     }
     // Only return non-hidden modules that aren't in the `Testing` package.
@@ -125,7 +124,10 @@ final class DrupalCore extends ProjectBrowserSourceBase {
 
     // Filter by categories.
     if (!empty($query['categories'])) {
-      $projects = array_filter($projects, fn(Project $project): bool => !empty(array_intersect(array_column($project->categories, 'id'), explode(',', $query['categories']))));
+      $projects = array_filter(
+        $projects,
+        fn (Project $project): bool => (bool) array_intersect_key($project->categories, explode(',', $query['categories'])),
+      );
     }
 
     // Filter by search text.
@@ -150,11 +152,18 @@ final class DrupalCore extends ProjectBrowserSourceBase {
     if (!empty($query['page']) && !empty($query['limit'])) {
       $projects = array_chunk($projects, $query['limit'])[$query['page']] ?? [];
     }
-    if (array_key_exists('order', $this->configuration) && is_array($this->configuration['order'])) {
-      assert(Inspector::assertAllStrings($this->configuration['order']) && Inspector::assertAllNotEmpty($this->configuration['order']));
-      SortHelper::sortInDefinedOrder($projects, array_values($this->configuration['order']));
-    }
+
+    ['order' => $order] = $this->getConfiguration();
+    SortHelper::sortInDefinedOrder($projects, $order);
+
     return $this->createResultsPage($projects, $project_count);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration(): array {
+    return parent::defaultConfiguration() + ['order' => []];
   }
 
   /**
@@ -187,10 +196,7 @@ final class DrupalCore extends ProjectBrowserSourceBase {
         title: $module->info['name'],
         packageName: 'drupal/core',
         categories: [
-          [
-            'id' => $module->info['package'],
-            'name' => $module->info['package'],
-          ],
+          $module->info['package'] => $module->info['package'],
         ],
         id: $module_name,
       );

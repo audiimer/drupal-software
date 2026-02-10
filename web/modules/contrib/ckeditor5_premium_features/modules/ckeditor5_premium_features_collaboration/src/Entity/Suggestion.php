@@ -145,7 +145,7 @@ class Suggestion extends CollaborationEntityBase implements SuggestionInterface 
   /**
    * {@inheritdoc}
    */
-  public function setChainId(string $chain_id = NULL): static {
+  public function setChainId(?string $chain_id = NULL): static {
     return $this->set('chain_id', $chain_id);
   }
 

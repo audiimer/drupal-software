@@ -11,6 +11,7 @@ namespace Drupal\ckeditor5_premium_features_export_pdf\Plugin\CKEditor5Plugin;
 
 use Drupal\ckeditor5_premium_features\Plugin\CKEditor5Plugin\ExportBase;
 use Drupal\ckeditor5_premium_features_export_pdf\Form\SettingsForm;
+use Drupal\editor\EditorInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -104,6 +105,17 @@ class ExportPdf extends ExportBase {
    */
   public function getExportFileExtension(): string {
     return self::EXPORT_FILE_EXTENSION;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getDynamicPluginConfig(array $static_plugin_config, EditorInterface $editor): array {
+    if ($this->settingsConfigHandler->getEnvironmentId() && $this->settingsConfigHandler->getAccessKey() && !ckeditor5_premium_features_check_jwt_installed()) {
+      $message = $this->t("Export to PDF plugin is working in license key authentication mode because its required dependency <code>firebase/php-jwt</code> is not installed. This may result with limited functionality.");
+      ckeditor5_premium_features_display_missing_dependency_warning($message);
+    }
+    return parent::getDynamicPluginConfig($static_plugin_config, $editor);
   }
 
 }

@@ -103,7 +103,7 @@ class NotificationContextHelper extends ContextHelper {
    * @param string|null $originalContent
    *   Alternative document content that should be used if present.
    */
-  public function getDocumentMentionContext(FieldableEntityInterface $document, string $key, string $mentionMarker, string $originalContent = NULL): array {
+  public function getDocumentMentionContext(FieldableEntityInterface $document, string $key, string $mentionMarker, ?string $originalContent = NULL): array {
     $context = !empty($originalContent) ? $originalContent : self::getDocumentFieldContent($document, $key);
 
     $snippets = $this->getHighlightedDocumentMention($context, $mentionMarker);

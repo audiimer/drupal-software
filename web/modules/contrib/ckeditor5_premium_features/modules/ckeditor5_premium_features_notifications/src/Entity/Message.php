@@ -105,7 +105,7 @@ class Message extends ContentEntityBase implements MessageInterface {
                              string $messageContent,
                              string $uid,
                              string $key,
-                             string $refUid = NULL): int {
+                             ?string $refUid = NULL): int {
     $saveResult = $this->entityTypeManager()->getStorage(MessageItemInterface::ENTITY_TYPE_ID)
       ->create([
         'message_id' => $this->id(),

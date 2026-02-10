@@ -52,12 +52,15 @@ class RevisionHistoryAdapter {
     const revisions = JSON.parse(revisionHistoryElement.value);
     let create_new_draft = false;
 
-    for (const revision of revisions) {
-      if (revision['attributes']['new_draft_req']) {
+    for (const revisionData of revisions) {
+      if (revisionData['attributes']['new_draft_req']) {
         create_new_draft = true;
-        delete revision['attributes']['new_draft_req'];
+        delete revisionData['attributes']['new_draft_req'];
       }
-      revisionHistoryPlugin.addRevisionData(revision);
+      const revision = revisionHistoryPlugin.addRevisionData(revisionData);
+      revision.on('change', (eventInfo, name, value, oldValue) => {
+        this.updateStorage(revisionHistoryPlugin, revisionTrackerPlugin, revisionHistoryElement, false);
+      });
     }
 
     if (create_new_draft) {
@@ -70,6 +73,13 @@ class RevisionHistoryAdapter {
     const form = this.editor.sourceElement.closest('form');
     form.addEventListener("submit", (e) => {
       this.updateStorage(revisionHistoryPlugin, revisionTrackerPlugin, revisionHistoryElement, addRevisionOnSubmit)
+    });
+
+    // Prevent form submission if pointer type is unknown.
+    form.addEventListener("click", (e) => {
+      if (e.pointerType.length === 0 && revisionHistoryPlugin.isRevisionViewerOpen) {
+        e.preventDefault();
+      }
     });
 
     this.editor.model.document.on( 'change:data', () => {

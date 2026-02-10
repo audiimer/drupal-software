@@ -3,6 +3,13 @@
 use Drupal\user\Entity\Role;
 
 /**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_premium_features_wproofreader_uninstall($is_syncing) {
+  ckeditor5_premium_features_remove_ckeditor_plugins(['wproofreader']);
+}
+
+/**
  * Grant new WProofreader permissions to authenticated users if module is already enabled.
  */
 function ckeditor5_premium_features_wproofreader_update_9001() {

@@ -82,30 +82,34 @@ final class AzureAi extends CKEditor5AiProviderPluginBase {
    */
   public function getConfigFields(): array {
     $fields = [];
+    $default = [];
+    if (!self::isInstalled('AzureAI provider')) {
+      $default['#disabled'] = TRUE;
+    }
 
     $fields['resource_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Resource name'),
       '#required' => TRUE,
-    ];
+    ] + $default;
     $fields['deployment_name'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Deployment name'),
       '#required' => TRUE,
-    ];
+    ] + $default;
     $fields['api_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('API key'),
       '#required' => TRUE,
-    ];
+    ] + $default;
     $fields['api_version'] = [
       '#type' => 'textfield',
       '#title' => $this->t('API version'),
       '#required' => TRUE,
-    ];
+    ] + $default;
 
 
-    return array_merge($fields, $this->getParametersFields());
+    return array_merge($fields, $this->getParametersFields($default));
   }
 
   /**

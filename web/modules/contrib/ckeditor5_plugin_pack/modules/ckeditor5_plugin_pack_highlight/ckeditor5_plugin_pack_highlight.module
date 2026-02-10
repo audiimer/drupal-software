@@ -23,6 +23,13 @@ function ckeditor5_plugin_pack_highlight_install($is_syncing): void {
   ckeditor5_plugin_pack_display_trial_info_message();
 }
 
+/**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_plugin_pack_highlight_uninstall($is_syncing) {
+  ckeditor5_plugin_pack_remove_ckeditor_plugins(['highlight'], ['ckeditor5_plugin_pack_highlight__highlight']);
+}
+
 function ckeditor5_plugin_pack_highlight_build_style_library(): array {
   $editors = \Drupal::entityTypeManager()->getStorage('editor')->loadMultiple();
   $libraries = [];
@@ -37,6 +44,14 @@ function ckeditor5_plugin_pack_highlight_build_style_library(): array {
       $format = $editor->getFilterFormat()->id();
       $filename = 'ckeditor5_plugin_pack_highlight-' . $format . '.css';
       $key = 'highlight_styles.' . $format;
+      $filepath = \Drupal::service('file_system')->realpath('public://ckeditor5/' . $filename);
+
+      if (!file_exists($filepath)) {
+        // Create the file if it does not exist.
+        $css_file_creator = \Drupal::service('ckeditor5_plugin_pack_highlight.css_file_creator');
+        $css_file_creator->saveHighlightCss($settings["plugins"]["ckeditor5_plugin_pack_highlight__highlight"], $format);
+      }
+
       $libraries[$key] = [
         'css' => [
           'theme' => [

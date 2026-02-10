@@ -93,6 +93,10 @@ class ExportWord extends ExportBase {
    * {@inheritdoc}
    */
   public function getDynamicPluginConfig(array $static_plugin_config, EditorInterface $editor): array {
+    if ($this->settingsConfigHandler->getEnvironmentId() && $this->settingsConfigHandler->getAccessKey() && !ckeditor5_premium_features_check_jwt_installed()) {
+      $message = $this->t("Export to Word plugin is working in license key authentication mode because its required dependency <code>firebase/php-jwt</code> is not installed. This may result with limited functionality.");
+      ckeditor5_premium_features_display_missing_dependency_warning($message);
+    }
     $static_plugin_config = parent::getDynamicPluginConfig($static_plugin_config, $editor);
 
     $options = &$static_plugin_config[$this->getFeaturedPluginId()]['converterOptions'];

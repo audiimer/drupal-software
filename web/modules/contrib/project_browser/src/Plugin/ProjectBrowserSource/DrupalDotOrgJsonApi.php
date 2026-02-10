@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Response;
   label: new TranslatableMarkup('Contrib modules'),
   description: new TranslatableMarkup('Modules on Drupal.org queried via the JSON:API endpoint'),
   local_task: [
-    'title' => new TranslatableMarkup('Contrib modules'),
+    'title' => new TranslatableMarkup('Browse modules'),
   ],
 )]
 final class DrupalDotOrgJsonApi extends DrupalDotOrgSourceBase {
@@ -49,10 +49,17 @@ final class DrupalDotOrgJsonApi extends DrupalDotOrgSourceBase {
       }
     }
 
-    if (array_key_exists('order', $this->configuration)) {
-      SortHelper::sortInDefinedOrder($returned_list, $this->configuration['order']);
-    }
+    ['order' => $order] = $this->getConfiguration();
+    SortHelper::sortInDefinedOrder($returned_list, $order);
+
     return $this->createResultsPage($returned_list, $api_response['total_results'] ?? 0);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration(): array {
+    return parent::defaultConfiguration() + ['order' => []];
   }
 
   /**

@@ -31,4 +31,19 @@ abstract class CKEditor5AiProviderPluginBase extends PluginBase implements CKEdi
   public function validateFields(FormStateInterface &$form_state): void {
   }
 
+  /**
+   * Checks if the required library is installed.
+   *
+   * Child classes should override this method to provide specific checks.
+   *
+   * @param string $provider
+   *   (optional) The AI provider name.
+   *
+   * @return bool
+   *   TRUE if the required dependencies are installed, FALSE otherwise.
+   */
+  public static function isInstalled(string $provider = ''): bool {
+    return FALSE;
+  }
+
 }

@@ -238,11 +238,23 @@ abstract class DrupalDotOrgSourceBase extends ProjectBrowserSourceBase implement
       TRUE,
       $this->t('Only show actively maintained projects'),
     );
-    $filters['development_status'] = new BooleanFilter(
-      FALSE,
-      $this->t('Only show projects under active development'),
-    );
+
+    if ($this->getConfiguration()['show_development_status']) {
+      $filters['development_status'] = new BooleanFilter(
+        FALSE,
+        $this->t('Only show projects under active development'),
+      );
+    }
     return $filters;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function defaultConfiguration(): array {
+    return [
+      'show_development_status' => FALSE,
+    ] + parent::defaultConfiguration();
   }
 
   /**
@@ -540,11 +552,8 @@ abstract class DrupalDotOrgSourceBase extends ProjectBrowserSourceBase implement
     $module_categories = $project['relationships']['field_module_categories']['data'] ?? NULL;
     if (is_array($module_categories) && is_array($related)) {
       $categories = [];
-      foreach ($module_categories as $module_category) {
-        $categories[] = [
-          'id' => $module_category['id'],
-          'name' => $related[$module_category['type']][$module_category['id']]['name'],
-        ];
+      foreach ($module_categories as ['id' => $id, 'type' => $type]) {
+        $categories[$id] = $related[$type][$id]['name'];
       }
       $module_categories = $categories;
     }

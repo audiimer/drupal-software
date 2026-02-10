@@ -243,7 +243,7 @@ class Collaborators {
       return [];
     }
     $mentionsHelper = $this->mentionsIntegrator->getMentionHelperService();
-    $commentBody = $comment->getContentPlain();
+    $commentBody = $comment->getContent();
 
     return $mentionsHelper->getMentions($commentBody);
   }

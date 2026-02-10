@@ -15,7 +15,6 @@ use Drupal\Core\Ajax\CssCommand;
 use Drupal\Core\Ajax\InsertCommand;
 use Drupal\Core\Ajax\MessageCommand;
 use Drupal\Core\Ajax\RemoveCommand;
-use Drupal\Core\Ajax\ReplaceCommand;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Config\TypedConfigManagerInterface;
 use Drupal\Core\Extension\ModuleHandlerInterface;
@@ -103,10 +102,10 @@ class SettingsForm extends ConfigFormBase {
       }
     }
 
-    $form['service_id_error_container'] = [
+    $form['service_id_message_container'] = [
       '#type' => 'container',
       '#attributes' => [
-        'id' => 'service-id-error-container',
+        'id' => 'service-id-message-container',
       ],
     ];
 
@@ -115,7 +114,11 @@ class SettingsForm extends ConfigFormBase {
       '#title' => $this->t('Service ID'),
       '#description' => $this->t('Activation key received upon subscription, required for WProofreader service use.'),
       '#default_value' => $serviceId ?? '',
-      '#required' => TRUE,
+      '#states' => [
+        'required' => [
+          ':input[name="service_type"]' => ['value' => self::WSC_DEFAULT_SERVICE_TYPE],
+        ],
+      ],
       '#ajax' => [
         'progress' => [
           'type' => 'throbber',
@@ -234,9 +237,6 @@ class SettingsForm extends ConfigFormBase {
         '#description' => $this->t('Enables an AI-powered assistant to refine and adapt text in multiple ways. Subject to the <a href="https://webspellchecker.com/legal/terms-of-service/" target="_blank">Terms of Service</a>.'),
         '#default_value' => $config->get('aiWritingAssistant') ?? FALSE,
       ];
-
-
-
     }
 
     $form['advanced'] = [
@@ -334,7 +334,6 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'submit',
       '#value' => $this->t('Save configuration'),
       '#button_type' => 'primary',
-      '#disabled' => empty($langOptions),
     ];
 
     return $form;
@@ -356,15 +355,16 @@ class SettingsForm extends ConfigFormBase {
   public function validateForm(array &$form, FormStateInterface $form_state) {
     $serviceId = $form_state->getUserInput()['service_id'] ?? NULL;
     $form_state->clearErrors();
-    if (!$serviceId) {
+    $isDefaultType = $form_state->getValue('service_type') === self::WSC_DEFAULT_SERVICE_TYPE;
+    if ($isDefaultType && !$serviceId) {
       $form_state->setErrorByName('service_id', $this->t('Invalid Service ID'));
     }
-    if ($serviceId && !$this->webSpellCheckerHandler->isServiceIdValid($serviceId)) {
+    if ($isDefaultType && $serviceId && !$this->webSpellCheckerHandler->isServiceIdValid($serviceId)) {
       $form_state->setErrorByName('service_id', $this->t('Invalid Service ID'));
     }
 
     $custom = $form_state->getUserInput()['custom'] ?? NULL;
-    if (!json_validate($custom)) {
+    if (is_null(json_decode($custom))) {
       $form_state->setErrorByName('custom', $this->t('Invalid JSON format'));
     }
     parent::validateForm($form, $form_state);
@@ -384,26 +384,20 @@ class SettingsForm extends ConfigFormBase {
   public function handleServiceIdField(array &$form, FormStateInterface $form_state): AjaxResponse {
     $serviceId = $form_state->getValue('service_id');
     $response = new AjaxResponse();
-    $submit = $form['actions']['submit'];
-
-    if (!$this->webSpellCheckerHandler->isServiceIdValid($serviceId)) {
-      if (!isset($submit)) {
-        $submit['disabled'] = TRUE;
-      }
-      $response->addCommand(new RemoveCommand('.messages--error'));
-      $response->addCommand(new CssCommand('#service-id-error-container', ['display' => 'initial']));
-      $response->addCommand(new MessageCommand($this->t('Invalid Service ID'), '.messages-list__wrapper', ['type' => 'error'], TRUE));
-      $response->addCommand(new CssCommand('#language-container', ['display' => 'none']));
-      $response->addCommand(new ReplaceCommand('input[type="submit"]', $submit));
+    if (empty($serviceId)) {
       return $response;
     }
-    if (isset($submit)) {
-      unset($submit['disabled']);
+
+    $response->addCommand(new RemoveCommand('.messages-list__item'));
+    if (!$this->webSpellCheckerHandler->isServiceIdValid($serviceId)) {
+      $response->addCommand(new MessageCommand($this->t('Invalid Service ID'), '.messages-list__wrapper', ['type' => 'error'], TRUE));
+      $response->addCommand(new CssCommand('#language-container', ['display' => 'none']));
     }
-    $response->addCommand(new CssCommand('#service-id-error-container', ['display' => 'none']));
-    $response->addCommand(new ReplaceCommand('input[type="submit"]', $submit));
-    $response->addCommand(new InsertCommand('#language-container', $form['language_container']));
-    $response->addCommand(new RemoveCommand('.messages--error'));
+    else {
+      $response->addCommand(new MessageCommand($this->t('Valid Service ID'), '.messages-list__wrapper', ['type' => 'status'], TRUE));
+      $response->addCommand(new InsertCommand('#language-container', $form['language_container']));
+    }
+    $response->addCommand(new CssCommand('#service-id-error-container', ['display' => 'initial']));
     return $response;
   }
 

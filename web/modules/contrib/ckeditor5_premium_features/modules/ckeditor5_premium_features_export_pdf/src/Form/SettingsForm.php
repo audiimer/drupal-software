@@ -53,6 +53,9 @@ class SettingsForm extends BaseExportSettingsForm {
    * {@inheritdoc}
    */
   public static function form(array $form, FormStateInterface $form_state, Config $config): array {
+    if ($form_state->getFormObject()->getFormId() == 'ckeditor5_premium_features_export_pdf_settings') {
+      self::checkDependencyPackage();
+    }
     $form['converter_url'] = [
       '#type' => 'textfield',
       '#title' => t('Converter URL'),
@@ -134,6 +137,16 @@ class SettingsForm extends BaseExportSettingsForm {
     ];
 
     return $form;
+  }
+
+  /**
+   * Checks if the required library is installed and displays warning message in case it's missing,
+   */
+  public static function checkDependencyPackage(): void {
+    if (!ckeditor5_premium_features_check_dependency_class('Firebase\JWT\JWT')) {
+      $message = t('Export to PDF plugin will work in license key authentication mode because its required dependency <code>firebase/php-jwt</code> is not installed. This may result with limited functionality.');
+      ckeditor5_premium_features_display_missing_dependency_warning($message);
+    }
   }
 
 }

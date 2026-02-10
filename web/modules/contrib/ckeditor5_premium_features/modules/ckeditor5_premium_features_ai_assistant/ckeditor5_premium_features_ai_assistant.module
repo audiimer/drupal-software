@@ -22,5 +22,11 @@ function ckeditor5_premium_features_ai_assistant_library_info_build(): array {
   $definitions[$definition->id()] = $definition->getDefinition();
 
   return $definitions;
+}
 
+/**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_premium_features_ai_assistant_uninstall($is_syncing) {
+  ckeditor5_premium_features_remove_ckeditor_plugins(['aiAssistant', 'aiCommands'], ['ckeditor5_premium_features_ai_assistant__ai_assistant']);
 }

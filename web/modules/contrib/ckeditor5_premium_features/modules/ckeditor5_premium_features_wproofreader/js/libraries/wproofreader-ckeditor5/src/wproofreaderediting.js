@@ -1,4 +1,5 @@
-import { Plugin } from 'ckeditor5/src/core';
+import { Plugin } from 'ckeditor5/src/core.js';
+
 import WProofreaderToggleCommand from './wproofreadertogglecommand.js';
 import WProofreaderSettingsCommand from './wproofreadersettingscommand.js';
 import WProofreaderDialogCommand from './wproofreaderdialogcommand.js';

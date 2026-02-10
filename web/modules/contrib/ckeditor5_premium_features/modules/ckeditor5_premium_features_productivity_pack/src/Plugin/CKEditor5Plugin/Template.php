@@ -103,6 +103,7 @@ class Template extends CKEditor5PluginDefault implements CKEditor5PluginInterfac
     $entityStorage = \Drupal::service('entity_type.manager')
       ->getStorage('ckeditor5_template');
     $query = $entityStorage->getQuery();
+    $query->accessCheck(TRUE);
     $query->condition('status', TRUE);
     $query->condition('textFormats.*', $format, '=');
     $query->sort('weight');

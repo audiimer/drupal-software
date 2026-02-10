@@ -119,7 +119,7 @@ class CommentsStorage extends SqlContentEntityStorage implements
    * @return \Drupal\ckeditor5_premium_features_collaboration\Entity\Comment[]
    *   A list of Comment entities for the specified source entity.
    */
-  public function loadByEntity(EntityInterface $entity, string $item_key_filter = NULL): array {
+  public function loadByEntity(EntityInterface $entity, ?string $item_key_filter = NULL): array {
     /** @var \Drupal\ckeditor5_premium_features_collaboration\Entity\Comment[] $entities */
     $entities = $this->traitLoadByEntity($entity, $item_key_filter);
 

@@ -180,7 +180,7 @@ class FormElement {
    * @param array|string|null $margin_config
    *   Current margin configuration values.
    */
-  public static function marginElement(array &$element, string $type, array|string $margin_config = NULL): void {
+  public static function marginElement(array &$element, string $type, array|string|null $margin_config = NULL): void {
     $matching_keys = [];
     if (!is_array($margin_config)) {
       if (preg_match('/(\d+)([^\s]+)/', $margin_config ?? '', $matching_keys)) {

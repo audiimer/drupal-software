@@ -15,6 +15,7 @@ services:
     class: Drupal\ckeditor5_premium_features_mentions\DataProvider\MentionDataProvider
     arguments:
       - '@entity_type.manager'
+      - '@ckeditor5_premium_features_mentions.mention_settings'
 
   ckeditor5_premium_features_mentions.mentions_helper:
     class: Drupal\ckeditor5_premium_features_mentions\Utility\MentionsHelper

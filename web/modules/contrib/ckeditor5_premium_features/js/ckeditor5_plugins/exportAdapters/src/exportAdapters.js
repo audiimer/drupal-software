@@ -10,7 +10,7 @@ class ExportAdapters {
     if (editor.config._config.exportPdf && typeof editor.config._config.exportPdf !== 'undefined') {
       editor.config._config.exportPdf.dataCallback = (editor) => {
         return Drupal.CKEditor5PremiumFeatures.editorContentExportProcessor(
-          editor, { enableHighlighting:true, convertImagesToBase64: editor.config._config.exportPdf.convertImagesToBase64 });
+          editor, { enableHighlighting:true, pluginConfig: editor.config._config.exportPdf });
       }
     }
 
@@ -18,7 +18,7 @@ class ExportAdapters {
     if (editor.config._config.exportWord && typeof editor.config._config.exportWord !== 'undefined') {
       editor.config._config.exportWord.dataCallback = (editor) => {
         return Drupal.CKEditor5PremiumFeatures.editorContentExportProcessor(
-          editor, { enableHighlighting: true, convertImagesToBase64: editor.config._config.exportWord.convertImagesToBase64 });
+          editor, { enableHighlighting: false, pluginConfig: editor.config._config.exportWord });
       }
     }
   }

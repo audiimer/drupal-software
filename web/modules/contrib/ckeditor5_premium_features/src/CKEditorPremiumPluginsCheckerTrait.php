@@ -19,9 +19,17 @@ trait CKEditorPremiumPluginsCheckerTrait {
    * @return bool
    */
   private function hasPremiumFeaturesEnabled(array $config): bool {
-    if (isset($config['plugins']) && isset($config['plugins']['ckeditor5_premium_features_productivity_pack_base'])) {
-      if (in_array(TRUE, $config['plugins']['ckeditor5_premium_features_productivity_pack_base'], TRUE)) {
-        return TRUE;
+    if (isset($config['plugins'])) {
+      if (isset($config['plugins']['ckeditor5_premium_features_productivity_pack_base'])) {
+        if (in_array(TRUE, $config['plugins']['ckeditor5_premium_features_productivity_pack_base'], TRUE)) {
+          return TRUE;
+        }
+      }
+
+      if (isset($config['plugins']['ckeditor5_premium_features_email_editing__email_editing'])) {
+        if ($config["plugins"]["ckeditor5_premium_features_email_editing__email_editing"]["enable_configuration_helper"]) {
+          return TRUE;
+        }
       }
     }
 
@@ -59,8 +67,10 @@ trait CKEditorPremiumPluginsCheckerTrait {
       'exportWord',
       'formatPainter',
       'importWord',
+      'insertMergeField',
       'insertTemplate',
       'multiLevelList',
+      'previewMergeFields',
       'revisionHistory',
       'tableOfContents',
       'trackChanges'

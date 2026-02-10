@@ -121,7 +121,7 @@ class RevisionStorage extends SqlContentEntityStorage implements
     ] + $data->get('attributes') ?? [];
 
     $authors = $data->get('authors');
-    if (!empty($authors) && $data->getInt('creator') > 0 && !in_array($data->getInt('creator'), $authors)) {
+    if (!empty($authors) && $uid > 0 && !in_array($uid, $authors)) {
       $object_data['uid'] = reset($authors);
     }
 

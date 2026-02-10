@@ -18,7 +18,7 @@ function ckeditor5_plugin_pack_templates_requirements($phase): array {
     if (\Drupal::moduleHandler()->moduleExists('ckeditor5_premium_features_productivity_pack') || defined('COLLABORATION_INSTALLING')) {
       $requirements[] = [
         'description' => t('You cannot install CKEditor 5 Templates and CKEditor 5 Productivity pack modules at the same time.'),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => ckeditor5_plugin_pack_get_error_severity(),
       ];
     }
     else {

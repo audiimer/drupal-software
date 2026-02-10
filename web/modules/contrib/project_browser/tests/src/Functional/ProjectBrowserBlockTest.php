@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Drupal\Tests\project_browser\Functional;
 
 use Drupal\block\Entity\Block;
+use Drupal\Core\Render\RendererInterface;
 use Drupal\project_browser\Plugin\Block\ProjectBrowserBlock;
 use Drupal\Tests\BrowserTestBase;
 use PHPUnit\Framework\Attributes\CoversClass;
@@ -39,7 +40,9 @@ final class ProjectBrowserBlockTest extends BrowserTestBase {
     parent::setUp();
 
     $this->config('project_browser.admin_settings')
-      ->set('enabled_sources', ['project_browser_test_mock'])
+      ->set('enabled_sources', [
+        'project_browser_test_mock' => [],
+      ])
       ->save();
     $this->drupalLogin($this->drupalCreateUser([
       'administer blocks',
@@ -48,7 +51,6 @@ final class ProjectBrowserBlockTest extends BrowserTestBase {
     $this->drupalPlaceBlock('project_browser_block:project_browser_test_mock', [
       'id' => 'project_browser_test_block',
       'label' => 'Project browser block',
-      'simulate_preview' => FALSE,
     ]);
   }
 
@@ -61,23 +63,41 @@ final class ProjectBrowserBlockTest extends BrowserTestBase {
   }
 
   /**
+   * Tests that the block is still configurable if the source is disabled.
+   */
+  public function testBlockFormIfSourceNotEnabled(): void {
+    $page = $this->getSession()->getPage();
+    $assert_session = $this->assertSession();
+
+    // Disable the test source, then place a block that uses it. We should be
+    // able to do that without blowing up.
+    $this->config('project_browser.admin_settings')
+      ->set('enabled_sources', [])
+      ->save();
+    $this->drupalGet('/admin/structure/block/add/project_browser_block:project_browser_test_mock/stark');
+    $page->fillField('region', 'content');
+    $page->pressButton('Save block');
+    $assert_session->statusCodeEquals(200);
+    $assert_session->pageTextContains('Project Browser block');
+  }
+
+  /**
    * Tests that the block only appears if the source is enabled.
    */
-  public function testBlockIsBrokenIfSourceIsDisabled(): void {
+  public function testBlockAccessIfSourceNotEnabled(): void {
     $this->drupalGet('<front>');
-    $assertSession = $this->assertSession();
-    $assertSession->pageTextContains('Project browser block');
-    $assertSession->pageTextNotContains('This block is broken or missing.');
+    $assert_session = $this->assertSession();
+    $assert_session->pageTextContains('Project browser block');
 
-    // Globally disable the source, even though the block's still refers to it.
+    // Globally disable the source, even though the block still refers to it.
     $this->config('project_browser.admin_settings')
       ->set('enabled_sources', [])
       ->save();
 
-    // The block should still appear, but it should be broken or missing.
+    // The block should not appear because we cannot access it since the source
+    // has been disabled.
     $this->getSession()->reload();
-    $assertSession->pageTextContains('Project browser block');
-    $assertSession->pageTextContains('This block is broken or missing.');
+    $assert_session->pageTextNotContains('Project browser block');
   }
 
   /**
@@ -100,12 +120,14 @@ final class ProjectBrowserBlockTest extends BrowserTestBase {
    * Tests that the block doesn't render the project browser in preview mode.
    */
   public function testPreviewMode(): void {
-    $block = Block::load('project_browser_test_block');
-    $block?->set('settings', ['simulate_preview' => TRUE])->save();
+    $block = Block::load('project_browser_test_block')?->getPlugin();
+    $this->assertInstanceOf(ProjectBrowserBlock::class, $block);
 
-    $this->drupalGet('<front>');
-    $this->assertSession()
-      ->pageTextContains('Project Browser is being rendered in preview mode, so not loading projects. This block uses the Project Browser Mock Plugin source.');
+    $block->setInPreview(TRUE);
+    $build = $block->build();
+    $rendered = (string) $this->container->get(RendererInterface::class)
+      ->renderRoot($build);
+    $this->assertStringContainsString('Project Browser is being rendered in preview mode, so not loading projects. This block uses the <em class="placeholder">Project Browser Mock Plugin</em> source.', $rendered);
   }
 
   /**

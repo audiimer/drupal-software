@@ -25,10 +25,28 @@ function ckeditor5_plugin_pack_library_loader(array $libraries): array {
   $config_handler = \Drupal::service('ckeditor5_plugin_pack.config_handler.settings');
   $definitions = [];
   foreach ($libraries as $library) {
-    $definition = new LibraryDefinitionItem($library, $config_handler->getDllLocation());
-    $config_handler->isLocalLibraryPathSpecified()
-      ? $definition->addLocalJs($definition->id())
-      : $definition->addRemoteJs($definition->id());
+    $isLocalPath = FALSE;
+    $baseDir = $config_handler->getRemoteDllLocation();
+    $dllLocations = $config_handler->getDllLocations();
+    foreach ($dllLocations as $location) {
+      $path = './' . $location . '/' . $library . '/' . $library . '.js';
+      if (realpath($path)) {
+        $baseDir = $location;
+        $isLocalPath = TRUE;
+        break;
+      }
+    }
+
+    $definition = new LibraryDefinitionItem($library, $baseDir);
+    if ($isLocalPath) {
+      $definition->addLocalJs($definition->id());
+    }
+    elseif (!$config_handler->isCdnBlocked()) {
+      $definition->addRemoteJs($definition->id());
+    }
+    else {
+      continue;
+    }
 
     $definitions[$definition->id()] = $definition->getDefinition();
   }
@@ -88,6 +106,16 @@ function ckeditor5_plugin_pack_uninstall_message(): MarkupInterface {
     <p><a href=\"https://c6wj48kez1y.typeform.com/to/pxfqyFLl\" target=\"_blank\">Click here to share your feedback</a></p>
     <p>Thank you!</p>
   ");
+}
+
+/**
+ * Displays a warning message about plugin being disabled due to too old CKEditor 5 version.
+ *
+ * @param string $plugin
+ *  The plugin name.
+ */
+function ckeditor5_plugin_pack_old_version_warning_message(string $plugin): void {
+  \Drupal::messenger()->addWarning(t('The "%plugin" CKEditor 5 plugin has been disabled because current CKEditor 5 library version does not support it. You can either update Drupal core or use <a href="https://www.drupal.org/docs/extending-drupal/contributed-modules/contributed-module-documentation/ckeditor-5-premium-features/configuration-guide#s-ckeditor-5-version-override" target="_blank">CKEditor 5 Version Override module</a> to use a newer version of CKEditor 5.', ['%plugin' => $plugin]));
 }
 
 /**
@@ -152,4 +180,66 @@ function ckeditor5_plugin_pack_library_info_build(): array {
 function ckeditor5_plugin_pack_uninstall($is_syncing): void {
   $message = ckeditor5_plugin_pack_uninstall_message();
   \Drupal::messenger()->addMessage($message, 'status', FALSE);
+}
+
+/**
+ * Removes the specified CKEditor plugins from toolbar of all CKEditor 5 text formats.
+ *
+ * @param array $items
+ *   An array of toolbar item ids to be removed.
+ *
+ * @param array $plugin_configs
+ *  (optional) An array of plugin configuration names to be removed.
+ */
+function ckeditor5_plugin_pack_remove_ckeditor_plugins(array $toolbar_items, array $plugin_configs = []): void {
+  try {
+    $editors = \Drupal::entityTypeManager()
+      ->getStorage('editor')
+      ->loadByProperties(['editor' => 'ckeditor5']);
+  } catch (\Exception $e) {
+    return;
+  }
+
+  if (empty($editors)) {
+    return;
+  }
+
+  foreach ($editors as $editor) {
+    $settings = $editor->getSettings();
+    $modified = FALSE;
+    foreach ($toolbar_items as $item) {
+      $key = array_search($item, $settings['toolbar']['items']);
+      if ($key !== FALSE) {
+        unset($settings['toolbar']['items'][$key]);
+        // Reindex the array to avoid breaking the field value.
+        $settings['toolbar']['items'] = array_values($settings['toolbar']['items']);
+        $modified = TRUE;
+      }
+    }
+
+    foreach ($plugin_configs as $config) {
+      if (isset($settings['plugins'][$config])) {
+        unset($settings['plugins'][$config]);
+        $modified = TRUE;
+      }
+    }
+
+    if ($modified) {
+      try {
+        $editor->setSettings($settings);
+        $editor->save();
+      }
+      catch (\Exception $e) {
+        // Do nothing.
+      }
+    }
+  }
+
+}
+
+function ckeditor5_plugin_pack_get_error_severity() {
+  if (version_compare(\Drupal::VERSION, '11.2.0', '>=')) {
+    return \Drupal\Core\Extension\Requirement\RequirementSeverity::Error;
+  }
+  return REQUIREMENT_ERROR;
 }

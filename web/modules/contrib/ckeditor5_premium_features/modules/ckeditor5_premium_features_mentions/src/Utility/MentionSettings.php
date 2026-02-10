@@ -55,4 +55,11 @@ class MentionSettings {
     return (int) ($this->mentionSettings->get('mention_dropdown_limit') ?? 4);
   }
 
+  /**
+   * Returns whether to use static permission condition for user query.
+   */
+  public function useStaticPermissionCondition(): bool {
+    return (bool) ($this->mentionSettings->get('use_static_permission_condition') ?? FALSE);
+  }
+
 }

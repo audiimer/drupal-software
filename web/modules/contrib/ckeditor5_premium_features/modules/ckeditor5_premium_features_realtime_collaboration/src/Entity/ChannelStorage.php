@@ -81,7 +81,7 @@ class ChannelStorage extends SqlContentEntityStorage {
    * @param string|null $channel_id
    *   Optional. Channel id to preserve from deleting.
    */
-  public function deleteChannels(EntityInterface $entity, string $element_id = NULL, string $channel_id = NULL): void {
+  public function deleteChannels(EntityInterface $entity, ?string $element_id = NULL, ?string $channel_id = NULL): void {
     $language_id = $this->getEntityLanguageId($entity);
     $query = $this->getQuery();
     $query->accessCheck(FALSE);

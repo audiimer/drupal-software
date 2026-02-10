@@ -18,7 +18,7 @@ class CollaborationXSSFilter extends Standard {
   /**
    * {@inheritdoc}
    */
-  public static function filterXss($html, FilterFormatInterface $format, FilterFormatInterface $original_format = NULL): string {
+  public static function filterXss($html, FilterFormatInterface $format, ?FilterFormatInterface $original_format = NULL): string {
     $html = static::collaborationFilterText($html);
     $html = parent::filterXss($html, $format, $original_format);
 

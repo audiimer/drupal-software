@@ -75,11 +75,12 @@ class WProofreader extends CKEditor5PluginDefault implements ContainerFactoryPlu
     $static_plugin_config = parent::getDynamicPluginConfig($static_plugin_config, $editor);
     $static_plugin_config['wproofreader']['lang'] = $this->wProofReaderConfig->get('lang_code') ?? 'auto';
 
+    $serviceType = $this->wProofReaderConfig->get('service_type') ?? SettingsForm::WSC_DEFAULT_SERVICE_TYPE;
     $userPermission = $this->currentUser->hasPermission('ckeditor5 webspellchecker proxy access');
 
+    $static_plugin_config['wproofreader']['cke5']['serviceType'] = $serviceType;
     $static_plugin_config['wproofreader']['cke5']['validPermission'] = $userPermission;
 
-    $serviceType = $this->wProofReaderConfig->get('service_type') ?? SettingsForm::WSC_DEFAULT_SERVICE_TYPE;
     if ($serviceType === SettingsForm::WSC_ON_PREMISE_SERVICE_TYPE) {
       $static_plugin_config['wproofreader']['serviceProtocol'] = $this->wProofReaderConfig->get('service_protocol') ?? '';
       $static_plugin_config['wproofreader']['serviceHost'] = $this->wProofReaderConfig->get('service_host') ?? '';

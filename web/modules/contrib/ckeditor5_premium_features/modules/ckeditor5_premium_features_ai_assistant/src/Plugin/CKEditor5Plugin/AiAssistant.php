@@ -12,9 +12,11 @@ namespace Drupal\ckeditor5_premium_features_ai_assistant\Plugin\CKEditor5Plugin;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableInterface;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableTrait;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginDefault;
+use Drupal\ckeditor5_premium_features\Utility\LibraryVersionChecker;
 use Drupal\ckeditor5_premium_features_ai_assistant\AITextAdapter;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
 use Drupal\editor\EditorInterface;
@@ -29,16 +31,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class AiAssistant extends CKEditor5PluginDefault implements ContainerFactoryPluginInterface, CKEditor5PluginConfigurableInterface {
 
   use CKEditor5PluginConfigurableTrait;
+  use MessengerTrait;
 
   /**
    * Creates the plugin instance.
    *
    * @param \Drupal\Core\Config\ConfigFactoryInterface $configFactory
+   * @param \Drupal\ckeditor5_premium_features\Utility\LibraryVersionChecker $versionChecker
    * @param mixed ...$parent_arguments
    *   The parent plugin arguments.
    */
   public function __construct(
                               protected ConfigFactoryInterface $configFactory,
+                              protected LibraryVersionChecker $versionChecker,
                               ...$parent_arguments
   ) {
     parent::__construct(...$parent_arguments);
@@ -50,6 +55,7 @@ class AiAssistant extends CKEditor5PluginDefault implements ContainerFactoryPlug
   public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition): static {
     return new static(
       $container->get('config.factory'),
+      $container->get('ckeditor5_premium_features.core_library_version_checker'),
       $configuration,
       $plugin_id,
       $plugin_definition
@@ -64,7 +70,20 @@ class AiAssistant extends CKEditor5PluginDefault implements ContainerFactoryPlug
     $config = $this->configFactory->get('ckeditor5_premium_features_ai_assistant.settings');
     $removeCommands = $this->configuration['remove_commands'] ?? [];
 
-    $textAdapter = $config->get('textAdapter') ?? AITextAdapter::OpenAI->value;
+    $providerName = $config->get('ai_provider');
+
+    if (!$providerName) {
+      // If no provider is selected, disable the AI Assistant plugin.
+      $static_plugin_config['removePlugins'] = ['AWSTextAdapter', 'OpenAITextAdapter', 'AIAssistant', 'AIServiceAdapter'];
+
+      // Display a warning message to the user.
+      $this->messenger();
+      $this->messenger->addWarning($this->t('AI Assistant plugin is disabled because no AI provider is selected. Please configure an AI provider in the AI Assistant <a href="/admin/config/ckeditor5-premium-features/ai-assistant">settings page</a>.'));
+
+      return $static_plugin_config;
+    }
+
+    $textAdapter = $config->get('textAdapter') ?? NULL;
     $static_plugin_config['ai']['textAdapter'] = $textAdapter;
     $textAdapterPlugin = '';
 
@@ -80,6 +99,21 @@ class AiAssistant extends CKEditor5PluginDefault implements ContainerFactoryPlug
     }
 
     $providerName = $config->get('ai_provider');
+    $pluginManager = \Drupal::service('plugin.manager.ckeditor5_ai_provider');
+    $providerPlugin = $pluginManager->getDefinition($providerName);
+    $class = $providerPlugin['class'] ?? NULL;
+    $providerLabel = $providerPlugin['label']->render();
+    $isInstalled = $class::isInstalled('AI Assistant plugin');
+
+    //Disable AI Assistant plugin in case the provider is not installed.
+    if (!$isInstalled) {
+      $static_plugin_config['removePlugins'] = $this->getUnnecessaryTextAdapterPlugins($textAdapterPlugin);
+      $static_plugin_config['removePlugins'][] = 'AIAssistant';
+      $static_plugin_config['removePlugins'][] = 'AIServiceAdapter';
+      unset($static_plugin_config['ai']);
+      return $static_plugin_config;
+    }
+
     if ($textAdapter === AITextAdapter::AWS->value) {
       $model = $config->get("{$providerName}_model");
       $static_plugin_config['ai'][$textAdapter]['requestParameters'] = [
@@ -120,6 +154,10 @@ class AiAssistant extends CKEditor5PluginDefault implements ContainerFactoryPlug
           'commands' => $group['commands'],
         ];
       }
+    }
+
+    if ($this->versionChecker->isLibraryVersionHigherOrEqual('47.0.0')) {
+      $static_plugin_config['ai'] = $this->convertSettingsToNewFormat($static_plugin_config['ai']);
     }
 
     $static_plugin_config['removePlugins'] = $this->getUnnecessaryTextAdapterPlugins($textAdapterPlugin);
@@ -184,6 +222,7 @@ class AiAssistant extends CKEditor5PluginDefault implements ContainerFactoryPlug
     $entityStorage = \Drupal::service('entity_type.manager')
       ->getStorage('ckeditor5_ai_command_group');
     $query = $entityStorage->getQuery();
+    $query->accessCheck(TRUE);
     $query->condition('status', TRUE);
     $query->condition('textFormats.*', $format, '=');
     $query->sort('weight');
@@ -236,6 +275,33 @@ class AiAssistant extends CKEditor5PluginDefault implements ContainerFactoryPlug
       ];
     }
     return $output;
+  }
+
+  /**
+   * Converts the settings array to format used in CKEditor v47.0.0 and newer.
+   *
+   * @param array $oldSettings
+   *   Old settings format.
+   *
+   * @return array
+   *   New settings format.
+   */
+  private function convertSettingsToNewFormat(array $oldSettings): array {
+    $newSettings = [];
+
+    $newSettings['assistant'] = $oldSettings['aiAssistant'] ?? [];
+    $newSettings['assistant']['textAdapter'] = $oldSettings['textAdapter'];
+    if (isset($oldSettings['aws'])) {
+      $newSettings['assistant']['adapter']['aws'] = $oldSettings['aws'];
+    }
+    if (isset($oldSettings['openAI'])) {
+      $newSettings['assistant']['adapter']['openAI'] = $oldSettings['openAI'];
+    }
+    if (isset($oldSettings['useTheme'])) {
+      $newSettings['assistant']['useTheme'] = $oldSettings['useTheme'];
+    }
+
+    return $newSettings;
   }
 
 }

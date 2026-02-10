@@ -51,7 +51,7 @@ class CollaborationEntityAccessControlHandler extends EntityAccessControlHandler
   /**
    * {@inheritdoc}
    */
-  public function access(EntityInterface|CollaborationEntityInterface $entity, $operation, AccountInterface $account = NULL, $return_as_object = FALSE) {
+  public function access(EntityInterface|CollaborationEntityInterface $entity, $operation, ?AccountInterface $account = NULL, $return_as_object = FALSE) {
     $account = $this->prepareUser($account);
 
     if ($operation === 'delete') {
@@ -91,7 +91,7 @@ class CollaborationEntityAccessControlHandler extends EntityAccessControlHandler
   /**
    * {@inheritdoc}
    */
-  public function createAccess($entity_bundle = NULL, AccountInterface $account = NULL, array $context = [], $return_as_object = FALSE) {
+  public function createAccess($entity_bundle = NULL, ?AccountInterface $account = NULL, array $context = [], $return_as_object = FALSE) {
     // Since currently there is no policy limiting access to.
     $result = AccessResult::allowed();
     return $return_as_object ? $result : $result->isAllowed();

@@ -163,7 +163,13 @@ class ImportWord extends CKEditor5PluginDefault implements CKEditor5PluginConfig
       $static_plugin_config['importWord']['converterUrl'] = $this->configHandler->getConverterUrl();
     }
     if ($tokenUrl = $this->configHandler->getTokenUrl()) {
-      $static_plugin_config['importWord']['tokenUrl'] = $tokenUrl;
+      if (!ckeditor5_premium_features_check_jwt_installed()) {
+        $message = $this->t("Import from Word plugin is working in license key authentication mode because its required dependency <code>firebase/php-jwt</code> is not installed. This may result with limited functionality.");
+        ckeditor5_premium_features_display_missing_dependency_warning($message);
+      }
+      else {
+        $static_plugin_config['importWord']['tokenUrl'] = $tokenUrl;
+      }
     }
 
     return $static_plugin_config;

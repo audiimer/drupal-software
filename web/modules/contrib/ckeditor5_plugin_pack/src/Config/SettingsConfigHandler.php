@@ -11,6 +11,7 @@ namespace Drupal\ckeditor5_plugin_pack\Config;
 
 use Drupal\Core\Asset\LibraryDiscoveryInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 class SettingsConfigHandler implements SettingsConfigHandlerInterface {
 
@@ -22,11 +23,27 @@ class SettingsConfigHandler implements SettingsConfigHandlerInterface {
   protected LibraryDiscoveryInterface $libraryDiscovery;
 
   /**
-   * The configuration factory.
+   * The config factory service.
+   *
+   * @var \Drupal\Core\Config\ConfigFactoryInterface
+   */
+  protected ConfigFactoryInterface $configFactory;
+
+  /**
+   * The module configuration.
    *
    * @var \Drupal\Core\Config\ConfigFactoryInterface
    */
   protected $config;
+
+  /**
+   * The module handler service.
+   *
+   * @var \Drupal\Core\Extension\ModuleHandlerInterface
+   */
+  protected ModuleHandlerInterface $moduleHandler;
+
+  /**
 
   /**
    * Constructs the handler.
@@ -34,29 +51,49 @@ class SettingsConfigHandler implements SettingsConfigHandlerInterface {
    * @param \Drupal\Core\Asset\LibraryDiscoveryInterface $library_discovery
    *   Library discovery service.
    */
-  public function __construct(protected LibraryDiscoveryInterface $library_discovery, protected ConfigFactoryInterface $config_factory) {
+  public function __construct(protected LibraryDiscoveryInterface $library_discovery, protected ConfigFactoryInterface $config_factory, protected readonly ModuleHandlerInterface $module_handler) {
     $this->libraryDiscovery = $library_discovery;
+    $this->configFactory = $config_factory;
     $this->config = $config_factory->get('ckeditor5_plugin_pack.settings');
+    $this->moduleHandler = $module_handler;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDllLocation(string $file_name = ''): string {
-    $base_path = $this->config?->get('dll_location') ?: $this->getDefaultDllLocation();
+  public function getDllLocations(): array {
+    $paths = [];
+    $isVersionOverrideActive = FALSE;
 
-    $base_path = rtrim($base_path, ' /') . '/';
+    $local_path = $this->config?->get('dll_location');
+    if (!empty($local_path)) {
+      // Ensure trailing slash is always present.
+      $local_path = rtrim($local_path, ' /') . '/';
+      $local_path = $this->replaceTokens($local_path);
+      $paths[] = $local_path;
+    }
 
-    $base_path = $this->replaceTokens($base_path);
+    if ($this->moduleHandler->moduleExists('ckeditor5_premium_features_version_override')) {
+      $versionOverride = $this->configFactory->get('ckeditor5_premium_features_version_override.settings');
+      if ($versionOverride->get('enabled') && $versionOverride->get('version')) {
+        $isVersionOverrideActive = TRUE;
+      }
+    }
 
-    return $base_path . $file_name;
+    if (!$isVersionOverrideActive) {
+      // Use default local path only if version override is not active,
+      // to prevent plugin version incompatibilities.
+      $paths[] = '/core/assets/vendor/ckeditor5/';
+    }
+
+    return $paths;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDefaultDllLocation(): string {
-    return 'https://cdn.ckeditor.com/ckeditor5/' . SettingsConfigHandlerInterface::DLL_PATH_VERSION_TOKEN . '/dll/';
+  public function getRemoteDllLocation(): string {
+    return 'https://cdn.ckeditor.com/ckeditor5/' . $this->getDllVersion() . '/dll/';
   }
 
   /**
@@ -99,6 +136,13 @@ class SettingsConfigHandler implements SettingsConfigHandlerInterface {
     }
 
     return $path;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function isCdnBlocked(): bool {
+    return (bool) $this->config?->get('block_cdn');
   }
 
 }

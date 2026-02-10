@@ -83,7 +83,7 @@ interface SuggestionInterface extends ContentEntityInterface {
    * @param string|null $chain_id
    *   Chain ID or NULL if not in chain.
    */
-  public function setChainId(string $chain_id = NULL): static;
+  public function setChainId(?string $chain_id = NULL): static;
 
   /**
    * Checks if the entity is part of the suggestion chain.

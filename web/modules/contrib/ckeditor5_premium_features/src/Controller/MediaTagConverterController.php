@@ -79,7 +79,38 @@ class MediaTagConverterController extends ControllerBase {
 
       /** @var \Drupal\media\Entity\Media $entity */
       foreach ($entities as $entity) {
+        // Read all image file references from the media entity.
+        $fileIds = [];
+        $fileData = [];
+        foreach ($entity->getFields() as $fieldName => $field) {
+          if ($field->getFieldDefinition()->getType() === 'image') {
+            foreach ($field->getIterator() as $key => $item) {
+              $id = $item->get('target_id')->getValue();
+              $fileIds[] = $id;
+              $fileData[$fieldName][$key] = $id;
+            }
+          }
+        }
+
+        $imageFiles = $this->entityTypeManager()->getStorage('file')->loadMultiple($fileIds);
+
         $pre_render = $view_builder->view($entity, $viewMode);
+        $pre_render["#pre_render"][] = function (array $build) use ($imageFiles, $fileData) {
+          // Add custom attributes to the image field.
+          foreach ($fileData as $fieldName => $items) {
+            if (!isset($build[$fieldName]) || !is_array($build[$fieldName])) {
+              continue;
+            }
+            foreach ($items as $key => $fid) {
+              if (isset($imageFiles[$fid])) {
+                $file = $imageFiles[$fid];
+                $build[$fieldName][$key]['#item_attributes']['data-entity-type'] = 'file';
+                $build[$fieldName][$key]['#item_attributes']['data-entity-uuid'] = $file->uuid();
+              }
+            }
+          }
+          return $build;
+        };
 
         $viewRendered = $this->renderer->render($pre_render);
 

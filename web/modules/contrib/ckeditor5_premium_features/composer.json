@@ -24,10 +24,12 @@
         "php": "^8.0",
         "ext-dom": "*",
         "ext-libxml": "*",
-        "drupal/core": "^10.0 || ^11.0",
-        "firebase/php-jwt": "^6.0",
-        "caxy/php-htmldiff": "~0.1.14",
-        "openai-php/client": "^0.4.0 || ^0.10.0",
-        "aws/aws-sdk-php": "^3.296"
+        "drupal/core": "^10.3 || ^11.0"
+    },
+    "suggest": {
+        "firebase/php-jwt": "Required for Real-time collaboration and document converters.",
+        "caxy/php-htmldiff": "Required for asynchronous collaboration and notifications.",
+        "openai-php/client": "Required for OpenAI an AzureAI providers for the AI Assistant.",
+        "aws/aws-sdk-php": "Required for AWS Bedrock provider for the AI Assistant."
     }
 }

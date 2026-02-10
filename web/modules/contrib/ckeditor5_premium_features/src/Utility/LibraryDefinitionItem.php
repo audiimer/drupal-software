@@ -27,7 +27,9 @@ class LibraryDefinitionItem {
   const UNTRANSLATABLE_PLUGINS = [
     'cloud-services',
     'mention',
-    'paste-from-office-enhanced'
+    'paste-from-office-enhanced',
+    'email',
+    'export-inline-styles'
   ];
 
   /**

@@ -175,7 +175,7 @@ class TextFormat implements Ckeditor5TextFormatInterface {
       '#type' => 'textarea',
       '#attributes' => [
         // The admin theme may vary, so this is the safest solution.
-        'style' => 'display: none;',
+       'style' => 'display: none;',
         $id_attribute => $id,
       ],
       '#theme_wrappers' => [],
@@ -302,6 +302,10 @@ class TextFormat implements Ckeditor5TextFormatInterface {
   public function validateElement(array $element, FormStateInterface $form_state, array $form): void {
     if (!$this->editorStorageHandler->hasCollaborationFeaturesEnabled($element, FALSE)) {
       return;
+    }
+    if (!ckeditor5_premium_features_check_htmldiff_installed()) {
+      $form_state->setError($element['value'], $this->t('Field validation in collaboration features require <code>caxy/php-htmldiff</code> library to be installed'));
+      return ;
     }
     $form_object = $form_state->getFormObject();
     if (!$this->isFormTypeSupported($form_object)) {
@@ -566,9 +570,11 @@ class TextFormat implements Ckeditor5TextFormatInterface {
                                        ?string $originalContent,
                                        ?string $newContent): void {
 
-    // Prevent saving revision if no changes were made.
+    // Prevent saving new revision if no changes were made.
     if ($storage instanceof RevisionStorage && $originalContent === $newContent) {
-      return;
+      $count = count($entities_data);
+      // Second to the last is new revision. Last one is an empty revision.
+      unset($entities_data[$count - 2]);
     }
 
     if ($storage instanceof SuggestionStorage) {
@@ -706,8 +712,8 @@ class TextFormat implements Ckeditor5TextFormatInterface {
    */
   protected function dispatchDocumentUpdateEvent(FieldableEntityInterface $entity,
                                                  string $key,
-                                                 string $original_value = NULL,
-                                                 string $new_value = NULL): void {
+                                                 ?string $original_value = NULL,
+                                                 ?string $new_value = NULL): void {
     $event = new CollaborationEventBase(
       $entity,
       User::load($this->currentUser->id()),

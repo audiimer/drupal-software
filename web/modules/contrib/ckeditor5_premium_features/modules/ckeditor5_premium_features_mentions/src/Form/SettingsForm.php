@@ -54,8 +54,9 @@ class SettingsForm extends SharedBuildConfigFormBase {
       '#type' => 'number',
       '#title' => t('Minimal mention character.'),
       '#min' => 1,
+      '#max' => 8,
       '#default_value' => $config->get('mention_min_character') ?? 1,
-      '#description' => t('Set the number of letters after which the autocomplete panel will show up.'),
+      '#description' => t('Set the number of letters after which the autocomplete panel will show up. Allowed values are between 1 and 8.'),
     ];
     $form['mentions']['mention_dropdown_limit'] = [
       '#type' => 'number',
@@ -70,6 +71,13 @@ class SettingsForm extends SharedBuildConfigFormBase {
       '#min' => 1,
       '#default_value' => $config->get('mention_marker') ?? '#',
       '#description' => t('Set the character which triggers autocompletion for mentions. It must be a single character.'),
+    ];
+
+    $form['mentions']['use_static_permission_condition'] = [
+      '#type' => 'checkbox',
+      '#title' => t('Use the static permission condition for user query'),
+      '#default_value' => $config->get('use_static_permission_condition') ?? FALSE,
+      '#description' => t('When enabled, all users with the "to be mentioned" permission will be included in the query.'),
     ];
 
     return $form;

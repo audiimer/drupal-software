@@ -166,6 +166,11 @@ class Collaboration extends CKEditor5PluginDefault implements CKEditor5PluginEle
   public function getDynamicPluginConfig(array $static_plugin_config, EditorInterface $editor): array {
     $static_plugin_config['comments']['editorConfig']['extraPlugins'] = [];
 
+    if (!ckeditor5_premium_features_check_htmldiff_installed()) {
+      $message = $this->t("Field validation in collaboration features requires <code>caxy/php-htmldiff</code> library to be installed. Saving content will be impossible without it.");
+      ckeditor5_premium_features_display_missing_dependency_warning($message);
+    }
+
     return $static_plugin_config;
   }
 

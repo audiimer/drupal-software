@@ -20,29 +20,35 @@ use Drupal\ckeditor5_premium_features_notifications\Entity\MessageInterface;
  * Implements hook_install().
  */
 function ckeditor5_premium_features_notifications_install($is_syncing) {
-  /** @var \Drupal\Core\Config\ConfigFactory $configFactory */
-  $configFactory = \Drupal::service('config.factory');
-  $userFormConfig = $configFactory->getEditable('core.entity_form_display.user.user.default');
+  if (!$is_syncing) {
+    /** @var \Drupal\Core\Config\ConfigFactory $configFactory */
+    $configFactory = \Drupal::service('config.factory');
+    $userFormConfig = $configFactory->getEditable(
+      'core.entity_form_display.user.user.default'
+    );
 
-  if (!$userFormConfig) {
-    return;
+    if (!$userFormConfig) {
+      return;
+    }
+
+    $configArray = $userFormConfig->getRawData();
+    if (isset($configArray['content']['field_ck5_premium_notifications'])) {
+      return;
+    }
+
+    unset($configArray['hidden']['field_ck5_premium_notifications']);
+    $configArray['content']['field_ck5_premium_notifications'] = [
+      'type' => 'boolean_checkbox',
+      'weight' => 0,
+      'region' => 'content',
+      'settings' => [],
+      'third_party_settings' => [],
+    ];
+
+    $userFormConfig->setData($configArray)->save();
+
+    ckeditor5_premium_features_display_dependency_general_info_message();
   }
-
-  $configArray = $userFormConfig->getRawData();
-  if (isset($configArray['content']['field_ck5_premium_notifications'])) {
-    return;
-  }
-
-  unset($configArray['hidden']['field_ck5_premium_notifications']);
-  $configArray['content']['field_ck5_premium_notifications'] = [
-    'type' => 'boolean_checkbox',
-    'weight' => 0,
-    'region' => 'content',
-    'settings' => [],
-    'third_party_settings' => [],
-  ];
-
-  $userFormConfig->setData($configArray)->save();
 }
 
 /**

@@ -29,3 +29,7 @@ function ckeditor5_premium_features_import_word_library_info_build(): array {
 
   return $libraries;
 }
+
+function ckeditor5_premium_features_import_word_uninstall($is_syncing) {
+  ckeditor5_premium_features_remove_ckeditor_plugins(['importWord'], ['ckeditor5_premium_features_import_word__import_word']);
+}

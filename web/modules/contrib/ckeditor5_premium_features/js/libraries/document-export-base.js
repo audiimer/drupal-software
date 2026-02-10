@@ -14,10 +14,17 @@
         editor.sourceElement.dataset.editorActiveTextFormat
       );
 
-      if (config.convertImagesToBase64.enabled) {
+      // Apply caption filter to process image captions
+      if (config.pluginConfig.captionsFilterEnabled) {
+        editorContent = await Drupal.CKEditor5PremiumFeatures.captionFilterConverter.applyCaptionFilter(
+          editorContent
+        );
+      }
+
+      if (config.pluginConfig.convertImagesToBase64.enabled) {
         editorContent = await Drupal.CKEditor5PremiumFeatures.base64ImageConverter.convert(
           editorContent,
-          config.convertImagesToBase64.filesType
+          config.pluginConfig.convertImagesToBase64.filesType
         );
       }
       editorContent = Drupal.CKEditor5PremiumFeatures.relativePathsProcessor(editorContent);

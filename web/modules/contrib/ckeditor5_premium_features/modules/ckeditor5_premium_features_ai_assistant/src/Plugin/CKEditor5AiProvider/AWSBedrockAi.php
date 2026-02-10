@@ -148,23 +148,31 @@ final class AWSBedrockAi extends CKEditor5AiProviderPluginBase {
    * {@inheritdoc}
    */
   public function getConfigFields(): array {
+    $default = [];
+    $isInstalled = self::isInstalled('AWS Bedrock provider');
+    if (!$isInstalled) {
+      $default['#disabled'] = TRUE;
+    }
+
     $fields = [];
     $fields["api_key"] = [
       '#type' => 'textfield',
       '#title' => 'API Key',
       '#required' => TRUE,
-    ];
+    ] + $default;
     $fields["api_secret"] = [
       '#type' => 'textfield',
       '#title' => 'API Secret',
       '#required' => TRUE,
-    ];
+    ] + $default;
     $fields["region"] = [
       '#type' => 'select',
       '#title' => 'AWS Region',
       '#options' => self::AWS_REGIONS,
       '#default_value' => $this->config->get("{$this->getPluginId()}_region") ?? current(self::AWS_REGIONS),
-      '#states' => [
+    ] + $default;
+    if ($isInstalled) {
+      $fields['region']['#states'] = [
         'disabled' => [
           ":input[name=\"{$this->getPluginId()}_add_custom_region_code\"]" => ['checked' => TRUE],
         ],
@@ -174,13 +182,13 @@ final class AWSBedrockAi extends CKEditor5AiProviderPluginBase {
         'required' => [
           ":input[name=\"{$this->getPluginId()}_add_custom_region_code\"]" => ['checked' => FALSE],
         ],
-      ],
-    ];
+      ];
+    }
     $fields["add_custom_region_code"] = [
       '#type' => 'checkbox',
       '#title' => 'Use different region',
       '#description' => 'If your region is missing from the list, click the checkbox and add the region code below.',
-    ];
+    ] + $default;
 
     $fields["custom_region_code"] = [
       '#type' => 'textfield',
@@ -197,7 +205,7 @@ final class AWSBedrockAi extends CKEditor5AiProviderPluginBase {
           ":input[name=\"{$this->getPluginId()}_add_custom_region_code\"]" => ['checked' => TRUE],
         ],
       ],
-    ];
+    ] + $default;
 
     $fields["model"] = [
       '#type' => 'textfield',
@@ -209,7 +217,7 @@ final class AWSBedrockAi extends CKEditor5AiProviderPluginBase {
                           - cohere.command </br>
                           - meta.llama2</br>
                           For example: <b>anthropic.claude-v2</b>"),
-    ];
+    ] + $default;
 
     $fields["model_config"] = [
       '#type' => 'textarea',
@@ -219,7 +227,7 @@ final class AWSBedrockAi extends CKEditor5AiProviderPluginBase {
         For example:</br>
         <b>temperature: 0.1</b></br>
         <b>top_p: 0.9</b>', ['@aws_docs' => 'https://docs.aws.amazon.com/bedrock/latest/userguide/model-parameters.html']),
-    ];
+    ] + $default;
 
     return $fields;
   }
@@ -372,7 +380,6 @@ final class AWSBedrockAi extends CKEditor5AiProviderPluginBase {
         - meta.llama2'
       ));
     }
-
   }
 
   /**
@@ -510,4 +517,18 @@ final class AWSBedrockAi extends CKEditor5AiProviderPluginBase {
     }
   }
 
+  /**
+   * {@inheritdoc}
+   */
+  public static function isInstalled($provider = ''): bool {
+    if (ckeditor5_premium_features_check_dependency_class('\Aws\AwsClient')) {
+      return TRUE;
+    }
+
+    $message = t('@provider is disabled because its required dependency <code>aws/aws-sdk-php</code> is not installed.', [
+      '@provider' => $provider,
+    ]);
+    ckeditor5_premium_features_display_missing_dependency_warning($message);
+    return FALSE;
+  }
 }

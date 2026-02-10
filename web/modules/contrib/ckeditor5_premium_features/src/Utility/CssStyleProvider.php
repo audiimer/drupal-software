@@ -13,6 +13,7 @@ use Drupal\ckeditor5_premium_features\Plugin\CKEditor5Plugin\ExportBase;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileUrlGeneratorInterface;
 use Drupal\Core\Theme\ThemeManager;
+use Drupal\Core\File\FileExists;
 
 /**
  * Css style list provider.
@@ -113,11 +114,11 @@ class CssStyleProvider {
     $filePath = $directoryPath . $fileName . '.css';
     if ($customCss) {
       $this->fileSystem->prepareDirectory($directoryPath, FileSystemInterface::CREATE_DIRECTORY);
-      $this->fileSystem->saveData($customCss, $filePath, FileSystemInterface::EXISTS_REPLACE);
+      $this->fileSystem->saveData($customCss, $filePath, FileExists::Replace);
     }
     else {
       $relativePath = $this->fileUrlGenerator->generateString($filePath);
-      if ($this->fileSystem->getDestinationFilename($relativePath, FileSystemInterface::EXISTS_ERROR)) {
+      if ($this->fileSystem->getDestinationFilename($relativePath, FileExists::Error)) {
         $this->fileSystem->delete($filePath);
       }
     }
@@ -137,7 +138,7 @@ class CssStyleProvider {
   public function getCustomCssFile(string $fileName, string $directoryPath = ExportBase::CUSTOM_CSS_DIRECTORY_PATH):bool|string {
     $filePath = $directoryPath . $fileName . '.css';
     $relativePath = $this->fileUrlGenerator->generateString($filePath);
-    if (!$this->fileSystem->getDestinationFilename($filePath, FileSystemInterface::EXISTS_ERROR)) {
+    if (!$this->fileSystem->getDestinationFilename($filePath, FileExists::Error)) {
       return $relativePath;
     }
     return FALSE;

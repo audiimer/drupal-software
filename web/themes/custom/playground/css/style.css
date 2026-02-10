@@ -187,7 +187,9 @@
 
 /* ---------- Tabs bar ---------- */
 
-#quicktabs-software_catalog .quicktabs-tabs {
+#quicktabs-software_catalog .quicktabs-tabs,
+#quicktabs-software_catalog_students .quicktabs-tabs,
+#quicktabs-software_catalog_faculty_staff .quicktabs-tabs {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -196,11 +198,15 @@
     display: flex;
 }
 
-#quicktabs-software_catalog .quicktabs-tabs li {
+#quicktabs-software_catalog .quicktabs-tabs li,
+#quicktabs-software_catalog_students .quicktabs-tabs li,
+#quicktabs-software_catalog_faculty_staff .quicktabs-tabs li {
     margin: 0;
 }
 
-#quicktabs-software_catalog .quicktabs-tabs a {
+#quicktabs-software_catalog .quicktabs-tabs a,
+#quicktabs-software_catalog_students .quicktabs-tabs a,
+#quicktabs-software_catalog_faculty_staff .quicktabs-tabs a {
     display: block;
     padding: 10px 18px;
     text-decoration: none;
@@ -208,18 +214,24 @@
     transition: background-color 0.2s;
 }
 
-#quicktabs-software_catalog .quicktabs-tabs a:hover {
+#quicktabs-software_catalog .quicktabs-tabs a:hover,
+#quicktabs-software_catalog_students .quicktabs-tabs a:hover,
+#quicktabs-software_catalog_faculty_staff .quicktabs-tabs a:hover {
     background-color: #fff6da;
     color: #15556b;
 }
 
-#quicktabs-software_catalog .quicktabs-tabs li.active a {
+#quicktabs-software_catalog .quicktabs-tabs li.active a,
+#quicktabs-software_catalog_students .quicktabs-tabs li.active a,
+#quicktabs-software_catalog_faculty_staff .quicktabs-tabs li.active a {
     background-color: #ffffff;
     color: #15556b;
 }
 
 /* Content area under the tabs */
-#quicktabs-software_catalog .quicktabs_main {
+#quicktabs-software_catalog .quicktabs_main,
+#quicktabs-software_catalog_students .quicktabs_main,
+#quicktabs-software_catalog_faculty_staff .quicktabs_main {
     border: 1px solid #ccc;
     border-top: none;
     padding: 2.5rem 1.5rem 1.5rem 1.5rem;
@@ -229,7 +241,9 @@
 /* ---------- Grid of cards ---------- */
 
 /* Make the view output a responsive grid */
-#quicktabs-software_catalog .view-content {
+#quicktabs-software_catalog .view-content,
+#quicktabs-software_catalog_students .view-content,
+#quicktabs-software_catalog_faculty_staff .view-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
     gap: 1.5rem;
@@ -237,7 +251,9 @@
 }
 
 /* Each software item as a card */
-#quicktabs-software_catalog .views-row {
+#quicktabs-software_catalog .views-row,
+#quicktabs-software_catalog_students .views-row,
+#quicktabs-software_catalog_faculty_staff .views-row {
     border: 1px solid #ddd;
     padding: 1rem;
     background: #fff;
@@ -248,7 +264,9 @@
 }
 
 /* Center the logo/image inside the card */
-#quicktabs-software_catalog .views-field-field-software-logo-image {
+#quicktabs-software_catalog .views-field-field-software-logo-image,
+#quicktabs-software_catalog_students .views-field-field-software-logo-image,
+#quicktabs-software_catalog_faculty_staff .views-field-field-software-logo-image {
     width: 100%;
     display: flex;
     align-items: center;
@@ -256,18 +274,24 @@
     margin-bottom: 0.75rem;
 }
 
-#quicktabs-software_catalog .views-field-field-software-logo-image img {
+#quicktabs-software_catalog .views-field-field-software-logo-image img,
+#quicktabs-software_catalog_students .views-field-field-software-logo-image img,
+#quicktabs-software_catalog_faculty_staff .views-field-field-software-logo-image img {
     display: block;
     max-width: 100%;
     height: auto;
 }
 
 /* Title below the image */
-#quicktabs-software_catalog .views-field-title {
+#quicktabs-software_catalog .views-field-title,
+#quicktabs-software_catalog_students .views-field-title,
+#quicktabs-software_catalog_faculty_staff .views-field-title {
     margin-top: 0.25rem;
 }
 
-#quicktabs-software_catalog .views-field-title a {
+#quicktabs-software_catalog .views-field-title a,
+#quicktabs-software_catalog_students .views-field-title a,
+#quicktabs-software_catalog_faculty_staff .views-field-title a {
     display: block;
     text-align: center;
     text-decoration: none;
@@ -275,7 +299,9 @@
 }
 
 /* Tighten spacing between fields in the card */
-#quicktabs-software_catalog .views-field {
+#quicktabs-software_catalog .views-field,
+#quicktabs-software_catalog_students .views-field,
+#quicktabs-software_catalog_faculty_staff .views-field {
     margin-bottom: 0.25rem;
 }
 

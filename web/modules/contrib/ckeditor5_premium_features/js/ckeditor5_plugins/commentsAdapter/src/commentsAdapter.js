@@ -13,7 +13,7 @@ class CommentsAdapter {
     this.storage = new CollaborationStorage(editor);
 
     const extraCommentsPlugins = Array.from(this.editor.plugins._availablePlugins.values()).filter(
-        plugin => [ 'Bold', 'Italic', 'DocumentList', 'Autoformat' ].includes( plugin.pluginName ),
+        plugin => [ 'Bold', 'Italic', 'List', 'Autoformat' ].includes( plugin.pluginName ),
     );
 
     this.editor.config._config.comments.editorConfig.extraPlugins.push(...extraCommentsPlugins);
@@ -24,7 +24,7 @@ class CommentsAdapter {
   }
 
   static get requires() {
-    return [ 'CommentsRepository', 'Bold', 'Italic', 'DocumentList', 'Autoformat' ];
+    return [ 'CommentsRepository', 'Bold', 'Italic', 'List', 'Autoformat' ];
   }
 
   init() {

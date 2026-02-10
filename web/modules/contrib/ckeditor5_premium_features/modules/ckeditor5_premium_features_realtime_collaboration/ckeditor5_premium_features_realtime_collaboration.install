@@ -26,7 +26,7 @@ function ckeditor5_premium_features_realtime_collaboration_requirements($phase):
     if (\Drupal::moduleHandler()->moduleExists('ckeditor5_premium_features_collaboration') || defined('COLLABORATION_INSTALLING')) {
       $requirements[] = [
         'description' => t('You cannot install CKEditor 5 Realtime Collaboration and CKEditor 5 Non-realtime Collaboration modules at the same time.'),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => ckeditor5_premium_features_get_error_severity(),
       ];
     }
     else {
@@ -44,7 +44,7 @@ function ckeditor5_premium_features_realtime_collaboration_requirements($phase):
         'description' => t('You have to define the Websocket URL in the <a href=":url">CKEditor Premium Settings</a>. Otherwise, the WYSIWYG editor may appear broken.', [
           ':url' => Url::fromRoute('ckeditor5_premium_features.form.settings_general')->setAbsolute()->toString(),
         ]),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => ckeditor5_premium_features_get_error_severity(),
       ];
     }
 
@@ -54,12 +54,19 @@ function ckeditor5_premium_features_realtime_collaboration_requirements($phase):
         'description' => t('You have to define the Authorization Type in the <a href=":url">CKEditor Premium Settings</a>. Otherwise, the WYSIWYG editor may appear broken.', [
           ':url' => Url::fromRoute('ckeditor5_premium_features.form.settings_general')->setAbsolute()->toString(),
         ]),
-        'severity' => REQUIREMENT_ERROR,
+        'severity' => ckeditor5_premium_features_get_error_severity(),
       ];
     }
   }
 
   return $requirements;
+}
+
+/*
+ * Implements hook_install().
+ */
+function ckeditor5_premium_features_realtime_collaboration_install(): void {
+  ckeditor5_premium_features_display_dependency_general_info_message();
 }
 
 /**

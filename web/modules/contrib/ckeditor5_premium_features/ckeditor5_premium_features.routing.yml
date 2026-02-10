@@ -30,7 +30,7 @@ ckeditor5_premium_features.media_tags:
     _controller: 'Drupal\ckeditor5_premium_features\Controller\MediaTagConverterController::decodeMediaTags'
   methods:  [POST]
   requirements:
-    _permission: 'view media'
+    _permission: 'use ckeditor5 exporters endpoints'
     _format: json
 
 ckeditor5_premium_features.base64_image_converter:
@@ -39,7 +39,7 @@ ckeditor5_premium_features.base64_image_converter:
     _controller: 'Drupal\ckeditor5_premium_features\Controller\Base64ImageConverterController::convertImages'
   methods:  [POST]
   requirements:
-    _permission: 'access content'
+    _permission: 'use ckeditor5 exporters endpoints'
     _format: json
 
 ckeditor5_premium_features.drupal_version:
@@ -53,3 +53,20 @@ ckeditor5_premium_features.drupal_version:
     parameters:
       editor:
         type: entity:editor
+
+ckeditor5_premium_features.dependency_install:
+  path: '/ckeditor5-premium-features/dependency-install'
+  defaults:
+    _title: 'Dependency install'
+    _controller: '\Drupal\ckeditor5_premium_features\Controller\InstallerController::install'
+  requirements:
+    _permission: 'administer modules'
+
+ckeditor5_premium_features.caption_filter:
+  path: '/ck5/api/caption-filter'
+  defaults:
+    _controller: 'Drupal\ckeditor5_premium_features\Controller\CaptionFilterController::applyFilter'
+  methods:  [POST]
+  requirements:
+    _permission: 'access content'
+    _format: json

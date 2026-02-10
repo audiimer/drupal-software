@@ -13,6 +13,11 @@ class RealtimeAdapter {
     this.formElement = this.editor.sourceElement.closest('form');
     this.disabledAttributeName = 'data-ckeditor5-block-' + this.editor.id;
 
+    if (this.editor.config._config.realtime.readonly) {
+      this.editor.enableReadOnlyMode('realtime');
+      return;
+    }
+
     if (typeof this.editor.sourceElement === "undefined") {
       return;
     }
@@ -37,6 +42,9 @@ class RealtimeAdapter {
   }
 
   init() {
+    if (this.editor.config._config.realtime.readonly) {
+      return;
+    }
     if (typeof this.editor.sourceElement === "undefined") {
       return;
     }
@@ -124,6 +132,9 @@ class RealtimeAdapter {
    * items.
    */
   afterInit() {
+    if (this.editor.config._config.realtime.readonly) {
+      return;
+    }
     if (typeof this.editor.sourceElement === "undefined") {
       return;
     }
@@ -193,6 +204,9 @@ class RealtimeAdapter {
   }
 
   destroy() {
+    if (this.editor.config._config.realtime.readonly) {
+      return;
+    }
     if (this.textFormatSelect || typeof this.textFormatSelect !== "undefined") {
       this.textFormatSelect.removeEventListener('change', this.changeEditor.bind(this));
     }

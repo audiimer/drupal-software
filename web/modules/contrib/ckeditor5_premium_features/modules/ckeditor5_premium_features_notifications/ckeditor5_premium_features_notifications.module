@@ -110,7 +110,7 @@ function ckeditor5_premium_features_notifications_tokens($type, $tokens, array $
           if (empty($originalContent) || empty($result)) {
             $result = $contextHelper->getFullContext($node, $key, $suggestion, $newContent);
           }
-          $replacements[$original] = $renderer->renderPlain($result);
+          $replacements[$original] = $renderer->renderInIsolation($result);
           break;
       }
     }
@@ -125,7 +125,7 @@ function ckeditor5_premium_features_notifications_tokens($type, $tokens, array $
           if (empty($originalContent) || empty($result)) {
             $result = $contextHelper->getFullContext($node, $key, $comment, $newContent);
           }
-          $replacements[$original] = $renderer->renderPlain($result);
+          $replacements[$original] = $renderer->renderInIsolation($result);
           break;
       }
     }
@@ -141,8 +141,7 @@ function ckeditor5_premium_features_notifications_tokens($type, $tokens, array $
           else {
             $result = $contextHelper->getDocumentMentionContext($node, $key, $marker, $originalContent);
           }
-
-          $replacements[$original] = $renderer->renderPlain($result);
+          $replacements[$original] = $renderer->renderInIsolation($result);
           break;
       }
     }
@@ -153,7 +152,7 @@ function ckeditor5_premium_features_notifications_tokens($type, $tokens, array $
       switch ($name) {
         case 'context':
           $result = $contextHelper->getHighlightedDocumentChanges($originalContent);
-          $replacements[$original] = $renderer->renderPlain($result);
+          $replacements[$original] = $renderer->renderInIsolation($result);
           break;
       }
     }

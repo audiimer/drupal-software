@@ -195,7 +195,7 @@ class CKEditor5AiCommandGroupForm extends EntityForm {
     $availableFormats = [];
     $filterFormats = filter_formats();
     foreach ($filterFormats as $format) {
-      $editor = editor_load($format->id());
+      $editor = $this->entityTypeManager->getStorage('editor')->load($format->id());
       if ($editor && $editor->getEditor() === 'ckeditor5') {
         $availableFormats[$format->id()] = $format->label();
       }

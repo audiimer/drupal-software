@@ -27,7 +27,7 @@ class CKEditor5AiCommandEditForm extends CKEditor5AiCommandAddForm {
   /**
    * {@inheritdoc}
    */
-  public function buildForm(array $form, FormStateInterface $form_state, ConfigEntityInterface $ckeditor5_ai_command_group = NULL, string $uuid = NULL): array {
+  public function buildForm(array $form, FormStateInterface $form_state, ?ConfigEntityInterface $ckeditor5_ai_command_group = NULL, ?string $uuid = NULL): array {
     $form = parent::buildForm($form, $form_state, $ckeditor5_ai_command_group, $uuid);
     $form['actions']['submit']['#value'] = $this->t('Update Command');
     $this->commandUuid = $uuid;

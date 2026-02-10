@@ -104,9 +104,9 @@ class SettingsForm extends ConfigFormBase {
       '#open' => TRUE,
       '#description' =>
       $this->t("Premium features will only work if configured correctly. If you have not subscribed yet, you can start <a href='@trial'>a free trial</a>.", ['@trial' => 'https://orders.ckeditor.com/trial/premium-features'])
-      . '<br>'
-        // @todo define the documentation URL.
-      . $this->t("Follow the <a href='@documentation'>dedicated documentation for Drupal</a> as most of the steps necessary to run premium features have been already included in this module.", ['@documentation' => 'https://www.drupal.org/docs/contributed-modules/ckeditor-5-premium-features/how-to-install-and-set-up-the-module#s-adding-credentials-to-drupal']),
+        . '<br>'
+          // @todo define the documentation URL.
+        . $this->t("Follow the <a href='@documentation'>dedicated documentation for Drupal</a> as most of the steps necessary to run premium features have been already included in this module.", ['@documentation' => 'https://www.drupal.org/docs/contributed-modules/ckeditor-5-premium-features/how-to-install-and-set-up-the-module#s-adding-credentials-to-drupal']),
     ];
 
     $configuration = [];
@@ -165,8 +165,8 @@ class SettingsForm extends ConfigFormBase {
     $configuration['access_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('Access key'),
-      '#description' =>
-      $this->t('The access key for the environment can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url]),
+      '#required' => $auth_type === 'key',
+      '#description' => $this->t('The access key for the environment can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url]),
       '#states' => [
         'visible' => [
           'select[name="auth_type"]' => ['value' => 'key'],
@@ -205,23 +205,25 @@ class SettingsForm extends ConfigFormBase {
       '#type' => 'textfield',
       '#title' => $this->t('Organization ID'),
       '#description' =>
-      $this->t('The organization ID can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url])
-      . '<br>'
-      . $this->t('Required for Real-time collaboration and API requests.'),
+        $this->t('The organization ID can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url])
+        . '<br>'
+        . $this->t('Required for Real-time collaboration and API requests.'),
     ];
 
     $configuration['api_key'] = [
       '#type' => 'textfield',
       '#title' => $this->t('API Key'),
       '#description' =>
-      $this->t('The API Key can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url])
-      . '<br>'
-      . $this->t('Required for Real-time collaboration and API requests.'),
+        $this->t('The API Key can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url])
+        . '<br>'
+        . $this->t('Required for Real-time collaboration and API requests.'),
     ];
 
     $this->setDefaultValues($configuration);
 
     $form['configuration'] = $configuration + $form['configuration'];
+
+    $form['dependencies'] = $this->buildDependencyInstallationSection();
 
     $form['advanced'] = [
       '#type' => 'details',
@@ -254,9 +256,9 @@ class SettingsForm extends ConfigFormBase {
         'placeholder' => $this->configHandler->getDefaultApiUrl(),
       ],
       '#description' =>
-      $this->t('The API base URL can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url])
-      . '<br />'
-      . 'You can leave this field empty - system will automatically generate this URL using Organization ID and Environment ID fields',
+        $this->t('The API base URL can be found in the <a href="@dashboard">CKEditor dashboard</a>.', ['@dashboard' => $dashboard_url])
+        . '<br />'
+        . 'You can leave this field empty - system will automatically generate this URL using Organization ID and Environment ID fields',
     ];
 
     $advanced['dll_location'] = [
@@ -304,6 +306,15 @@ class SettingsForm extends ConfigFormBase {
     $env = $form_state->getValue('env', FALSE);
     $auth_type = $form_state->getValue('auth_type');
     $license_key = $form_state->getValue('license_key');
+
+    if (!empty($license_key)) {
+      [$headersB64, $payloadB64] = explode('.', $license_key);
+      $payload = json_decode(base64_decode($payloadB64), TRUE);
+
+      if (isset($payload['removeFeatures']) && !empty($payload['removeFeatures'])) {
+        $form_state->setErrorByName('license_key', $this->t('CKEditor 5 Free plan licenses are not supported by this module. Leave this field empty unless you have a paid Premium Features license.'));
+      }
+    }
 
     if (!empty($license_key) && strlen($license_key) < self::LICENSE_KEY_MIN_LENGTH) {
       $form_state->setErrorByName('license_key', $this->t('@name length is invalid (minimum @num characters required)', [
@@ -424,6 +435,135 @@ class SettingsForm extends ConfigFormBase {
     }
 
     return $labels ? implode(', ', $labels) : '-none-';
+  }
+
+  private function buildDependencyInstallationSection($isReloading = FALSE): array {
+    $form = [
+      '#type' => 'details',
+      '#title' => $this->t('Dependencies installation'),
+      '#open' => FALSE,
+    ];
+    if (!$this->moduleHandler->moduleExists('package_manager')) {
+      $form['#description'] = $this->t('<p>This section can be used to install external dependencies required by some of the Premium Features directly from the Admin Dashboard. It requires a package_manager module to be installed in order to become enabled.</p>
+                                               <p>We suggest visiting our Configuration Guide to learn how to install required dependencies using Composer</p>');
+      return $form;
+    }
+    if (!$this->currentUser()->hasPermission('administer modules')) {
+      $form['#description'] = $this->t('CKEditor 5 Premium Features requires additional dependencies to be installed. You need to have Administer Modules permission granted in order to be able to install dependencies.');
+      return $form;
+    }
+
+    /** @var \Drupal\package_manager\ComposerInspector $inspector */
+    $inspector = \Drupal::service('Drupal\package_manager\ComposerInspector');
+    $pathLocator = \Drupal::service('Drupal\package_manager\PathLocator');
+    $dir = $pathLocator->getProjectRoot();
+    $packages = $inspector->getInstalledPackagesList($dir)->getArrayCopy();
+
+    $form['#open'] = $isReloading;
+    $form['#description'] = $this->t('This section allows installation of external dependencies required by some of the Premium Features to work. Please do not leave this page during the installation process.');
+    $form['#attributes'] = [
+      'id' => ['ckeditor5-dependency-install-container'],
+    ];
+    $form['#attached'] = [
+      'library' => ['ckeditor5_premium_features/dependency-install'],
+    ];
+
+    if ($isReloading) {
+      $form['messages'] = [
+        '#type' => 'container',
+        '#attributes' => [
+          'data-drupal-messages' => '',
+          'class' => ['ckeditor5-dependency-install-messages'],
+        ],
+      ];
+    }
+
+    $default = [
+      '#type' => 'container',
+      '#attributes' => [
+        'class' => ['ckeditor5-dependency-install-wrapper'],
+      ],
+      'button' => [
+        '#type' => 'button',
+        '#value' => $this->t('Install'),
+        '#attributes' => [
+          'class' => ['ckeditor5-dependency-install']
+        ],
+        '#prefix' => '<div class="ckeditor5-dependency-install-button">',
+        '#suffix' => '<div class="ajax-progress ajax-progress--throbber"><div class="ajax-progress__throbber">&nbsp;</div><div class="ajax-progress__message">Installing...</div></div></div>',
+        '#weight' => 10,
+      ],
+    ];
+
+    $dependencies = [
+      'htmldiff' => [
+        'name' => 'caxy/php-htmldiff',
+        'version' => '0.1.16',
+        'description' => $this->t('This dependency is required for the <strong>Non-realtime collaboration</strong> and <strong>notifications</strong> features.'),
+      ],
+      'jwt' => [
+        'name' => 'firebase/php-jwt',
+        'version' => '6.11.1',
+        'description' => $this->t('This dependency is required for the <strong>Realtime collaboration, Exporters</strong> and <strong>Import from Word</strong> features.'),
+      ],
+      'openai' => [
+        'name' => 'openai-php/client',
+        'version' => '0.12.0',
+        'description' => $this->t('This dependency is required for the <strong>AI Assistant</strong> in case <strong>OpenAI</strong> or <strong>AzureAI</strong> providers are used.'),
+      ],
+      'aws' => [
+        'name' => 'aws/aws-sdk-php',
+        'version' => '3.343.11',
+        'description' => $this->t('This dependency is required for the <strong>AI Assistant</strong> in case <strong>AWS Bedrock</strong> provider is used.'),
+      ],
+    ];
+
+    foreach ($dependencies as $key => $package) {
+      $name = $package['name'];
+      $form[$key] = $default;
+      $form[$key]['package_name'] = [
+        '#markup' => "<h5 class='ckeditor5-dependency-install-package-name'>" . $name . "</h5>",
+        '#weight' => 0,
+      ];
+      $form[$key]['description'] = [
+        '#markup' => $package['description'],
+        '#weight' => 1,
+        '#prefix' => '<div class="ckeditor5-dependency-install-description">',
+        '#suffix' => '</div>',
+      ];
+      $form[$key]['button']['#value'] = $this->t('Install');
+      $form[$key]['button']['#attributes']['data-package'][] = $name;
+      $form[$key]['button']['#attributes']['data-package-version'][] = $package['version'];
+      if (isset($packages[$name])) {
+        if (version_compare($package['version'], str_replace('v', '', $packages[$name]->version), '<=')) {
+          $form[$key]['button']['#attributes']['disabled'] = 'disabled';
+          $form[$key]['button']['#value'] = $this->t('Up to date');
+        } else {
+          $form[$key]['button']['#value'] = $this->t('Update');
+        }
+
+      }
+    }
+
+    $form['reload'] = [
+      '#type' => 'button',
+      '#value' => $this->t('Reload'),
+      '#attributes' => [
+        'id' => ['edit-reload'],
+        'class' => ['ckeditor5-dependency-install-reload-button'],
+      ],
+      '#ajax' => [
+        'callback' => [$this, 'ajaxReload'],
+        'wrapper' => 'ckeditor5-dependency-install-container',
+        'event' => 'click',
+      ],
+    ];
+
+    return $form;
+  }
+
+  public function ajaxReload(array &$form, FormStateInterface $form_state): array {
+    return $this->buildDependencyInstallationSection(TRUE);
   }
 
 }

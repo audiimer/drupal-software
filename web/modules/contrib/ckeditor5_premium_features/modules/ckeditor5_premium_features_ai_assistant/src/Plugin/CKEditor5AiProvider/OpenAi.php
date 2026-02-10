@@ -81,14 +81,18 @@ final class OpenAi extends CKEditor5AiProviderPluginBase {
    */
   public function getConfigFields(): array {
     $fields = [];
+    $default = [];
+    if (!self::isInstalled('OpenAI provider')) {
+      $default['#disabled'] = TRUE;
+    }
 
     $fields['auth_key'] = [
       "#type" => "textarea",
       "#title" => $this->t("Auth key"),
       "#required" => TRUE,
-    ];
+    ] + $default;
 
-    return array_merge($fields, $this->getParametersFields());
+    return array_merge($fields, $this->getParametersFields($default));
   }
 
   /**

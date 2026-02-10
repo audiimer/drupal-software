@@ -39,6 +39,7 @@ abstract class ExportBase extends CKEditor5PluginDefault implements CKEditor5Plu
 
   const CUSTOM_CSS_DIRECTORY_PATH = 'public://styles/ckeditor5/export/';
   const CONVERT_IMAGES_TO_BASE_64_CONFIG_NAME = 'convertImagesToBase64';
+  const CAPTIONS_FILTER_ENABLED_CONFIG_NAME = 'captionsFilterEnabled';
   /**
    * The settings form object.
    *
@@ -102,7 +103,7 @@ abstract class ExportBase extends CKEditor5PluginDefault implements CKEditor5Plu
     if ($this->settingsConfigHandler->hasConverterUrl()) {
       $static_plugin_config[$plugin]['converterUrl'] = $this->settingsConfigHandler->getConverterUrl();
     }
-    if ($this->settingsConfigHandler->getEnvironmentId() && $this->settingsConfigHandler->getAccessKey()) {
+    if ($this->settingsConfigHandler->getEnvironmentId() && $this->settingsConfigHandler->getAccessKey() && ckeditor5_premium_features_check_jwt_installed()) {
       $static_plugin_config[$plugin]['tokenUrl'] = $this->settingsConfigHandler->getTokenUrl();
     }
 
@@ -123,6 +124,12 @@ abstract class ExportBase extends CKEditor5PluginDefault implements CKEditor5Plu
     $base64ConverterFilesType = $settings['plugins'][$this->pluginId]['base64_converter']['images_to_base64_files_type'] ?? NULL;
     $static_plugin_config[$plugin][self::CONVERT_IMAGES_TO_BASE_64_CONFIG_NAME]['enabled'] = $isBase64ConverterEnabled;
     $static_plugin_config[$plugin][self::CONVERT_IMAGES_TO_BASE_64_CONFIG_NAME]['filesType'] = $base64ConverterFilesType;
+
+    $filters = $editor->getFilterFormat()->get('filters');
+    $static_plugin_config[$plugin][self::CAPTIONS_FILTER_ENABLED_CONFIG_NAME] = FALSE;
+    if (isset($filters['filter_caption']) && $filters['filter_caption']['status']) {
+      $static_plugin_config[$plugin][self::CAPTIONS_FILTER_ENABLED_CONFIG_NAME] = TRUE;
+    }
 
     return $static_plugin_config;
   }

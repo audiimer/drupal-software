@@ -36,6 +36,9 @@ final class Normalizer implements NormalizerInterface {
       $source_id = $context['source'];
       $data = $this->getActivationInfo($data, $source_id, $context['account'] ?? NULL) + $data->toArray();
       $data['id'] = $source_id . '/' . $data['id'];
+      // Ensure the project's categories are always encoded as an object, even
+      // if empty.
+      $data['categories'] = (object) $data['categories'];
     }
     elseif ($data instanceof ProjectsResultsPage) {
       $context['source'] = $data->pluginId;
@@ -120,10 +123,21 @@ final class Normalizer implements NormalizerInterface {
           $text = $this->renderer->renderInIsolation($text);
         }
         $url = $link->getUrl()->setAbsolute();
+
+        // Project Browser-specific options are supported:
+        // - `ajax`: Whether the link should use the AJAX system (i.e., have the
+        //   `use-ajax` class).
+        // - `set_destination`: Whether the link URL should have the current
+        //   page URL set as the `destination` query parameter.
+        $options = $url->getOption('project_browser') ?? [];
+
         return [
           'text' => (string) $text,
           'url' => $url->toString(),
-          'ajax' => (bool) $url->getOption('project_browser_ajax'),
+          // The `project_browser_ajax` option is supported for backwards
+          // compatibility.
+          'ajax' => boolval($options['ajax'] ?? $url->getOption('project_browser_ajax') ?? FALSE),
+          'set_destination' => boolval($options['set_destination'] ?? FALSE),
         ];
       };
       $data['tasks'] = array_values(array_map($map, $tasks));

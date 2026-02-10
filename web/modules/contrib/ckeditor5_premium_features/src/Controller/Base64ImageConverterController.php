@@ -41,12 +41,15 @@ class Base64ImageConverterController extends ControllerBase {
    *   Stream wrapper.
    * @param \Drupal\Core\Image\ImageFactory $imageFactory
    *   Image factory.
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
+   *   Entity type manager.
    */
   public function __construct(
     protected RequestStack $requestStack,
     protected FileSystemInterface $fileSystem,
     protected StreamWrapperManagerInterface $streamWrapperManager,
     protected ImageFactory $imageFactory,
+    protected $entityTypeManager,
   ) {
   }
 
@@ -59,6 +62,7 @@ class Base64ImageConverterController extends ControllerBase {
       $container->get('file_system'),
       $container->get('stream_wrapper_manager'),
       $container->get('image.factory'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -89,29 +93,41 @@ class Base64ImageConverterController extends ControllerBase {
     @$dom->loadHTML($document);
 
     $images = $dom->getElementsByTagName('img');
+    $fileManager = $this->entityTypeManager->getStorage('file');
     foreach ($images as $img) {
+      $src = $img->getAttribute('src');
+      $urlArr = parse_url($src);
+      if (!empty($urlArr['host']) && $urlArr['host'] !== $request->getHost()) {
+        continue;
+      }
+
+      $scheme = '';
+      $uri = '';
+
       try {
-        $imageSrc = $img->getAttribute('src');
+        $entityUuid = $img->getAttribute('data-entity-uuid');
+        $entityType = $img->getAttribute('data-entity-type');
 
-        $urlArr = parse_url($imageSrc);
-        if (empty($urlArr['path'])) {
-          continue;
+        // Load the file by UUID and check access.
+        if ($entityUuid && $entityType) {
+          /* @var \Drupal\file\FileInterface $file */
+          $files = $fileManager->loadByProperties([
+            'uuid' => $entityUuid,
+            'status' => 1,
+          ]);
+          $file = reset($files);
+          if (!$file || !$file->access('view')) {
+            continue;
+          }
+          $uri = $file->getFileUri();
+          $scheme = parse_url($uri, PHP_URL_SCHEME);
         }
-        if (!empty($urlArr['host']) && $urlArr['host'] !== $request->getHost()) {
-          continue;
-        }
-        $imageSrc = $urlArr['path'];
 
-        if (str_starts_with($imageSrc, '/system/files/')) {
-          $scheme = 'private';
-          $imageSrc = preg_replace('|^\/system\/files\/|', '', $imageSrc);
-          $uri = $this->streamWrapperManager->normalizeUri($scheme . '://' . $imageSrc);
-        }
-        elseif ($type === self::CONVERTER_TYPE_ALL) {
-          $uri = \Drupal::root() . $imageSrc;
-        }
-        else {
-          continue;
+        // Ensure we have a valid URI and scheme before proceeding
+        if (!empty($uri) && !empty($scheme)) {
+          if ($type === self::CONVERTER_TYPE_PRIVATE && $scheme !== 'private') {
+            continue;
+          }
         }
 
         $image = $this->imageFactory->get($uri);
@@ -120,12 +136,11 @@ class Base64ImageConverterController extends ControllerBase {
         }
 
         $mimeType = $image->getMimeType();
-        $path = $this->fileSystem->realpath($uri);
-
-        if (!$path) {
+        $realpath = $this->fileSystem->realpath($uri);
+        if (!$realpath) {
           continue;
         }
-        $imageData = file_get_contents($path);
+        $imageData = file_get_contents($realpath);
         if ($imageData) {
           $base64Image = base64_encode($imageData);
           $img->setAttribute('src', "data:$mimeType;base64,$base64Image");

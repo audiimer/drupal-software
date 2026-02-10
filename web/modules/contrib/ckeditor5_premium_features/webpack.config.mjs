@@ -4,11 +4,14 @@
  */
 
 import path from 'path';
-import glob from 'glob';
 import webpack from 'webpack';
 import { styles, builds } from '@ckeditor/ckeditor5-dev-utils';
 import TerserPlugin from 'terser-webpack-plugin';
-import manifest from './node_modules/ckeditor5/build/ckeditor5-dll.manifest.json' assert { type: 'json' };
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+const manifest = require('./node_modules/ckeditor5/build/ckeditor5-dll.manifest.json');
+const glob = require('glob');
 
 const entries = glob.sync('./{modules/*/js,js}/ckeditor5_plugins/**/*.js').reduce((entries, entry) => {
     const entryName = path.parse(entry).name;
@@ -41,7 +44,7 @@ Object.entries(entries).forEach((mapping) => {
             moduleIds: 'named',
         },
         entry: {
-            path: dir + `${name}/src/index.js`,
+            path: dir.startsWith('./') ? dir + `${name}/src/index.js` : './' + dir + `${name}/src/index.js`,
         },
         output: {
             path: path.resolve(dir, '../build'),

@@ -32,6 +32,13 @@ function ckeditor5_plugin_pack_todo_document_list_install($is_syncing): void {
 }
 
 /**
+ * Implements hook_uninstall().
+ */
+function ckeditor5_plugin_pack_todo_document_list_uninstall($is_syncing) {
+  ckeditor5_plugin_pack_remove_ckeditor_plugins(['todoList'], ['ckeditor5_plugin_pack_todo_document_list__todo_document_list']);
+}
+
+/**
  * Implements hook_preprocess_HOOK().
  */
 function ckeditor5_plugin_pack_todo_document_list_preprocess_page(&$variables): void {

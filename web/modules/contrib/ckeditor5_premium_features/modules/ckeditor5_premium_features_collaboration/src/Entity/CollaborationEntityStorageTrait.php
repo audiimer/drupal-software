@@ -45,7 +45,7 @@ trait CollaborationEntityStorageTrait {
    * @return array|\Drupal\ckeditor5_premium_features_collaboration\Entity\CollaborationEntityInterface[]
    *   The entities matching the given entity.
    */
-  public function loadByEntity(EntityInterface $entity, string $item_key_filter = NULL): array {
+  public function loadByEntity(EntityInterface $entity, ?string $item_key_filter = NULL): array {
     if (!$entity->uuid()) {
       return [];
     }

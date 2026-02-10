@@ -1,7 +1,7 @@
-import { Plugin } from 'ckeditor5/src/core';
-import { addListToDropdown, createDropdown } from 'ckeditor5/src/ui';
-import { Collection } from 'ckeditor5/src/utils';
-import { ViewModel, Model } from 'ckeditor5/src/ui'
+import { Plugin } from 'ckeditor5/src/core.js';
+import { ViewModel, createDropdown, addListToDropdown } from 'ckeditor5/src/ui.js';
+import { Collection } from 'ckeditor5/src/utils.js';
+
 import wproofreaderIcon from '../theme/icons/wproofreader.svg';
 import '../theme/wproofreader.css';
 
@@ -56,7 +56,7 @@ export default class WProofreaderUI extends Plugin {
 				tooltip: true
 			});
 
-			dropdownView.on('change:isOpen', (evt) => {
+			dropdownView.on('change:isOpen', () => {
 				const ready = wproofreader.isInstancesReady();
 				const enabled = wproofreader.isInstancesEnabled();
 
@@ -105,25 +105,16 @@ export default class WProofreaderUI extends Plugin {
 		const itemDefinitions = new Collection();
 
 		actions.forEach((action) => {
-      const settings = {
-        commandParam: this._commands[action.name],
-        label: action.localization.default,
-        localization: action.localization,
-        class: '',
-        withText: true
-      }
-      let definition = {};
-      try {
-        definition = {
-          type: 'button',
-          model: new Model(settings)
-        };
-      } catch (err) {
-        definition = {
-          type: 'button',
-          model: new ViewModel(settings)
-        };
-      }
+			const definition = {
+				type: 'button',
+				model: new ViewModel({
+					commandParam: this._commands[action.name],
+					label: action.localization.default,
+					localization: action.localization,
+					class: '',
+					withText: true
+				})
+			};
 
 			// Add the item definition to the collection.
 			itemDefinitions.add(definition);
