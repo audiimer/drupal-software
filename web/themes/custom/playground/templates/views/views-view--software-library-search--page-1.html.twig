@@ -1,0 +1,72 @@
+{#
+  Software Library Search - Page Template
+  View: software_library_search
+  Display: page_1
+#}
+
+{% set current_path = url('<current>') | render | trim %}
+
+{% set tabs = [
+  { label: 'Students',      path: '/software-library-new/Students',       match: 'Students', roles: ['student', 'lts'] },
+  { label: 'Faculty/Staff', path: '/software-library-new/Faculty%20Staff', match: 'Faculty',  roles: ['faculty_staff', 'lts'] },
+  { label: 'LTS',           path: '/software-library-new/LTS',            match: 'LTS',       roles: ['lts'] },
+  { label: 'Public Sites',  path: '/software-library-new/Public%20Sites', match: 'Public',    roles: ['student', 'faculty_staff', 'lts'] },
+  { label: 'HPC',           path: '/software-library-new/HPC',            match: 'HPC',       roles: ['student', 'faculty_staff', 'lts'] },
+  { label: 'LUapps',        path: '/software-library-new/LUapps',         match: 'LUapps',    roles: ['student', 'faculty_staff', 'lts'] },
+] %}
+
+<div class="software-library">
+
+  {# ====== TAB NAVIGATION ====== #}
+  <nav class="software-tabs" aria-label="Software Library Tabs">
+    <ul class="software-tabs__list">
+      {% for tab in tabs %}
+        {% set has_access = false %}
+        {% for role in tab.roles %}
+          {% if role in user_roles %}{% set has_access = true %}{% endif %}
+        {% endfor %}
+        {% if 'administrator' in user_roles %}{% set has_access = true %}{% endif %}
+
+        {% if has_access %}
+          {% set is_active = tab.match in current_path %}
+          <li class="software-tabs__item{% if is_active %} is-active{% endif %}">
+            <a href="{{ tab.path }}"
+               class="software-tabs__link{% if is_active %} software-tabs__link--active{% endif %}"
+               {% if is_active %}aria-current="page"{% endif %}>
+              {{ tab.label }}
+            </a>
+          </li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </nav>
+
+  {# ====== SEARCH BAR ====== #}
+  {% if exposed %}
+    <div class="software-library__search">
+      {{ exposed }}
+    </div>
+  {% endif %}
+
+  {# ====== TWO COLUMN LAYOUT ====== #}
+  <div class="software-library__layout">
+
+    {# Sidebar — JS builds filter checkboxes here from card data attributes #}
+    <aside class="software-library__sidebar"></aside>
+
+    {# Results #}
+    <div class="software-library__grid">
+      {% if rows %}
+        {{ rows }}
+      {% elseif empty %}
+        <div class="software-library__empty">{{ empty }}</div>
+      {% endif %}
+
+      {% if pager %}
+        <div class="software-library__pager">{{ pager }}</div>
+      {% endif %}
+    </div>
+
+  </div>
+
+</div>

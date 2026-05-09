@@ -1,0 +1,193 @@
+{{ attach_library('playground/software-one-pager') }}
+
+{#
+  One Pager Software Card
+  View mode: one_pager_software_card
+  Content type: software
+#}
+
+<div class="software-one-pager">
+
+  {# ====== HERO ====== #}
+  <div class="sop-hero">
+    <div class="sop-hero__top">
+
+      {% if content.field_software_logo_image %}
+        <div class="sop-hero__logo">
+          {{ content.field_software_logo_image }}
+        </div>
+      {% endif %}
+
+      <div class="sop-hero__info">
+        <h1 class="sop-hero__title">{{ node.label }}</h1>
+
+        <div class="sop-hero__sub">
+          {% if node.field_publisher.value %}
+            {{ node.field_publisher.value }}
+          {% endif %}
+          {% if node.field_license_type.value %}
+            &nbsp;·&nbsp; {{ node.field_license_type.value }}
+          {% endif %}
+        </div>
+
+        <div class="sop-hero__pills">
+          {% for item in node.field_available_for %}
+            <span class="sop-pill sop-pill--os">{{ item.value }}</span>
+          {% endfor %}
+          {% for item in node.field_software_tab %}
+            <span class="sop-pill sop-pill--audience">{{ item.entity.label }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div class="sop-cta-bar">
+      <div class="sop-price">
+        <div class="sop-price__amount">
+          {% if node.field_price.value %}
+            ${{ node.field_price.value }}<span class="sop-price__period"> / year</span>
+          {% else %}
+            Free
+          {% endif %}
+        </div>
+        <div class="sop-price__label">per license
+          {% if node.field_number_of_licenses.value %}
+            &nbsp;·&nbsp; {{ node.field_number_of_licenses.value }} available
+          {% endif %}
+        </div>
+      </div>
+
+      {% if node.field_instructions_url.uri %}
+        <a href="{{ node.field_instructions_url.uri }}"
+           class="sop-btn sop-btn--secondary"
+           target="_blank">
+          Installation instructions
+        </a>
+      {% endif %}
+
+      {% if node.field_redirect_button.uri %}
+        <a href="{{ node.field_redirect_button.uri }}"
+           class="sop-btn sop-btn--primary"
+           target="_blank">
+          {{ node.field_redirect_button.title ?: 'Request a license' }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+
+  {# ====== ABOUT / SPECS ====== #}
+  {% if content.field_specs %}
+    <div class="sop-section">
+      <div class="sop-section__label">About this software</div>
+      <div class="sop-description">
+        {{ content.field_specs }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# ====== LICENSE DETAILS ====== #}
+  <div class="sop-section">
+    <div class="sop-section__label">License details</div>
+    <div class="sop-meta-grid">
+
+      {% if node.field_license_type.value %}
+        <div class="sop-meta-item">
+          <div class="sop-meta-item__key">License type</div>
+          <div class="sop-meta-item__val">{{ node.field_license_type.value }}</div>
+        </div>
+      {% endif %}
+
+      {% if node.field_website_url.uri %}
+        <div class="sop-meta-item">
+          <div class="sop-meta-item__key">Website</div>
+          <div class="sop-meta-item__val">
+            <a href="{{ node.field_website_url.uri }}" target="_blank">
+              {{ node.field_website_url.title ?: 'Visit website ↗' }}
+            </a>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if node.field_number_of_licenses.value %}
+        <div class="sop-meta-item">
+          <div class="sop-meta-item__key">Number of licenses</div>
+          <div class="sop-meta-item__val">{{ node.field_number_of_licenses.value }}</div>
+        </div>
+      {% endif %}
+
+      {% if node.field_price.value %}
+        <div class="sop-meta-item">
+          <div class="sop-meta-item__key">Price</div>
+          <div class="sop-meta-item__val">${{ node.field_price.value }} / year</div>
+        </div>
+      {% endif %}
+
+      {% if content.field_how_to_access %}
+        <div class="sop-meta-item">
+          <div class="sop-meta-item__key">How to access</div>
+          <div class="sop-meta-item__val">{{ content.field_how_to_access }}</div>
+        </div>
+      {% endif %}
+
+      {% if content.field_category %}
+        <div class="sop-meta-item">
+          <div class="sop-meta-item__key">Category</div>
+          <div class="sop-meta-item__val">{{ content.field_category }}</div>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+  {# ====== SYSTEM REQUIREMENTS ====== #}
+  <div class="sop-section">
+    <div class="sop-section__label">System requirements</div>
+    <div class="sop-os-row">
+      {% for item in node.field_available_for %}
+        <span class="sop-os-chip">{{ item.value }}</span>
+      {% endfor %}
+    </div>
+  </div>
+
+  {# ====== TERMS OF USE ====== #}
+  {% if content.field_terms_of_use %}
+    <div class="sop-section">
+      <div class="sop-section__label">Terms of use</div>
+      <div class="sop-terms">
+        {{ content.field_terms_of_use }}
+      </div>
+    </div>
+  {% endif %}
+
+  {# ====== NEED HELP ====== #}
+  <div class="sop-section">
+    <div class="sop-section__label">Need help?</div>
+    <div class="sop-contact-row">
+
+      {% if node.field_computing_consultant_name.value %}
+        <div class="sop-contact-card">
+          <div class="sop-meta-item__key">Computing consultant</div>
+          <div class="sop-meta-item__val">{{ node.field_computing_consultant_name.value }}</div>
+        </div>
+      {% endif %}
+
+      {% if node.field_email.value %}
+        <div class="sop-contact-card">
+          <div class="sop-meta-item__key">Email</div>
+          <div class="sop-meta-item__val">
+            <a href="mailto:{{ node.field_email.value }}">{{ node.field_email.value }}</a>
+          </div>
+        </div>
+      {% endif %}
+
+      {% if node.field_phone.value %}
+        <div class="sop-contact-card">
+          <div class="sop-meta-item__key">Phone</div>
+          <div class="sop-meta-item__val">{{ node.field_phone.value }}</div>
+        </div>
+      {% endif %}
+
+    </div>
+  </div>
+
+</div>

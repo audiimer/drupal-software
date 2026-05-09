@@ -1,0 +1,227 @@
+/* ============================================================
+   SOFTWARE LIBRARY — scoped to .path-software-library-new
+   ============================================================ */
+
+/* ── TAB NAVIGATION ── */
+.path-software-library-new .software-tabs {
+  background: #1a5276;
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+}
+.path-software-library-new .software-tabs__list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.path-software-library-new .software-tabs__item {
+  margin: 0;
+  padding: 0;
+}
+.path-software-library-new .software-tabs__link {
+  display: block;
+  padding: 12px 20px;
+  color: #a9cce3;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border-bottom: 3px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.path-software-library-new .software-tabs__link:hover {
+  color: #fff;
+}
+.path-software-library-new .software-tabs__link--active {
+  background: #fff;
+  color: #1a5276;
+  font-weight: 700;
+  border-bottom: 3px solid #1a5276;
+}
+
+/* ── SEARCH BAR ── */
+.path-software-library-new .software-library__search {
+  margin-bottom: 16px;
+}
+.path-software-library-new .software-search-bar {
+  display: flex;
+  align-items: center;
+  border: 2px solid #1a5276;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+.path-software-library-new .software-search-bar__btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  background: #1a5276;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  padding: 0;
+}
+.path-software-library-new .software-search-bar__btn:hover {
+  background: #154360;
+}
+.path-software-library-new .software-search-bar__input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 0 14px;
+  font-size: 0.95rem;
+  height: 46px;
+  background: transparent;
+  color: #333;
+}
+
+/* ── MAIN LAYOUT GRID ── */
+.path-software-library-new .software-library__layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 24px;
+  margin-top: 16px;
+  align-items: start;
+}
+
+/* ── SIDEBAR ── */
+.path-software-library-new .software-library__sidebar {
+  position: sticky;
+  top: 16px;
+}
+.path-software-library-new .facet-group {
+  background: #f8f9fa;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 14px;
+}
+.path-software-library-new .facet-group__title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1a5276;
+  margin: 0 0 10px 0;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d0d8e0;
+}
+.path-software-library-new .facet-group__items label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: #333;
+  padding: 4px 0;
+  cursor: pointer;
+}
+.path-software-library-new .facet-group__items label:hover {
+  color: #1a5276;
+}
+.path-software-library-new .facet-group__items input[type="checkbox"] {
+  accent-color: #1a5276;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+/* ── RESULTS GRID ── */
+.path-software-library-new .software-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+}
+.path-software-library-new .software-grid__item {
+  min-width: 0;
+}
+
+/* ── CARD ── */
+.path-software-library-new .software-card {
+  position: relative;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 20px 16px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+.path-software-library-new .software-card:hover {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+  border-color: #1a5276;
+}
+.path-software-library-new .software-card__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  margin-bottom: 12px;
+}
+.path-software-library-new .software-card__logo img {
+  max-width: 100%;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.path-software-library-new .software-card__title {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #1a5276;
+  line-height: 1.3;
+  position: relative;
+  z-index: 1;
+}
+.path-software-library-new .software-card__link {
+  text-decoration: none;
+  color: #1a5276;
+}
+/* Stretch invisible overlay over entire card */
+.path-software-library-new .software-card__link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+.path-software-library-new .software-card__logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 120px;
+  margin-bottom: 12px;
+}
+.path-software-library-new .software-card__logo img {
+  max-width: 100%;
+  max-height: 120px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+.path-software-library-new .software-card__title {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #1a5276;
+  line-height: 1.3;
+}
+
+/* ── EMPTY STATE ── */
+.path-software-library-new .software-library__empty {
+  color: #666;
+  font-style: italic;
+  padding: 32px;
+  text-align: center;
+}
+
+/* ── PAGER ── */
+.path-software-library-new .software-library__pager {
+  margin-top: 24px;
+  text-align: center;
+}

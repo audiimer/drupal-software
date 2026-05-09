@@ -17,6 +17,7 @@
     "require": {
         "composer/installers": "^2.3",
         "drupal/acquia_flush_varnish": "^2.0",
+        "drupal/better_exposed_filters": "^7.1",
         "drupal/bootstrap": "^5.0",
         "drupal/bootstrap5": "^4.0",
         "drupal/bootstrap_barrio": "^5.5",
@@ -24,12 +25,14 @@
         "drupal/core-project-message": "^11.0",
         "drupal/core-recipe-unpack": "^11.2",
         "drupal/core-recommended": "^11.0",
+        "drupal/facets": "^3.0",
         "drupal/pathauto": "^1.13",
         "drupal/project_browser": "^2.1@beta",
         "drupal/quicktabs": "^4.0",
         "drupal/radix": "^6.0",
         "drupal/rebuild_cache_access": "^1.12",
-        "drupal/search_api": "^1.38",
+        "drupal/search_api": "^1.40",
+        "drupal/search_api_db": "^1.40",
         "drupal/twbstools": "^2.1",
         "drush/drush": "^13.6"
     },

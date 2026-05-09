@@ -1,0 +1,273 @@
+/* ============================================================
+   SOFTWARE ONE PAGER — scoped to .software-one-pager
+   ============================================================ */
+
+.software-one-pager {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  font-family: inherit;
+}
+
+/* ── HERO ── */
+.sop-hero {
+  background: #1a3a5c;
+  padding: 2rem;
+}
+
+.sop-hero__top {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.sop-hero__logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 10px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sop-hero__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.sop-hero__info {
+  flex: 1;
+}
+
+.sop-hero__title {
+  font-size: 24px;
+  font-weight: 500;
+  color: #fff;
+  margin: 0 0 4px;
+}
+
+.sop-hero__sub {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 12px;
+}
+
+.sop-hero__pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.sop-pill {
+  display: inline-block;
+  font-size: 12px;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.sop-pill--os {
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sop-pill--audience {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* ── CTA BAR ── */
+.sop-cta-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  flex-wrap: wrap;
+}
+
+.sop-price {
+  flex: 1;
+  min-width: 120px;
+}
+
+.sop-price__amount {
+  font-size: 28px;
+  font-weight: 500;
+  color: #fff;
+  line-height: 1.2;
+}
+
+.sop-price__period {
+  font-size: 15px;
+  font-weight: 400;
+  opacity: 0.6;
+}
+
+.sop-price__label {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+  margin-top: 3px;
+}
+
+.sop-btn {
+  display: inline-block;
+  padding: 11px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  border: none;
+}
+
+.sop-btn--primary {
+  background: #fff;
+  color: #1a3a5c;
+}
+
+.sop-btn--secondary {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+}
+
+/* ── SECTIONS ── */
+.sop-section {
+  padding: 1.5rem 2rem;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.sop-section:last-child {
+  border-bottom: none;
+}
+
+.sop-section__label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 1rem;
+}
+
+/* ── DESCRIPTION ── */
+.sop-description {
+  font-size: 14px;
+  line-height: 1.8;
+  color: #555;
+}
+
+.sop-description p {
+  margin-bottom: 0.75rem;
+}
+
+.sop-description ul {
+  padding-left: 1.25rem;
+}
+
+.sop-description li {
+  margin-bottom: 0.4rem;
+}
+
+/* ── META GRID ── */
+.sop-meta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.sop-meta-item {
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.sop-meta-item__key {
+  font-size: 11px;
+  color: #888;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sop-meta-item__val {
+  font-size: 14px;
+  color: #222;
+}
+
+.sop-meta-item__val a {
+  color: #1a5276;
+  text-decoration: none;
+}
+
+/* ── OS CHIPS ── */
+.sop-os-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.sop-os-chip {
+  font-size: 13px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+/* ── TERMS ── */
+.sop-terms {
+  font-size: 13px;
+  line-height: 1.8;
+  color: #555;
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+}
+
+/* ── CONTACT ── */
+.sop-contact-row {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.sop-contact-card {
+  flex: 1;
+  min-width: 160px;
+  background: #f7f7f7;
+  border-radius: 8px;
+  padding: 12px 14px;
+}
+
+.sop-contact-card .sop-meta-item__val a {
+  color: #1a5276;
+  text-decoration: none;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .sop-hero__top {
+    flex-direction: column;
+  }
+
+  .sop-cta-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sop-meta-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

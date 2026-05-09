@@ -1,0 +1,15 @@
+{#
+  Custom unformatted template for Software Library Search
+  Bypasses Radix component to give us direct grid control
+#}
+{% if title %}
+  <h3>{{ title }}</h3>
+{% endif %}
+
+<div class="software-grid">
+  {% for row in rows %}
+    <div class="software-grid__item">
+      {{ row.content }}
+    </div>
+  {% endfor %}
+</div>

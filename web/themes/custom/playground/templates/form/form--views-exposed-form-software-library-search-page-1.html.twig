@@ -1,0 +1,36 @@
+{#
+  Custom exposed form for Software Library Search
+  File: form--views-exposed-form-software-library-search-page-1.html.twig
+#}
+
+<form{{ attributes }}>
+  <div class="software-search-bar">
+
+    {# Magnifier submit button on the LEFT #}
+    <button type="submit" class="software-search-bar__btn" aria-label="{{ 'Search'|t }}">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+           stroke-linejoin="round" width="18" height="18" aria-hidden="true">
+        <circle cx="11" cy="11" r="8"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+      </svg>
+    </button>
+
+    {# Render the search input directly #}
+    <input
+      type="text"
+      name="search_api_fulltext"
+      id="edit-search-api-fulltext"
+      value="{{ form.search_api_fulltext['#value']|default('') }}"
+      placeholder="{{ 'Search software...'|t }}"
+      class="software-search-bar__input"
+      autocomplete="off"
+    />
+
+    {# Required hidden fields for Drupal form processing #}
+    {{ form.form_build_id }}
+    {{ form.form_token }}
+    {{ form.form_id }}
+
+  </div>
+</form>

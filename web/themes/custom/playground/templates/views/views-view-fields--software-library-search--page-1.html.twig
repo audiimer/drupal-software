@@ -1,0 +1,40 @@
+{#
+  Software Library Search - Fields (card) template
+#}
+
+{% set entity = row._entity %}
+
+{% set cat_values = [] %}
+{% for item in entity.field_category %}
+  {% set cat_values = cat_values|merge([item.entity.label|lower]) %}
+{% endfor %}
+
+{% set os_list = [] %}
+{% for item in entity.field_available_for %}
+  {% set os_list = os_list|merge([item.value|lower|replace({'_': ' '})]) %}
+{% endfor %}
+
+{% set access_list = [] %}
+{% for item in entity.field_how_to_access %}
+  {% set access_list = access_list|merge([item.entity.label|lower]) %}
+{% endfor %}
+
+<div class="software-card"
+     data-category="{{ cat_values|join(',') }}"
+     data-os="{{ os_list|join(',') }}"
+     data-access="{{ access_list|join(',') }}">
+
+  <div class="software-card__logo">
+    {{ fields.field_software_logo_image.content }}
+  </div>
+
+  <div class="software-card__title">
+    {# Stretch the link to cover the whole card via CSS #}
+    <a href="{{ path('entity.node.canonical', {'node': entity.id}) }}"
+       class="software-card__link"
+       aria-label="{{ entity.label }}">
+      {{ entity.label }}
+    </a>
+  </div>
+
+</div>

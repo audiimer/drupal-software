@@ -78,7 +78,11 @@
       <a href="#">Web Accessibility</a>
       <a href="#">Terms</a>
       <a href="#">Privacy</a>
-      <a href="#">Website Editor Login</a>
+      {% if logged_in %}
+        <a href="{{ path('user.logout') }}">Website Logout</a>
+      {% else %}
+        <a href="{{ path('user.login') }}">Website Login</a>
+      {% endif %}
     </div>
 
   </div>

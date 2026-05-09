@@ -630,4 +630,26 @@ this is just for testing purposes */
     .lts-hero-card-image img {
         height: 200px;
     }
+
+    
+}
+/* ── DRUPAL STATUS MESSAGES — override Radix/Bootstrap ── THIS THEME IS JUST BEING USED TO 
+TEST HOW IT WOULD LOOK WITH A DIFFERENT THEME* TEST/
+div.alert.alert-success {
+  background-color: #d4edda !important;
+  border-color: #c3e6cb !important;
+  color: #155724 !important;
+  padding: 16px !important;
+}
+div.alert.alert-warning {
+  background-color: #fff3cd !important;
+  border-color: #ffeeba !important;
+  color: #856404 !important;
+  padding: 16px !important;
+}
+div.alert.alert-danger {
+  background-color: #f8d7da !important;
+  border-color: #f5c6cb !important;
+  color: #721c24 !important;
+  padding: 16px !important;
 }
