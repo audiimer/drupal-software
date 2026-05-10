@@ -1,4 +1,4 @@
-// JS FOR HARDCODED AUDIENCE TABS ON LANDING PAGES NOT BEING USED ANYMORE
+// JS for audience tabs used in views-view-unformatted--software_library--block_1
 
 (function (Drupal, once) {
   "use strict";

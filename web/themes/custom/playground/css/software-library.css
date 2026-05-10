@@ -4,7 +4,7 @@
 
 /* ── TAB NAVIGATION ── */
 .path-software-library-new .software-tabs {
-  background: #1a5276;
+  background: var(--color-navy);
   border-radius: 4px 4px 0 0;
   overflow: hidden;
 }
@@ -34,9 +34,9 @@
 }
 .path-software-library-new .software-tabs__link--active {
   background: #fff;
-  color: #1a5276;
+  color: var(--color-navy);
   font-weight: 700;
-  border-bottom: 3px solid #1a5276;
+  border-bottom: 3px solid var(--color-navy);
 }
 
 /* ── SEARCH BAR ── */
@@ -46,7 +46,7 @@
 .path-software-library-new .software-search-bar {
   display: flex;
   align-items: center;
-  border: 2px solid #1a5276;
+  border: 2px solid var(--color-navy);
   border-radius: 6px;
   overflow: hidden;
   background: #fff;
@@ -58,7 +58,7 @@
   justify-content: center;
   width: 46px;
   height: 46px;
-  background: #1a5276;
+  background: var(--color-navy);
   border: none;
   cursor: pointer;
   color: #fff;
@@ -104,7 +104,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: #1a5276;
+  color: var(--color-navy);
   margin: 0 0 10px 0;
   padding-bottom: 8px;
   border-bottom: 1px solid #d0d8e0;
@@ -119,10 +119,10 @@
   cursor: pointer;
 }
 .path-software-library-new .facet-group__items label:hover {
-  color: #1a5276;
+  color: var(--color-navy);
 }
 .path-software-library-new .facet-group__items input[type="checkbox"] {
-  accent-color: #1a5276;
+  accent-color: var(--color-navy);
   width: 15px;
   height: 15px;
   flex-shrink: 0;
@@ -134,9 +134,18 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 20px;
+  align-items: stretch;
 }
-.path-software-library-new .software-grid__item {
-  min-width: 0;
+
+.path-software-library-new .software-grid__item,
+.path-software-library-new .views-row {
+  display: flex;
+  height: 100%;
+}
+
+.path-software-library-new .software-card {
+  width: 100%;
+  flex: 1;
 }
 
 /* ── CARD ── */
@@ -155,7 +164,7 @@
 }
 .path-software-library-new .software-card:hover {
   box-shadow: 0 2px 10px rgba(0,0,0,0.08);
-  border-color: #1a5276;
+  border-color: var(--color-navy);
 }
 .path-software-library-new .software-card__logo {
   display: flex;
@@ -175,14 +184,14 @@
 .path-software-library-new .software-card__title {
   text-align: center;
   font-size: 0.9rem;
-  color: #1a5276;
+  color: var(--color-navy);
   line-height: 1.3;
   position: relative;
   z-index: 1;
 }
 .path-software-library-new .software-card__link {
   text-decoration: none;
-  color: #1a5276;
+  color: var(--color-navy);
 }
 /* Stretch invisible overlay over entire card */
 .path-software-library-new .software-card__link::after {
@@ -190,26 +199,86 @@
   position: absolute;
   inset: 0;
 }
-.path-software-library-new .software-card__logo {
+
+/* ── CARD LAYOUT FIX FOR ACCESS BUTTONS ── */
+.path-software-library-new .software-card {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 120px;
-  margin-bottom: 12px;
-}
-.path-software-library-new .software-card__logo img {
-  max-width: 100%;
-  max-height: 120px;
-  width: auto;
-  height: auto;
-  object-fit: contain;
-}
-.path-software-library-new .software-card__title {
   text-align: center;
-  font-size: 0.9rem;
-  color: #1a5276;
-  line-height: 1.3;
+  gap: 6px;
+}
+
+.path-software-library-new .software-card__logo {
+  margin-bottom: 4px;
+}
+
+.path-software-library-new .software-card__title {
+  width: 100%;
+  margin-bottom: 0;
+}
+
+/* ── ACCESS TYPE TAG ON CARDS ── */
+.path-software-library-new .software-card__access-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 500;
+  padding: 2px 10px;
+  border-radius: 20px;
+  margin-top: 0;
+  text-transform: capitalize;
+  align-self: center;
+  position: relative;
+  z-index: 2;
+}
+
+.path-software-library-new .software-card__access-tag--download {
+  background: #E1F5EE;
+  color: #0F6E56;
+}
+
+.path-software-library-new .software-card__access-tag--redirect {
+  background: #E6F1FB;
+  color: #0C447C;
+}
+
+.path-software-library-new .software-card__access-tag--chargeback {
+  background: #FAEEDA;
+  color: #854F0B;
+}
+
+/* ── ADD TO CART BUTTON ── */
+.path-software-library-new .software-card__cta {
+  position: relative;
+  z-index: 2;
+  margin-top: 10px;
+  padding: 7px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  background: #1a5276;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.15s;
+}
+
+.path-software-library-new .software-card__cta:hover {
+  background: #154360;
+}
+
+.path-software-library-new .software-card__cta-icon {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+/* Make sure the click overlay doesn't intercept the button/tag */
+.path-software-library-new .software-card__link::after {
+  pointer-events: none;
 }
 
 /* ── EMPTY STATE ── */

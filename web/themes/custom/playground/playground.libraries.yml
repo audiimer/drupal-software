@@ -10,12 +10,10 @@ global-styling:
       # External CDNs MUST be quoted
       https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css:
         { type: external }
-#TESTING SOFTWARE ONE-PAGER CARD
 software-one-pager:
   css:
     theme:
       css/software-one-pager.css: {}
-#TESTING SOFTWARE LIBRARY WITHOUT QUICKTABS
 software-library:
   css:
     theme:
@@ -24,7 +22,6 @@ software-library:
     js/software-search.js: {}
   dependencies:
     - core/drupal
-    #TESTING SOFTWARE LIBRARY WITHOUT QUICKTABS
 style:
   css:
     theme:
@@ -82,13 +79,6 @@ drupal.progress:
     - core/drupal
     - core/jquery
 
-drupal.text:
-  js:
-    src/js/overrides/text.js: {}
-  dependencies:
-    - core/jquery
-    - core/once
-    - core/drupal
 
 jquery.validate:
   js:
@@ -102,7 +92,6 @@ flatly-cdn:
       https://cdn.jsdelivr.net/npm/bootswatch@5/dist/flatly/bootstrap.min.css:
         { type: external }
 
-# TESTING MODAL IF IT DOESNT WORK WE CAN REMOVE IT
 installer_modal:
   js:
     js/installer-modal.js: {}

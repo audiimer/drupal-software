@@ -19,22 +19,43 @@
   {% set access_list = access_list|merge([item.entity.label|lower]) %}
 {% endfor %}
 
+{% set access_type = entity.field_access_type.value %}
+
 <div class="software-card"
      data-category="{{ cat_values|join(',') }}"
      data-os="{{ os_list|join(',') }}"
-     data-access="{{ access_list|join(',') }}">
+     data-access="{{ access_list|join(',') }}"
+     data-access-type="{{ access_type }}">
 
   <div class="software-card__logo">
     {{ fields.field_software_logo_image.content }}
   </div>
 
   <div class="software-card__title">
-    {# Stretch the link to cover the whole card via CSS #}
     <a href="{{ path('entity.node.canonical', {'node': entity.id}) }}"
        class="software-card__link"
        aria-label="{{ entity.label }}">
       {{ entity.label }}
     </a>
   </div>
+
+  {# Access Type indicator pill #}
+  {% if access_type %}
+    <div class="software-card__access-tag software-card__access-tag--{{ access_type }}">
+      {{ access_type|capitalize }}
+    </div>
+  {% endif %}
+
+  {# Action button — only for Download and Chargeback (not Redirect) #}
+  {% if access_type == 'download' or access_type == 'chargeback' %}
+    <button class="software-card__cta"
+            type="button"
+            data-software-id="{{ entity.id }}"
+            data-software-name="{{ entity.label }}"
+            data-access-type="{{ access_type }}">
+      <span class="software-card__cta-icon" aria-hidden="true">+</span>
+      Add to cart
+    </button>
+  {% endif %}
 
 </div>

@@ -57,6 +57,10 @@
         </div>
       </div>
 
+      {# ====== ACCESS TYPE-AWARE CTA ====== #}
+      {% set access_type = node.field_access_type.value %}
+
+      {# Show installation instructions link for any type that has one #}
       {% if node.field_instructions_url.uri %}
         <a href="{{ node.field_instructions_url.uri }}"
            class="sop-btn sop-btn--secondary"
@@ -65,22 +69,37 @@
         </a>
       {% endif %}
 
-      {% if node.field_redirect_button.uri %}
+      {# Primary CTA changes based on access type #}
+      {% if access_type == 'redirect' and node.field_redirect_button.uri %}
         <a href="{{ node.field_redirect_button.uri }}"
            class="sop-btn sop-btn--primary"
            target="_blank">
-          {{ node.field_redirect_button.title ?: 'Request a license' }}
+          {{ node.field_redirect_button.title ?: 'Visit website' }} ↗
+        </a>
+
+      {% elseif access_type == 'download' %}
+        {# Render the installer modal paragraph (Windows/Mac/Linux installers) #}
+        {% if content.field_installer_modal|render|trim %}
+          <div class="sop-installer-wrap">
+            {{ content.field_installer_modal }}
+          </div>
+        {% endif %}
+
+      {% elseif access_type == 'chargeback' %}
+        <a href="#request"
+           class="sop-btn sop-btn--primary">
+          Request a license
         </a>
       {% endif %}
     </div>
   </div>
 
-  {# ====== ABOUT / SPECS ====== #}
-  {% if content.field_specs %}
+  {# ====== ABOUT ====== #}
+  {% if content.body|render|trim %}
     <div class="sop-section">
       <div class="sop-section__label">About this software</div>
       <div class="sop-description">
-        {{ content.field_specs }}
+        {{ content.body }}
       </div>
     </div>
   {% endif %}

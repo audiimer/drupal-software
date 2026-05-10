@@ -1,3 +1,11 @@
+/* ── BRAND TOKENS ── */
+:root {
+  --color-navy: #1a5276;
+  --color-teal: #15556b;
+  --color-gold: #ffd847;
+  --color-hover-yellow: #fff6da;
+}
+
 /* --------------------------- */
 /* LTS NAVBAR STYLING          */
 /* --------------------------- */
@@ -71,7 +79,7 @@
 
 /* Lower Menu Bar */
 .lts-lower-menu {
-    background: #15556b;
+    background: var(--color-teal);
 }
 
 .lts-lower-menu a {
@@ -119,13 +127,13 @@
 
 .lts-footer-social a {
     font-size: 24px;
-    color: #ffd847;
+    color: var(--color-gold);
     margin-right: 15px;
     text-decoration: none;
 }
 
 .lts-footer-middle i {
-    color: #ffd847;
+    color: var(--color-gold);
     margin-right: 8px;
 }
 
@@ -135,7 +143,7 @@
 }
 
 .lts-footer-btn-blue {
-    background: #15556b !important;
+    background: var(--color-teal) !important;
     border-radius: 6px;
     padding: 10px 18px;
     color: white !important;
@@ -147,7 +155,7 @@
 }
 
 .lts-footer-btn-gold {
-    background: #ffd847 !important;
+    background: var(--color-gold) !important;
     color: #000 !important;
     padding: 12px 22px;
     border-radius: 6px;
@@ -193,8 +201,8 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    border: 1px solid #15556b;
-    background-color: #15556b;
+    border: 1px solid var(--color-teal);
+    background-color: var(--color-teal);
     display: flex;
 }
 
@@ -217,15 +225,15 @@
 #quicktabs-software_catalog .quicktabs-tabs a:hover,
 #quicktabs-software_catalog_students .quicktabs-tabs a:hover,
 #quicktabs-software_catalog_faculty_staff .quicktabs-tabs a:hover {
-    background-color: #fff6da;
-    color: #15556b;
+    background-color: var(--color-hover-yellow);
+    color: var(--color-teal);
 }
 
 #quicktabs-software_catalog .quicktabs-tabs li.active a,
 #quicktabs-software_catalog_students .quicktabs-tabs li.active a,
 #quicktabs-software_catalog_faculty_staff .quicktabs-tabs li.active a {
     background-color: #ffffff;
-    color: #15556b;
+    color: var(--color-teal);
 }
 
 /* Content area under the tabs */
@@ -306,10 +314,6 @@
 }
 
 
-/* TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! */
-
-/* The way this was implemented is by using the advance settings in the views and in CSS class we added software-library-search
-this is just for testing purposes */
 /* Wrap: the view that contains the exposed form */
 .software-library-search .views-exposed-form {
     display: flex;
@@ -632,24 +636,4 @@ this is just for testing purposes */
     }
 
     
-}
-/* ── DRUPAL STATUS MESSAGES — override Radix/Bootstrap ── THIS THEME IS JUST BEING USED TO 
-TEST HOW IT WOULD LOOK WITH A DIFFERENT THEME* TEST/
-div.alert.alert-success {
-  background-color: #d4edda !important;
-  border-color: #c3e6cb !important;
-  color: #155724 !important;
-  padding: 16px !important;
-}
-div.alert.alert-warning {
-  background-color: #fff3cd !important;
-  border-color: #ffeeba !important;
-  color: #856404 !important;
-  padding: 16px !important;
-}
-div.alert.alert-danger {
-  background-color: #f8d7da !important;
-  border-color: #f5c6cb !important;
-  color: #721c24 !important;
-  padding: 16px !important;
 }

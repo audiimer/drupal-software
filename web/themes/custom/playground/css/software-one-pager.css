@@ -207,7 +207,7 @@
 }
 
 .sop-meta-item__val a {
-  color: #1a5276;
+  color: var(--color-navy);
   text-decoration: none;
 }
 
@@ -252,7 +252,7 @@
 }
 
 .sop-contact-card .sop-meta-item__val a {
-  color: #1a5276;
+  color: var(--color-navy);
   text-decoration: none;
 }
 

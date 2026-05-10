@@ -11,18 +11,3 @@ import Toast from 'bootstrap/js/dist/toast';
     }
   });
 })();
-
-// * Run toasts on button trigger example
-// (() => {
-//   document.addEventListener("DOMContentLoaded", () => {
-//     const toastTrigger = document.getElementById('liveToastBtn');
-//     const toastLiveExample = document.getElementById('liveToast');
-
-//     if (toastTrigger && toastLiveExample) {
-//       const toastBootstrap = Toast.getOrCreateInstance(toastLiveExample);
-//       toastTrigger.addEventListener('click', () => {
-//         toastBootstrap.show();
-//       });
-//     }
-//   });
-// })();
