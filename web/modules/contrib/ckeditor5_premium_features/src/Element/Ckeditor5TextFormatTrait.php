@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -57,14 +57,11 @@ trait Ckeditor5TextFormatTrait {
 
     $formObject = $formState->getFormObject();
 
+    $element['value']['#theme'] = 'ckeditor5_textarea';
     $element['value']["#attributes"]['data-ckeditorfieldid'] = $elementDrupalId;
     $element['value']["#attributes"][$idAttribute] = $elementUniqueId;
 
     if ($this->isFormTypeSupported($formObject)) {
-      $items = $formState->get(Ckeditor5TextFormatBaseInterface::STORAGE_KEY) ?? [];
-      $items[$elementUniqueId] = $element['#parents'];
-      $formState->set(Ckeditor5TextFormatBaseInterface::STORAGE_KEY, $items);
-
       // We need to attach the submit just in case the entity was created
       // before the rtc module was enabled.
       self::addCallback('onCompleteFormSubmit', [['actions', 'submit', '#submit']], $completeForm);
@@ -122,7 +119,7 @@ trait Ckeditor5TextFormatTrait {
    * @param bool $addFirst
    *   If true, add new callback to the beginning of the callbacks array.
    */
-  private static function addCallback(string $callbackName, array $callbackKeys, array &$form, int $nestingCounter = 0, $addFirst = FALSE): void {
+  protected static function addCallback(string $callbackName, array $callbackKeys, array &$form, int $nestingCounter = 0, $addFirst = FALSE): void {
     $callback = [static::class, $callbackName];
     foreach ($callbackKeys as $key) {
 
@@ -132,7 +129,7 @@ trait Ckeditor5TextFormatTrait {
 
         // Let's make sure that callback is set only once.
         foreach ($callbacks as $test_callback) {
-          if (is_array($test_callback) && in_array($callbackName, $test_callback)) {
+          if (is_array($test_callback) && $test_callback == $callback) {
             return;
           }
         }

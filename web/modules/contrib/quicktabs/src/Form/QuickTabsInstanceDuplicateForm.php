@@ -38,7 +38,7 @@ class QuickTabsInstanceDuplicateForm extends EntityForm {
       '#maxlength' => 32,
       '#default_value' => '',
       '#machine_name' => [
-        'exists' => 'quicktabs_machine_name_exists',
+        'exists' => 'Drupal\quicktabs\Entity\QuickTabsInstance::getQuickTabsInstance',
       ],
       '#description' => $this->t('A unique machine-readable name for this QuickTabs instance. It must only contain lowercase letters, numbers, and underscores. The machine name will be used internally by QuickTabs and will be used in the CSS ID of your QuickTabs block.'),
       '#weight' => -8,

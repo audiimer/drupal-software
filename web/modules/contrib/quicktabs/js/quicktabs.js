@@ -135,7 +135,7 @@
           const $cookieValue = cookies.get(cookieName);
           if (
             $cookieValue !== '' &&
-            $link.data('myTabIndex') === $cookieValue
+            parseInt($cookieValue, 10) === $link.data('myTabIndex')
           ) {
             // Changed == to ===
             $(element).click();

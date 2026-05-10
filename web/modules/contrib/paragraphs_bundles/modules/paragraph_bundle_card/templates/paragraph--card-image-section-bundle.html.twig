@@ -115,16 +115,19 @@
 {% set pb_style_attributes = [] %}
 {% for key, value in pb_styles %}
   {% set style = content[value]|render|striptags|trim %}
-  {% if style starts with '#' %}
-    {% set pb_style_attributes = pb_style_attributes|merge(['--' ~ key ~ ':' ~ style ~ ';']) %}
-  {% else %}
-    {% set pb_style_attributes = pb_style_attributes|merge(['--' ~ key ~ ':rgb(' ~ style ~ ');']) %}
+  {% if style %}
+    {% if style starts with '#' %}
+      {% set pb_style_attributes = pb_style_attributes|merge(['--' ~ key ~ ':' ~ style ~ ';']) %}
+    {% else %}
+      {% set pb_style_attributes = pb_style_attributes|merge(['--' ~ key ~ ':rgb(' ~ style ~ ');']) %}
+    {% endif %}
   {% endif %}
 {% endfor %}
 
 {# Image and link #}
 {% set pb_link = content.pb_content_image_link.0['#url'] %}
 {% set pb_link_title = content.pb_content_image_link_title|render|striptags|trim %}
+{% set pb_content_image_link_new_tab = paragraph.hasField('pb_content_image_link_new_tab') and not paragraph.pb_content_image_link_new_tab.isEmpty and paragraph.pb_content_image_link_new_tab.value %}
 {# Set the round around the image also #}
 {% set pb_padding = content.pb_display_padding|render|striptags|trim %}
 {% set pb_radius = content.pb_display_border_radius|render|striptags|trim %}
@@ -137,10 +140,11 @@
 
     {% if pb_link and pb_image %}
     <div class="pb__img-wrapper pb__card-image">
-      <a href="{{ pb_link }}" class="pb__link" {% if pb_link_title %} title="{{ pb_link_title }}" {% endif %}>
+      <a href="{{ pb_link }}" class="pb__link"{% if pb_link_title %} title="{{ pb_link_title }}"{% endif %}{% if pb_content_image_link_new_tab %} target="_blank" rel="noopener noreferrer"{% endif %}>
         {{ pb_image }}
         {% if pb_title %}
-        <div class="pb__card-image-title" {% if pb_image_attributes|length > 0 %}style="{{ pb_image_attributes|join(' ') }}"{% endif %}><h3 class="pb__content-title">{{ content.pb_content_title }}</h3>
+        <div class="pb__card-image-title" {% if pb_image_attributes|length > 0 %}style="{{ pb_image_attributes|join(' ') }}"{% endif %}>
+          {% include '@paragraphs_bundles/pb-content-title.html.twig' with { paragraph: paragraph, content: content } only %}
         </div>
       {% endif %}
       </a>
@@ -149,13 +153,14 @@
     <div class="pb__img-wrapper pb__card-image">
       {{ pb_image }}
       {% if pb_title %}
-      <div class="pb__card-image-title" {% if pb_image_attributes|length > 0 %}style="{{ pb_image_attributes|join(' ') }}"{% endif %}><h3 class="pb__content-title">{{ content.pb_content_title }}</h3>
+      <div class="pb__card-image-title" {% if pb_image_attributes|length > 0 %}style="{{ pb_image_attributes|join(' ') }}"{% endif %}>
+        {% include '@paragraphs_bundles/pb-content-title.html.twig' with { paragraph: paragraph, content: content } only %}
       </div>
       {% endif %}
     </div>
     {% endif %}
 
-    {{ content|without('pb_content_title', 'pb_content_image', 'pb_content_image_link', 'pb_content_image_link_title', 'pb_display_bg', 'pb_display_bg_opacity', 'pb_display_bg_hover', 'pb_display_border_color', 'pb_display_border_hover', 'pb_display_text', 'pb_display_text_hover', 'pb_display_border', 'pb_display_border_radius', 'pb_display_margin', 'pb_display_padding', 'pb_display_width', 'pb_display_shadow') }}
+    {{ content|without('pb_content_title', 'pb_content_title_tag', 'pb_content_title_alignment', 'pb_content_image', 'pb_content_image_link', 'pb_content_image_link_title', 'pb_content_image_link_new_tab', 'pb_display_bg', 'pb_display_bg_opacity', 'pb_display_bg_hover', 'pb_display_border_color', 'pb_display_border_hover', 'pb_display_text', 'pb_display_text_hover', 'pb_display_border', 'pb_display_border_radius', 'pb_display_margin', 'pb_display_padding', 'pb_display_width', 'pb_display_shadow') }}
 
   </div>
 </div> {# End of main wrapper #}

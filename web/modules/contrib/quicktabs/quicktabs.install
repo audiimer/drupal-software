@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the quicktabs module.
+ */
+
+/**
+ * Enables the js_cookie module.
+ */
+function quicktabs_update_103001(): void {
+  $moduleHandler = \Drupal::service('module_handler');
+  if (!$moduleHandler->moduleExists('js_cookie')) {
+    \Drupal::service('module_installer')->install(['js_cookie']);
+  }
+}

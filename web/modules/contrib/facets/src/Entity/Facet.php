@@ -7,7 +7,6 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\facets\Event\GetFacetCacheContexts;
 use Drupal\facets\Event\GetFacetCacheMaxAge;
 use Drupal\facets\Event\GetFacetCacheTags;
-use Drupal\facets\Exception\Exception;
 use Drupal\facets\Exception\InvalidProcessorException;
 use Drupal\facets\Exception\InvalidQueryTypeException;
 use Drupal\facets\FacetInterface;

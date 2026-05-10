@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -14,7 +14,6 @@ class AIServiceAdapter {
     const AIAdapter = this.editor.plugins.get('AIAdapter');
     let textAdapter;
     const config = this.editor.config._config.ai.assistant ?? this.editor.config._config.ai;
-    console.log('config', config);
     if (config.textAdapter === 'aws') {
       textAdapter = editor.plugins.get('AWSTextAdapter');
     } else {

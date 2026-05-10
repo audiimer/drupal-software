@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -176,6 +176,7 @@ function ckeditor5_premium_features_preprocess_ckeditor5_textarea(&$variables): 
   template_preprocess_textarea($variables);
   $element = $variables['element'];
   $variables['sidebar'] = !empty($element['#sidebar']) ? $element['#sidebar'] : NULL;
+  $variables['ai_sidebar'] = !empty($element['#ai_sidebar']) ? $element['#ai_sidebar'] : NULL;
   $variables['document_outline'] = !empty($element['#document_outline']) ? $element['#document_outline'] : NULL;
 }
 

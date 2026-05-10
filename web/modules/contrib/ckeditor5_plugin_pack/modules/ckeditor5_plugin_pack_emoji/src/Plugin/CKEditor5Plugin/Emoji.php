@@ -5,14 +5,50 @@ namespace Drupal\ckeditor5_plugin_pack_emoji\Plugin\CKEditor5Plugin;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableInterface;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginConfigurableTrait;
 use Drupal\ckeditor5\Plugin\CKEditor5PluginDefault;
+use Drupal\ckeditor5_plugin_pack\Utility\LibraryVersionChecker;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\editor\EditorInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * CKEditor 5 Emoji plugin.
  */
-class Emoji extends CKEditor5PluginDefault implements CKEditor5PluginConfigurableInterface {
+class Emoji extends CKEditor5PluginDefault implements CKEditor5PluginConfigurableInterface, ContainerFactoryPluginInterface {
   use CKEditor5PluginConfigurableTrait;
+
+  /**
+   * The CKEditor 5 library version checker.
+   */
+  protected LibraryVersionChecker $libraryVersionChecker;
+
+  /**
+   * Creates the plugin instance.
+   *
+   * @param \Drupal\ckeditor5_plugin_pack\Utility\LibraryVersionChecker $libraryVersionChecker
+   *   The CKEditor 5 library version checker service.
+   * @param mixed ...$parent_arguments
+   *   Parent plugin arguments.
+   */
+  public function __construct(
+    LibraryVersionChecker $libraryVersionChecker,
+    ...$parent_arguments
+  ) {
+    $this->libraryVersionChecker = $libraryVersionChecker;
+    parent::__construct(...$parent_arguments);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $container->get('ckeditor5_plugin_pack.core_library_version_checker'),
+      $configuration,
+      $plugin_id,
+      $plugin_definition
+    );
+  }
 
   /**
    * {@inheritdoc}
@@ -50,6 +86,9 @@ class Emoji extends CKEditor5PluginDefault implements CKEditor5PluginConfigurabl
         16 => 'v16',
       ]
     ];
+    if ($this->libraryVersionChecker->isLibraryVersionHigherOrEqual('47.4.0')) {
+      $form['version']['#options']['17'] = 'v17';
+    }
 
     $form['dropdownLimit'] = [
       '#type' => 'number',

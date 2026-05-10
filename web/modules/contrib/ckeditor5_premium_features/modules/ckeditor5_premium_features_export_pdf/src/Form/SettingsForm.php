@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -56,6 +56,9 @@ class SettingsForm extends BaseExportSettingsForm {
     if ($form_state->getFormObject()->getFormId() == 'ckeditor5_premium_features_export_pdf_settings') {
       self::checkDependencyPackage();
     }
+
+    $v2supported = \Drupal::service('ckeditor5_premium_features.core_library_version_checker')->isLibraryVersionHigherOrEqual('47.5.0');
+
     $form['converter_url'] = [
       '#type' => 'textfield',
       '#title' => t('Converter URL'),
@@ -105,6 +108,15 @@ class SettingsForm extends BaseExportSettingsForm {
       FormElement::marginElement($options, $margin, $margin_config);
     }
 
+    if ($v2supported) {
+      $options['enable_mirror_margins'] = [
+        '#type' => 'checkbox',
+        '#title' => t('Mirror margins'),
+        '#default_value' => $config->get($options_key . '.enable_mirror_margins') ?? FALSE,
+        '#description' => t('Mirror margins (also known as “gutter” or “book” margins) are particularly useful for documents intended for double-sided printing or binding in a book.'),
+      ];
+    }
+
     FormElement::pageOrientation($options, [
       '#default_value' => $config->get($options_key . '.page_orientation') ?? 'portrait',
     ]);
@@ -115,26 +127,46 @@ class SettingsForm extends BaseExportSettingsForm {
       '#default_value' => $config->get($options_key . '.custom_css'),
     ];
 
-    $options['header_html'] = [
-      '#type' => 'textarea',
-      '#title' => t('Header'),
-      '#default_value' => $config->get($options_key . '.header_html'),
-      '#ajax' => FALSE,
+    $header_footer_options_default = [
+      'header_html' => [
+        '#type' => 'textarea',
+        '#title' => t('Header'),
+        '#default_value' => $config->get($options_key . '.header_html'),
+        '#ajax' => FALSE,
+      ],
+      'footer_html' => [
+        '#type' => 'textarea',
+        '#title' => t('Footer'),
+        '#default_value' => $config->get($options_key . '.footer_html'),
+        '#ajax' => FALSE,
+      ],
+      'header_and_footer_css' => [
+        '#type' => 'textarea',
+        '#title' => t('Header and footer css'),
+        '#default_value' => $config->get($options_key . '.header_and_footer_css'),
+        '#ajax' => FALSE,
+      ]
     ];
 
-    $options['footer_html'] = [
-      '#type' => 'textarea',
-      '#title' => t('Footer'),
-      '#default_value' => $config->get($options_key . '.footer_html'),
-      '#ajax' => FALSE,
-    ];
+    $options = array_merge($options, $header_footer_options_default);
 
-    $options['header_and_footer_css'] = [
-      '#type' => 'textarea',
-      '#title' => t('Header and footer css'),
-      '#default_value' => $config->get($options_key . '.header_and_footer_css'),
-      '#ajax' => FALSE,
-    ];
+    if ($v2supported) {
+      $additional_config_types = [
+        'first' => t('First page header and footer'),
+        'even' => t('Even pages header and footer'),
+        'odd' => t('Odd pages header and footer'),
+      ];
+      foreach ($additional_config_types as $type => $title) {
+        $options['additional_header_footer'][$type] = [
+          '#type' => 'details',
+          '#title' => $title,
+        ];
+        $options['additional_header_footer'][$type] = array_merge($options['additional_header_footer'][$type], $header_footer_options_default);
+        $options['additional_header_footer'][$type]['header_html']['#default_value'] = $config->get($options_key . '.additional_header_footer.' . $type . '.header_html');
+        $options['additional_header_footer'][$type]['footer_html']['#default_value'] = $config->get($options_key . '.additional_header_footer.' . $type . '.footer_html');
+        $options['additional_header_footer'][$type]['header_and_footer_css']['#default_value'] = $config->get($options_key . '.additional_header_footer.' . $type . '.header_and_footer_css');
+      }
+    }
 
     return $form;
   }

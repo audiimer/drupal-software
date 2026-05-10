@@ -48,7 +48,7 @@ function facets_exposed_filters_search_api_query_alter(QueryInterface $query) {
 
   $query_search_api_facets_options = [];
   // Add all facets_filter filters to the search api query as facet.
-  foreach ($view->filter as $filter) {
+  foreach ($view->filter ?? [] as $filter) {
     if ($filter->getPluginId() == "facets_filter") {
       $configuration = $filter->getConfiguration();
       $field_identifier = $configuration["search_api_field_identifier"];
@@ -58,7 +58,8 @@ function facets_exposed_filters_search_api_query_alter(QueryInterface $query) {
         'limit' => $filter->options["facet"]["hard_limit"] ?? 0,
         'operator' => $filter->options["facet"]["query_operator"],
         'min_count' => $filter->options["facet"]["min_count"],
-        'missing' => FALSE,
+        'missing' => $filter->options["facet"]["missing"] ?? FALSE,
+        'missing_label' => $filter->options["facet"]["missing_label"] ?? 'others',
         // @todo Investigate if this property (query_type) is used.
         'query_type' => 'search_api_string',
       ];

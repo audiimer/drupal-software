@@ -95,7 +95,7 @@ class Quicktabs extends StylePluginBase {
   /**
    * Get the set mapping.
    */
-  public function getSetMapping(): bool {
+  public function getSetMapping(): array {
     return $this->setMapping;
   }
 

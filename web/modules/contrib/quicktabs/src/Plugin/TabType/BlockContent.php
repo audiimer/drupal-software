@@ -2,12 +2,19 @@
 
 namespace Drupal\quicktabs\Plugin\TabType;
 
-use Drupal\Core\Block\BlockManagerInterface;
-use Drupal\Core\Entity\EntityRepositoryInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Form\FormStateInterface;
+use Drupal\Component\Plugin\Exception\ContextException;
+use Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException;
+use Drupal\Component\Plugin\Exception\PluginException;
+use Drupal\Component\Plugin\Exception\PluginNotFoundException;
 use Drupal\Core\Ajax\AjaxResponse;
 use Drupal\Core\Ajax\ReplaceCommand;
+use Drupal\Core\Block\BlockManagerInterface;
+use Drupal\Core\Cache\Cache;
+use Drupal\Core\Entity\EntityRepositoryInterface;
+use Drupal\Core\Entity\EntityStorageException;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Messenger\MessengerTrait;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Plugin\Context\ContextRepositoryInterface;
 use Drupal\Core\Session\AccountProxyInterface;
@@ -24,6 +31,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * )
  */
 class BlockContent extends TabTypeBase implements ContainerFactoryPluginInterface {
+
+  use MessengerTrait;
 
   /**
    * {@inheritDoc}
@@ -100,27 +109,35 @@ class BlockContent extends TabTypeBase implements ContainerFactoryPluginInterfac
    */
   public function render(array $tab) {
     $options = $tab['content'][$tab['type']]['options'];
-
-    if (str_contains($options['bid'], 'block_content')) {
-      $parts = explode(':', $options['bid']);
-      $block = $this->entityRepository->loadEntityByUuid($parts[0], $parts[1]);
-      $block_content = $this->entityTypeManager->getStorage('block_content')->load($block->id());
-      $render = $this->entityTypeManager->getViewBuilder('block_content')->view($block_content);
-
-    }
-    else {
-      // You can hard code configuration, or you load from settings.
-      $config = [];
-      $plugin_block = $this->blockManager->createInstance($options['bid'], $config);
-
-      // Some blocks might implement access check.
-      $access_result = $plugin_block->access($this->currentUser, TRUE);
-      // Return empty render array if user doesn't have access.
-      if ($access_result->isForbidden()) {
-        return [];
+    $render = [];
+    try {
+      if (str_contains($options['bid'], 'block_content')) {
+        $parts = explode(':', $options['bid']);
+        $block = $this->entityRepository->loadEntityByUuid($parts[0], $parts[1]);
+        $block_content = $this->entityTypeManager->getStorage('block_content')
+          ->load($block->id());
+        $render = $this->entityTypeManager->getViewBuilder('block_content')
+          ->view($block_content);
       }
+      else {
+        // You can hard code configuration, or you load from settings.
+        $config = [];
+        $plugin_block = $this->blockManager->createInstance($options['bid'], $config);
 
-      $render = $plugin_block->build();
+        // Some blocks might implement access check.
+        $access_result = $plugin_block->access($this->currentUser, TRUE);
+        // Return empty render array if user doesn't have access.
+        if ($access_result->isForbidden()) {
+          return [];
+        }
+        $render = $plugin_block->build();
+        // Merge cache tags using Drupal's Cache API.
+        $render['#cache']['tags'] = Cache::mergeTags($render['#cache']['tags'] ?? [], $plugin_block->getCacheTags());
+      }
+    }
+    catch (ContextException | InvalidPluginDefinitionException | PluginNotFoundException | EntityStorageException | PluginException$e) {
+      $this->messenger()->addError($this->t('Unable to render block content with @id. @error',
+        ['@id' => $options['bid'], '@error' => $e->getMessage()]));
     }
 
     return $render;

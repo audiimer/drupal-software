@@ -2,8 +2,6 @@
 
 namespace Drupal\Tests\facets\Functional;
 
-use Drupal\facets\Entity\Facet;
-use Drupal\facets\Processor\SortProcessorInterface;
 use Drupal\field\Entity\FieldConfig;
 use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\search_api\Item\Field;
@@ -723,7 +721,6 @@ class ProcessorIntegrationTest extends FacetsTestBase {
     $this->drupalGet($path);
     $this->submitForm($settings, 'Save');
   }
-
 
   /**
    * Test pre query processor.

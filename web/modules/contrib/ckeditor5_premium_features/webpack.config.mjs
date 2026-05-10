@@ -1,11 +1,10 @@
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
 import path from 'path';
 import webpack from 'webpack';
-import { styles, builds } from '@ckeditor/ckeditor5-dev-utils';
 import TerserPlugin from 'terser-webpack-plugin';
 import { createRequire } from 'module';
 
@@ -54,7 +53,7 @@ Object.entries(entries).forEach((mapping) => {
             libraryExport: 'default',
         },
         plugins: [
-            new webpack.BannerPlugin("Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.\nFor licensing, see https://ckeditor.com/legal/ckeditor-oss-license"),
+            new webpack.BannerPlugin("Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.\nFor licensing, see https://ckeditor.com/legal/ckeditor-oss-license"),
             new webpack.DllReferencePlugin({
                 manifest: manifest,
                 scope: 'ckeditor5/src',

@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -108,12 +108,13 @@ abstract class ExportBase extends CKEditor5PluginDefault implements CKEditor5Plu
     }
 
     $static_plugin_config[$plugin]['converterOptions'] = $this->getCurrentConfiguration();
+    $static_plugin_config[$plugin]['converterOptions']['base_url'] = \Drupal::request()->getSchemeAndHttpHost();
 
     $file_extension = $this->getExportFileExtension();
     $file_name = $this->fileNameGenerator->generateFromRequest();
     $this->fileNameGenerator->addExtensionFile($file_name, $file_extension);
     $static_plugin_config[$plugin]['fileName'] = $file_name;
-    $static_plugin_config[$plugin]['stylesheets'] = $this->cssStyleProvider->getFormattedListOfCssFiles();
+    $static_plugin_config[$plugin]['stylesheets'] = $this->cssStyleProvider->getFormattedListOfCssFiles($editor);
     $customCssFile = $this->getCustomCssFilePath($editor->getOriginalId());
     if ($customCssFile) {
       $static_plugin_config[$plugin]['stylesheets'][] = $customCssFile;
@@ -336,6 +337,57 @@ abstract class ExportBase extends CKEditor5PluginDefault implements CKEditor5Plu
     }
 
     return $this->cssStyleProvider->getCustomCssFile($fileName);
+  }
+
+  /**
+   * Converts the export plugins converterOptions to the V2 format.
+   *
+   * @param array $config
+   *   The export plugins converterOptions array.
+   * @return void
+   */
+  protected function transformConverterOptionsFormatToV2(array &$config): void {
+    $oldFormatConfig = $config;
+    $config = [];
+    $config['document']['size'] = $oldFormatConfig['format'];
+    $config['document']['margins'] = [
+      'top' => $oldFormatConfig['margin_top'],
+      'bottom' => $oldFormatConfig['margin_bottom'],
+      'left' => $oldFormatConfig['margin_left'],
+      'right' => $oldFormatConfig['margin_right'],
+    ];
+    if (isset($oldFormatConfig['orientation'])) {
+      $config['document']['orientation'] = $oldFormatConfig['orientation'];
+    }
+    if (isset($oldFormatConfig['enable_mirror_margins'])) {
+      $config['document']['margins']['enable_mirror_margins'] = $oldFormatConfig['enable_mirror_margins'];
+    }
+    if (isset($oldFormatConfig['header'])) {
+      $config['headers'] = $this->transformHeaderAndFooterConfigToV2($oldFormatConfig['header']);
+    }
+    if (isset($oldFormatConfig['footer'])) {
+      $config['footers'] = $this->transformHeaderAndFooterConfigToV2($oldFormatConfig['footer']);
+    }
+  }
+
+  /**
+   * Converts the export plugins header and footer configuration to the V2 format.
+   *
+   * @param array $v1Config
+   *   The V1 configuration array.
+   * @return array
+   *   The V2 configuration array.
+   */
+  private function transformHeaderAndFooterConfigToV2($v1Config): array {
+    $v2Config = [];
+    foreach ($v1Config as $v1ConfigItem) {
+      $type = $v1ConfigItem['type'];
+      $v2Config[$type] = [
+        'html' => $v1ConfigItem['html'],
+        'css' => $v1ConfigItem['css'],
+      ];
+    }
+    return $v2Config;
   }
 
 }

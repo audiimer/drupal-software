@@ -119,7 +119,14 @@ class QuickTabs extends TabRendererBase implements ContainerFactoryPluginInterfa
           $render = $object->render($tab);
         }
         else {
-          $render = ['#markup' => $this->t('Loading content ...')];
+          $render = [
+            'loading' => [
+              '#theme' => 'quicktabs_loading',
+              '#message' => t('Loading content ...'),
+              '#instance' => $instance,
+              '#tabid' => $index,
+            ],
+          ];
         }
       }
       else {

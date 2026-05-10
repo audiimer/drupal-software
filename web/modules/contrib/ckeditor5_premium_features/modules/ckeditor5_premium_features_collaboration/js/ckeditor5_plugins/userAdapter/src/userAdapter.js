@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -23,13 +23,17 @@ class UserAdapter {
 
     const usersPlugin = this.editor.plugins.get( 'Users' );
     const users = drupalSettings.ckeditor5Premium.users;
-
     for (const user in users) {
+      if (usersPlugin.users.get(user)) {
+        continue;
+      }
       usersPlugin.addUser(users[user]);
     }
 
     // Set the current user.
-    usersPlugin.defineMe( drupalSettings.user.uid );
+    if (!usersPlugin.me) {
+      usersPlugin.defineMe( drupalSettings.user.uid );
+    }
 
     this.editor.on('ready', () => {
       this.setPermissions();
@@ -39,7 +43,10 @@ class UserAdapter {
   setPermissions() {
     let textFormat = this.editor.sourceElement.getAttribute('data-editor-active-text-format');
     let permissionsPlugin = this.editor.plugins.get('Permissions');
-    let permissions = drupalSettings.ckeditor5Premium.current_user.editor_permission[textFormat];
+    let permissions = drupalSettings.ckeditor5Premium?.current_user?.editor_permission[textFormat];
+    if (!permissions) {
+      return;
+    }
     const isTrackChangesEnabled = this.editor.plugins.has('TrackChanges');
 
     if (typeof permissions !== 'object') {
@@ -77,6 +84,9 @@ class UserAdapter {
     }
     if (plugins.has('RevisionTracker')) {
       plugins.get('RevisionTracker').forceDisabled(id);
+    }
+    if (plugins.has('RevisionHistory')) {
+      plugins.get('RevisionHistory').forceDisabled(id);
     }
     if (plugins.has('TrackChanges')) {
       plugins.get('TrackChanges').forceDisabled(id);

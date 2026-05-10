@@ -219,7 +219,7 @@ class Renderer implements RendererInterface {
 
     $context = $this->getCurrentRenderContext();
     if (!isset($context)) {
-      throw new \LogicException("Render context is empty, because render() was called outside of a renderRoot() or renderPlain() call. Use renderPlain()/renderRoot() or #lazy_builder/#pre_render instead.");
+      throw new \LogicException("Render context is empty, because render() was called outside of a renderRoot() or renderInIsolation() call. Use renderInIsolation()/renderRoot() or #lazy_builder/#pre_render instead.");
     }
 
     if ($is_root_call) {
@@ -643,7 +643,7 @@ class Renderer implements RendererInterface {
         // before returning here.
         if (\Fiber::getCurrent() !== NULL) {
           $this->setCurrentRenderContext($previous_context);
-          \Fiber::suspend();
+          \Fiber::suspend(FiberResumeType::Immediate);
           $this->setCurrentRenderContext($context);
         }
         $resume_type = $fiber->resume();
@@ -779,7 +779,7 @@ class Renderer implements RendererInterface {
           if ($iterations) {
             $fiber = \Fiber::getCurrent();
             if ($fiber !== NULL) {
-              $fiber->suspend();
+              $fiber->suspend(FiberResumeType::Immediate);
             }
           }
           continue;

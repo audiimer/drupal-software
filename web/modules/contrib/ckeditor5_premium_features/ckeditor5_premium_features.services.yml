@@ -19,6 +19,7 @@ services:
       - '@ckeditor5_premium_features.config_handler.settings'
       - '@ckeditor5_premium_features.user_helper'
       - '@ckeditor5_premium_features.access_handler'
+      - '@module_handler'
       - '@service_container'
 
   ckeditor5_premium_features.user_helper:
@@ -39,6 +40,8 @@ services:
       - '@theme.manager'
       - '@file_system'
       - '@file_url_generator'
+      - '@plugin.manager.ckeditor5.plugin'
+      - '@library.discovery'
 
   ckeditor5_premium_features.plugin_helper:
     class: \Drupal\ckeditor5_premium_features\Utility\PluginHelper

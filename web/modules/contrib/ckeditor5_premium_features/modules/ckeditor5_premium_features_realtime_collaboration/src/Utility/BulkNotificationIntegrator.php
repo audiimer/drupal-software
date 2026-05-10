@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -15,7 +15,7 @@ use Drupal\ckeditor5_premium_features_notifications\Entity\Message;
 use Drupal\ckeditor5_premium_features_notifications\Entity\MessageItemInterface;
 use Drupal\ckeditor5_premium_features_notifications\Plugin\Notification\NotificationMessageFactoryInterface;
 use Drupal\ckeditor5_premium_features_notifications\Utility\NotificationContextHelper;
-use Drupal\ckeditor5_premium_features_realtime_collaboration\Entity\ChannelInterface;
+use Drupal\ckeditor5_premium_features_cloud_services\Entity\ChannelInterface;
 use Drupal\ckeditor5_premium_features_realtime_collaboration\Entity\RtcCommentNotificationEntity;
 use Drupal\ckeditor5_premium_features_realtime_collaboration\Entity\RtcSuggestionNotificationEntity;
 use Drupal\Core\Entity\EntityStorageInterface;
@@ -236,7 +236,7 @@ class BulkNotificationIntegrator extends NotificationIntegratorBase {
    *
    * @param array $commentsArr
    *   Array of comments.
-   * @param \Drupal\ckeditor5_premium_features_realtime_collaboration\Entity\ChannelInterface $channel
+   * @param \Drupal\ckeditor5_premium_features_cloud_services\Entity\ChannelInterface $channel
    *   Channel id.
    *
    * @return array

@@ -5,7 +5,7 @@ admin.merge_fields:
       css/merge-fields.admin.css: { }
 
 merge_fields_adapter:
-  version: 20250707
+  version: 20260310
   js:
     js/build/mergeFieldsAdapter.js: { minified: true }
   dependencies:

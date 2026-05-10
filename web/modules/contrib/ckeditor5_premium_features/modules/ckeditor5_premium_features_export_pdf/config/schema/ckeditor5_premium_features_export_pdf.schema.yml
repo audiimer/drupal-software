@@ -65,6 +65,9 @@ ckeditor5.plugin.ckeditor5_premium_features_export_pdf__export_pdf:
             units:
               type: string
               label: 'Units'
+        enable_mirror_margins:
+          type: boolean
+          label: 'Mirror margins'
         page_orientation:
           type: string
           label: 'Page orientation'
@@ -77,6 +80,49 @@ ckeditor5.plugin.ckeditor5_premium_features_export_pdf__export_pdf:
         header_and_footer_css:
           type: string
           label: 'Header and footer css'
+        additional_header_footer:
+          type: mapping
+          label: 'Additional header and footer'
+          mapping:
+            first:
+              type: mapping
+              label: 'First page header and footer'
+              mapping:
+                header_html:
+                  type: string
+                  label: 'Header'
+                footer_html:
+                  type: string
+                  label: 'Footer'
+                header_and_footer_css:
+                  type: string
+                  label: 'Header and footer css'
+            even:
+              type: mapping
+              label: 'Even pages header and footer'
+              mapping:
+                header_html:
+                  type: string
+                  label: 'Header'
+                footer_html:
+                  type: string
+                  label: 'Footer'
+                header_and_footer_css:
+                  type: string
+                  label: 'Header and footer css'
+            odd:
+              type: mapping
+              label: 'Odd pages header and footer'
+              mapping:
+                header_html:
+                  type: string
+                  label: 'Header'
+                footer_html:
+                  type: string
+                  label: 'Footer'
+                header_and_footer_css:
+                  type: string
+                  label: 'Header and footer css'
     base64_converter:
       type: mapping
       label: 'Converter options'
@@ -95,6 +141,12 @@ ckeditor5_premium_features_export_pdf.settings:
     converter_url:
       type: string
       label: 'Converter URL'
+    env:
+      type: string
+      label: 'Environment ID'
+    access_key:
+      type: string
+      label: 'Access key'
     converter_options:
       type: mapping
       label: 'Converter options'
@@ -145,6 +197,9 @@ ckeditor5_premium_features_export_pdf.settings:
             units:
               type: string
               label: 'Units'
+        enable_mirror_margins:
+          type: boolean
+          label: 'Mirror margins'
         page_orientation:
           type: string
           label: 'Page orientation'
@@ -157,3 +212,46 @@ ckeditor5_premium_features_export_pdf.settings:
         header_and_footer_css:
           type: string
           label: 'Header and footer css'
+        additional_header_footer:
+          type: mapping
+          label: 'Additional header and footer'
+          mapping:
+            first:
+              type: mapping
+              label: 'First page header and footer'
+              mapping:
+                header_html:
+                  type: string
+                  label: 'Header'
+                footer_html:
+                  type: string
+                  label: 'Footer'
+                header_and_footer_css:
+                  type: string
+                  label: 'Header and footer css'
+            even:
+              type: mapping
+              label: 'Even pages header and footer'
+              mapping:
+                header_html:
+                  type: string
+                  label: 'Header'
+                footer_html:
+                  type: string
+                  label: 'Footer'
+                header_and_footer_css:
+                  type: string
+                  label: 'Header and footer css'
+            odd:
+              type: mapping
+              label: 'Odd pages header and footer'
+              mapping:
+                header_html:
+                  type: string
+                  label: 'Header'
+                footer_html:
+                  type: string
+                  label: 'Footer'
+                header_and_footer_css:
+                  type: string
+                  label: 'Header and footer css'

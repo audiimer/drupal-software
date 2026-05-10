@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -60,6 +60,7 @@ trait CKEditorPremiumPluginsCheckerTrait {
     return [
       'aiAssistant',
       'aiCommands',
+      'aiQuickActions',
       'caseChange',
       'comment',
       'commentsArchive',
@@ -67,13 +68,17 @@ trait CKEditorPremiumPluginsCheckerTrait {
       'exportWord',
       'formatPainter',
       'importWord',
+      'insertFootnote',
       'insertMergeField',
       'insertTemplate',
+      'lineHeight',
       'multiLevelList',
       'previewMergeFields',
       'revisionHistory',
+      'sourceEditingEnhanced',
       'tableOfContents',
-      'trackChanges'
+      'toggleAi',
+      'trackChanges',
     ];
   }
 }

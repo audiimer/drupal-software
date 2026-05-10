@@ -22,6 +22,15 @@ function quicktabs_help($route_name, RouteMatchInterface $route_match) {
  */
 function quicktabs_theme($existing, $type, $theme, $path): array {
   return [
+    'quicktabs_loading' => [
+      'variables' => [
+        'message' => NULL,
+        'tabid' => NULL,
+        'instance' => NULL,
+        'attributes' => [],
+      ],
+      'template' => 'quicktabs-loading',
+    ],
     'quicktabs_block_content' => [
       'variables' => [
         'title' => NULL,

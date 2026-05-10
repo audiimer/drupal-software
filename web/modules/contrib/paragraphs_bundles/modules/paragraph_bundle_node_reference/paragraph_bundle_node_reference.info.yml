@@ -9,7 +9,7 @@ dependencies:
   - paragraph_bundle_3d_carousel:paragraph_bundle_3d_carousel
   - paragraph_bundle_slideshow:paragraph_bundle_slideshow
 
-# Information added by Drupal.org packaging script on 2025-09-29
-version: '1.0.14'
+# Information added by Drupal.org packaging script on 2026-03-30
+version: '1.0.17'
 project: 'paragraphs_bundles'
-datestamp: 1759151847
+datestamp: 1774882937

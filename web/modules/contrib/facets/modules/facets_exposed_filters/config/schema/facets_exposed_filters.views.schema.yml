@@ -25,6 +25,12 @@ views.filter.facets_filter:
         min_count:
           type: integer
           label: 'Minimum count'
+        missing:
+          type: boolean
+          label: 'Missing'
+        missing_label:
+          type: label
+          label: 'Missing label'
         show_numbers:
           type: boolean
           label: 'Show the amount of results'

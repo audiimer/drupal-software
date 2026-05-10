@@ -7,7 +7,7 @@ dependencies:
   - drupal:block
   - js_cookie:js_cookie
 
-# Information added by Drupal.org packaging script on 2025-02-20
-version: '4.0.1'
+# Information added by Drupal.org packaging script on 2026-03-14
+version: '4.1.0'
 project: 'quicktabs'
-datestamp: 1740083815
+datestamp: 1773446744

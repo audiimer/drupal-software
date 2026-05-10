@@ -4,7 +4,6 @@ namespace Drupal\Tests\facets\Kernel\Entity;
 
 use Drupal\Core\Plugin\PluginBase;
 use Drupal\facets\Entity\Facet;
-use Drupal\facets\Exception\Exception;
 use Drupal\facets\Exception\InvalidProcessorException;
 use Drupal\facets\Hierarchy\HierarchyPluginManager;
 use Drupal\facets\Plugin\facets\hierarchy\Taxonomy;

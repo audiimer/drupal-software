@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -269,9 +269,9 @@ class TextFormat implements Ckeditor5TextFormatInterface {
     }
     $items = $form_state->get(static::STORAGE_KEY) ?? [];
     $storageData = [];
-    foreach ($items as $item_key => $item_parents) {
+    foreach ($items as $item_key => $item) {
       $key = 'track_changes';
-      $source_data = $this->getFormElementSourceData($form_state, $item_parents['parents'], $key, $item_key);
+      $source_data = $this->getFormElementSourceData($form_state, $item['parents'], $key, $item_key);
       if (empty($source_data)) {
         continue;
       }

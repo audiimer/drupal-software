@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -15,6 +15,7 @@ use Drupal\ckeditor5_premium_features\Utility\UserHelper;
 use Drupal\Core\Session\AccountProxyInterface;
 use Firebase\JWT\JWT;
 use Drupal\Core\DependencyInjection\Container;
+use Drupal\Core\Extension\ModuleHandlerInterface;
 
 /**
  * Provides the JWT Token generator service.
@@ -34,6 +35,8 @@ class TokenGenerator implements TokenGeneratorInterface {
    *   Helper for getting user data.
    * @param CollaborationAccessHandlerInterface $accessHandler
    *   The Collaboration Access Handler.
+   * @param \Drupal\Core\Extension\ModuleHandlerInterface $moduleHandler
+   *   The module handler.
    * @param \Drupal\Core\DependencyInjection\Container $serviceContainer
    *   The service container.
    *
@@ -44,6 +47,7 @@ class TokenGenerator implements TokenGeneratorInterface {
     protected SettingsConfigHandlerInterface $settingsConfigHandler,
     protected UserHelper $userHelper,
     protected CollaborationAccessHandlerInterface $accessHandler,
+    protected ModuleHandlerInterface $moduleHandler,
     protected Container $serviceContainer
   ) {
   }
@@ -55,7 +59,7 @@ class TokenGenerator implements TokenGeneratorInterface {
     $access = [];
 
     $isRtcPermissionsEnabled = FALSE;
-    if ($this->serviceContainer->get('module_handler')->moduleExists('ckeditor5_premium_features_realtime_collaboration')) {
+    if ($this->moduleHandler->moduleExists('ckeditor5_premium_features_realtime_collaboration')) {
       $rtcConfig = $this->serviceContainer->get('ckeditor5_premium_features_realtime_collaboration.collaboration_settings');
       $isRtcPermissionsEnabled = $rtcConfig->isPermissionsEnabled();
     }
@@ -77,6 +81,13 @@ class TokenGenerator implements TokenGeneratorInterface {
         ],
       ],
     ];
+
+    if ($this->moduleHandler->moduleExists('ckeditor5_premium_features_ai')) {
+      $permissionHelper = \Drupal::service('ckeditor5_premium_features_ai.permission_helper');
+      $array = $permissionHelper->getCKEditorAIPermissions($filterFormatId);
+      $payload['auth']['ai']['permissions'] = $array;
+    }
+
     $userData = $this->userHelper->getUserData($this->account);
     $payload['user'] = $userData;
 

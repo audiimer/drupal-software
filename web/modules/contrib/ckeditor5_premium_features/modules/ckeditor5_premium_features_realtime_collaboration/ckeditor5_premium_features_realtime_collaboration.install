@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -13,7 +13,7 @@
 use Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Url;
 use Drupal\ckeditor5_premium_features\Entity\CollaborationStorageSchema;
-use Drupal\ckeditor5_premium_features_realtime_collaboration\Entity\ChannelInterface;
+use Drupal\ckeditor5_premium_features_cloud_services\Entity\ChannelInterface;
 
 /**
  * Implements hook_requirements().
@@ -120,5 +120,61 @@ function ckeditor5_premium_features_realtime_collaboration_update_10002(): void 
     'ckeditor5_channel',
     $fieldStorageDefinition
   );
+}
 
+/**
+ * Ensure the Cloud Services module is enabled.
+ */
+function ckeditor5_premium_features_realtime_collaboration_update_10003(&$sandbox = NULL) {
+  $module_handler = \Drupal::moduleHandler();
+  $module_id = 'ckeditor5_premium_features_cloud_services';
+
+  if (!$module_handler->moduleExists($module_id)) {
+    \Drupal::service('module_installer')->install([$module_id]);
+  }
+}
+
+/**
+ * The ckeditor5_channel has been moved to the Cloud Services module. This is
+ * because of the new CKEditor AI module also depends on the ckeditor5_channel.
+ * The update only ensures that the ckeditor5_channel entity type and handler
+ * classes are registered to the Cloud Services module. The stored data is not
+ * changed.
+ */
+function ckeditor5_premium_features_realtime_collaboration_update_10004(&$sandbox = NULL) {
+  $entity_type_id = 'ckeditor5_channel';
+
+  /** @var \Drupal\Core\Entity\EntityDefinitionUpdateManagerInterface $definition_update_manager */
+  $definition_update_manager = \Drupal::entityDefinitionUpdateManager();
+
+  /** @var \Drupal\Core\Entity\EntityLastInstalledSchemaRepositoryInterface $repo */
+  $repo = \Drupal::service('entity.last_installed_schema.repository');
+
+  $entity_type = $definition_update_manager->getEntityType($entity_type_id);
+  if (!$entity_type) {
+    return t('Entity type %id not found.', ['%id' => $entity_type_id]);
+  }
+
+  $last_installed_definition = $repo->getLastInstalledDefinition($entity_type_id);
+  if (
+    $last_installed_definition instanceof \Drupal\Core\Entity\ContentEntityTypeInterface &&
+    $last_installed_definition->getProvider() === 'ckeditor5_premium_features_cloud_services'
+  ) {
+    return t('Channel entity type definition is already correctly registered to the Cloud Services module.');
+  }
+
+  $repo->setLastInstalledDefinition($entity_type);
+
+  $field_storage_definitions = [];
+  if (method_exists($definition_update_manager, 'getFieldStorageDefinitions')) {
+    $field_storage_definitions = $definition_update_manager->getFieldStorageDefinitions($entity_type_id);
+  }
+  else {
+    $field_storage_definitions = \Drupal::service('entity_field.manager')
+      ->getFieldStorageDefinitions($entity_type_id);
+  }
+
+  $repo->setLastInstalledFieldStorageDefinitions($entity_type_id, $field_storage_definitions);
+
+  return t('Re-registered last-installed definition for %id.', ['%id' => $entity_type_id]);
 }

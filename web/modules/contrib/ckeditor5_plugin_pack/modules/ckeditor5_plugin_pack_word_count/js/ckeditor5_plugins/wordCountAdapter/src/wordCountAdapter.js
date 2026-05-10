@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -19,7 +19,7 @@ class WordCountAdapter {
       return;
     }
     this.wordCountId = this.elementId + '-ck-word-count';
-    const formItem = this.editor.sourceElement.closest(".form-item");
+    const formItem = this.editor.sourceElement.closest('.form-item') ?? this.editor.sourceElement;
     this.wordCountWrapper = document.createElement("div");
     this.wordCountWrapper.setAttribute("class", "ck-word-count-container");
     this.wordCountWrapper.setAttribute("id", this.wordCountId);

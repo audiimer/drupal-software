@@ -6,15 +6,81 @@
  * Website:      https://www.flashwebcenter.com
  * Developer:    Alaa Haddad https://www.alaahaddad.com.
  */
+
+/* Base state - visible */
+.paragraph--type--alert-bundle {
+  display: grid;
+  grid-template-rows: 1fr;
+  opacity: 1;
+  transition: opacity 0.3s ease-out, grid-template-rows 0.3s ease-out;
+}
+
+/* Closed state - collapsed with animation */
 .paragraph--type--alert-bundle.alert-is-closed {
-  display: none;
-  height: 0;
-  width: 0;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.paragraph--type--alert-bundle > .paragraph__inner {
+  overflow: hidden;
+  position: relative;
+}
+
+/* Row 1: close button + countdown grouped */
+.paragraph--type--alert-bundle .pb__alert-top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: end;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.paragraph--type--alert-bundle .pb__alert-countdown {
+  isplay: inline-flex;
+  align-items: center;
+  gap: 0.2em;
+  min-width: 2rem;
+  padding: 0.25rem 0.5rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--pb-tx, inherit);
+  opacity: 0.85;
+  border: 1px solid #ccc;
+  line-height: 1;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  justify-content: center;
+}
+
+.paragraph--type--alert-bundle .pb__alert-countdown-unit {
+  font-weight: 500;
+  opacity: 0.9;
 }
 
 .paragraph--type--alert-bundle .pb__content-alert {
   display: grid;
   grid-auto-flow: row;
+}
+
+.paragraph--type--alert-bundle .pb__content-alert > * {
+  min-width: 0;
+}
+
+.paragraph--type--alert-bundle .pb__content-title {
+  margin-block: 0 0.5rem;
+}
+
+.paragraph--type--alert-bundle[aria-hidden="true"] * {
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.pb__close-alert svg {
+  transition: opacity 0.3s ease;
+  opacity: 0.6;
+  fill: var(--pb-tx, var(--r-tx, inherit));
 }
 
 .paragraph--type--alert-bundle button.pb__close-alert {
@@ -30,20 +96,32 @@
   appearance: none;
   border: none;
   border-radius: 50%;
-  float: inline-end;
+  flex-shrink: 0;
+  transition: transform 0.2s ease-out;
+}
+
+.paragraph--type--alert-bundle button.pb__close-alert:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.paragraph--type--alert-bundle button.pb__close-alert:focus {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
 }
 
 .paragraph--type--alert-bundle .pb__close-alert:hover svg {
   fill: red;
 }
 
-.paragraph--type--alert-bundle .pb__alert-top.Off .pb__content-title {
-  width: 100%;
-}
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion:reduce) {
+  .paragraph--type--alert-bundle {
+    transition: none;
+  }
 
-.paragraph--type--alert-bundle .pb__alert-top.On .pb__content-title {
-  margin-block: 0;
-  margin-inline: auto;
-  width: calc(100% - var(--pb-px36));
-  min-height: var(--pb-px36);
+  .paragraph--type--alert-bundle button.pb__close-alert {
+    transition: none;
+  }
+
 }

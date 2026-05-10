@@ -3,5 +3,5 @@ ckeditor5_premium_features_wproofreader.form.settings:
   route_name: ckeditor5_premium_features_wproofreader.form.settings
   base_route: ckeditor5_premium_features.form.settings
   description: 'WProofreader Configuration Form'
-  weight: 34
+  weight: 150
 

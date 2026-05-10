@@ -1,7 +1,7 @@
 <?php
 
 /*
- * Copyright (c) 2003-2025, CKSource Holding sp. z o.o. All rights reserved.
+ * Copyright (c) 2003-2026, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -46,7 +46,7 @@ function ckeditor5_plugin_pack_highlight_build_style_library(): array {
       $key = 'highlight_styles.' . $format;
       $filepath = \Drupal::service('file_system')->realpath('public://ckeditor5/' . $filename);
 
-      if (!file_exists($filepath)) {
+      if ($filepath === FALSE || (is_string($filepath) && !file_exists($filepath))) {
         // Create the file if it does not exist.
         $css_file_creator = \Drupal::service('ckeditor5_plugin_pack_highlight.css_file_creator');
         $css_file_creator->saveHighlightCss($settings["plugins"]["ckeditor5_plugin_pack_highlight__highlight"], $format);
