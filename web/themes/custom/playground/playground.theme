@@ -12,6 +12,147 @@ function playground_preprocess_views_view(&$variables) {
     $variables['user_roles'] = \Drupal::currentUser()->getRoles();
   }
 }
+/**
+ * Preprocess each Views row in the Software Library Search.
+ * Looks up the matching Commerce Product for each Software node
+ * and exposes the price + add-to-cart form separately for the card template.
+ */
+function playground_preprocess_views_view_fields(&$variables) {
+  // Only run for our specific catalog View.
+  if ($variables['view']->id() !== 'software_library_search') {
+    return;
+  }
+
+  // Defensive: only proceed if Commerce is available.
+  if (!\Drupal::moduleHandler()->moduleExists('commerce_product')) {
+    return;
+  }
+
+  $row = $variables['row'];
+  if (empty($row->_entity) || $row->_entity->bundle() !== 'software') {
+    return;
+  }
+
+  $node = $row->_entity;
+
+  // Find the matching variation.
+  $variation_storage = \Drupal::entityTypeManager()
+    ->getStorage('commerce_product_variation');
+
+  $vids = $variation_storage->getQuery()
+    ->accessCheck(TRUE)
+    ->condition('field_software', $node->id())
+    ->condition('status', 1)
+    ->range(0, 1)
+    ->execute();
+
+  if (empty($vids)) {
+    return;
+  }
+
+  $variation = $variation_storage->load(reset($vids));
+  if (!$variation) {
+    return;
+  }
+
+  $product = $variation->getProduct();
+  if (!$product) {
+    return;
+  }
+
+  // Expose the formatted price separately.
+  $price = $variation->getPrice();
+  if ($price) {
+    $variables['software_price'] = [
+      '#markup' => \Drupal::service('commerce_price.currency_formatter')
+        ->format($price->getNumber(), $price->getCurrencyCode()),
+    ];
+  }
+
+  // Expose just the Add to Cart form (no other product fields).
+  $variables['add_to_cart_form'] = \Drupal::service('entity.form_builder')
+    ->getForm(
+      \Drupal::entityTypeManager()
+        ->getStorage('commerce_order_item')
+        ->create([
+          'type' => 'default',
+          'purchased_entity' => $variation,
+          'quantity' => 1,
+        ]),
+      'add_to_cart',
+      ['product' => $product]
+    );
+}
+
+/**
+ * Preprocess Software nodes — for the One Pager view mode,
+ * expose the matching Commerce product's price and Add to Cart form.
+ */
+function playground_preprocess_node(&$variables) {
+  // Only run on Software nodes in the One Pager view mode.
+  if ($variables['node']->bundle() !== 'software') {
+    return;
+  }
+  if ($variables['view_mode'] !== 'one_pager_software_card') {
+    return;
+  }
+
+  // Defensive: only proceed if Commerce is available.
+  if (!\Drupal::moduleHandler()->moduleExists('commerce_product')) {
+    return;
+  }
+
+  $node = $variables['node'];
+
+  // Find the matching variation.
+  $variation_storage = \Drupal::entityTypeManager()
+    ->getStorage('commerce_product_variation');
+
+  $vids = $variation_storage->getQuery()
+    ->accessCheck(TRUE)
+    ->condition('field_software', $node->id())
+    ->condition('status', 1)
+    ->range(0, 1)
+    ->execute();
+
+  if (empty($vids)) {
+    return;
+  }
+
+  $variation = $variation_storage->load(reset($vids));
+  if (!$variation) {
+    return;
+  }
+
+  $product = $variation->getProduct();
+  if (!$product) {
+    return;
+  }
+
+  // Expose the formatted price.
+  $price = $variation->getPrice();
+  if ($price) {
+    $variables['software_price'] = [
+      '#markup' => \Drupal::service('commerce_price.currency_formatter')
+        ->format($price->getNumber(), $price->getCurrencyCode()),
+    ];
+  }
+
+  // Expose just the Add to Cart form.
+  $variables['add_to_cart_form'] = \Drupal::service('entity.form_builder')
+    ->getForm(
+      \Drupal::entityTypeManager()
+        ->getStorage('commerce_order_item')
+        ->create([
+          'type' => 'default',
+          'purchased_entity' => $variation,
+          'quantity' => 1,
+        ]),
+      'add_to_cart',
+      ['product' => $product]
+    );
+}
+
 // Include all files from the includes directory.
 $includes_path = __DIR__ . '/includes/*.theme';
 foreach (glob($includes_path) as $file) {

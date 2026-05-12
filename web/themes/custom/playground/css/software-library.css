@@ -247,6 +247,14 @@
   color: #854F0B;
 }
 
+/* ── PRICE ── */
+.path-software-library-new .software-card__price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1a5276;
+  margin: 0;
+}
+
 /* ── ADD TO CART BUTTON ── */
 .path-software-library-new .software-card__cta {
   position: relative;

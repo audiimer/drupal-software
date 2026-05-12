@@ -46,16 +46,26 @@
     </div>
   {% endif %}
 
-  {# Action button — only for Download and Chargeback (not Redirect) #}
+  {# Price (above button) #}
+  {% if software_price %}
+    <div class="software-card__price">{{ software_price }}</div>
+  {% endif %}
+
+  {# Real Commerce Add to Cart form for Download/Chargeback types #}
   {% if access_type == 'download' or access_type == 'chargeback' %}
-    <button class="software-card__cta"
-            type="button"
-            data-software-id="{{ entity.id }}"
-            data-software-name="{{ entity.label }}"
-            data-access-type="{{ access_type }}">
-      <span class="software-card__cta-icon" aria-hidden="true">+</span>
-      Add to cart
-    </button>
+    {% if add_to_cart_form %}
+      <div class="software-card__cta-wrap">
+        {{ add_to_cart_form }}
+      </div>
+    {% else %}
+      <button class="software-card__cta software-card__cta--disabled"
+              type="button"
+              disabled
+              title="Not yet available for purchase">
+        <span class="software-card__cta-icon" aria-hidden="true">+</span>
+        Coming soon
+      </button>
+    {% endif %}
   {% endif %}
 
 </div>

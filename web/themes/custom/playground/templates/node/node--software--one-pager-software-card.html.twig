@@ -44,52 +44,50 @@
     <div class="sop-cta-bar">
       <div class="sop-price">
         <div class="sop-price__amount">
-          {% if node.field_price.value %}
-            ${{ node.field_price.value }}<span class="sop-price__period"> / year</span>
+          {% if software_price %}
+            {{ software_price }}
           {% else %}
             Free
           {% endif %}
         </div>
-        <div class="sop-price__label">per license
-          {% if node.field_number_of_licenses.value %}
-            &nbsp;·&nbsp; {{ node.field_number_of_licenses.value }} available
-          {% endif %}
-        </div>
+        <div class="sop-price__label">per license</div>
       </div>
 
-      {# ====== ACCESS TYPE-AWARE CTA ====== #}
       {% set access_type = node.field_access_type.value %}
 
-      {# Show installation instructions link for any type that has one #}
-      {% if node.field_instructions_url.uri %}
-        <a href="{{ node.field_instructions_url.uri }}"
-           class="sop-btn sop-btn--secondary"
-           target="_blank">
-          Installation instructions
-        </a>
-      {% endif %}
+      {# Chargeback → real Commerce Add to Cart #}
+      {% if access_type == 'chargeback' %}
+        {% if add_to_cart_form %}
+          <div class="sop-cart-wrap">
+            {{ add_to_cart_form }}
+          </div>
+        {% else %}
+          <button class="sop-btn sop-btn--primary" disabled
+                  title="Not yet available for purchase">
+            Coming soon
+          </button>
+        {% endif %}
 
-      {# Primary CTA changes based on access type #}
-      {% if access_type == 'redirect' and node.field_redirect_button.uri %}
+      {# Redirect → external link, no cart #}
+      {% elseif access_type == 'redirect' and node.field_redirect_button.uri %}
         <a href="{{ node.field_redirect_button.uri }}"
            class="sop-btn sop-btn--primary"
-           target="_blank">
+           target="_blank" rel="noopener">
           {{ node.field_redirect_button.title ?: 'Visit website' }} ↗
         </a>
 
+      {# Download → real Commerce Add to Cart (OS selection comes later) #}
       {% elseif access_type == 'download' %}
-        {# Render the installer modal paragraph (Windows/Mac/Linux installers) #}
-        {% if content.field_installer_modal|render|trim %}
-          <div class="sop-installer-wrap">
-            {{ content.field_installer_modal }}
+        {% if add_to_cart_form %}
+          <div class="sop-cart-wrap">
+            {{ add_to_cart_form }}
           </div>
+        {% else %}
+          <button class="sop-btn sop-btn--primary" disabled
+                  title="Not yet available for purchase">
+            Coming soon
+          </button>
         {% endif %}
-
-      {% elseif access_type == 'chargeback' %}
-        <a href="#request"
-           class="sop-btn sop-btn--primary">
-          Request a license
-        </a>
       {% endif %}
     </div>
   </div>
