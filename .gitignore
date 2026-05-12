@@ -24,3 +24,8 @@ Thumbs.db
 # Docker/runtime data (if any)
 *.pid
 web/sites/default/files.zip
+
+# Database backups - never commit, they're too large for GitHub
+*.sql.gz
+*.sql
+backup-*.sql*
