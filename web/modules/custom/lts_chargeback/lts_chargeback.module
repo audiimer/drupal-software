@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * LTS Chargeback module — adds chargeback billing fields to Commerce orders.
+ */
+
+use Drupal\Core\Entity\EntityTypeInterface;
+use Drupal\Core\Field\BaseFieldDefinition;
+
+/**
+ * Implements hook_entity_base_field_info().
+ *
+ * Adds chargeback billing fields directly to the commerce_order entity.
+ * This keeps the data queryable alongside the order rather than scattered
+ * across a separate Webform submission entity.
+ */
+function lts_chargeback_entity_base_field_info(EntityTypeInterface $entity_type) {
+  if ($entity_type->id() !== 'commerce_order') {
+    return [];
+  }
+
+  $fields = [];
+
+  $fields['chargeback_name'] = BaseFieldDefinition::create('string')
+    ->setLabel(t('Authorized requester name'))
+    ->setDescription(t('Full name of the person requesting the chargeback.'))
+    ->setSetting('max_length', 255)
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
+
+  $fields['chargeback_email'] = BaseFieldDefinition::create('email')
+    ->setLabel(t('Email address'))
+    ->setDescription(t('Lehigh email address of the requester.'))
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
+
+  $fields['chargeback_department'] = BaseFieldDefinition::create('string')
+    ->setLabel(t('Department'))
+    ->setDescription(t('Department the chargeback should be billed to.'))
+    ->setSetting('max_length', 255)
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
+
+  $fields['chargeback_index'] = BaseFieldDefinition::create('string')
+    ->setLabel(t('Index number'))
+    ->setDescription(t('Banner index number to charge.'))
+    ->setSetting('max_length', 64)
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
+
+  $fields['chargeback_authorized_signer'] = BaseFieldDefinition::create('string')
+    ->setLabel(t('Authorized signer'))
+    ->setDescription(t('Name of the person authorized to approve charges on this index.'))
+    ->setSetting('max_length', 255)
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
+
+  return $fields;
+}

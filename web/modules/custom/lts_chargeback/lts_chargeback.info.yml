@@ -1,0 +1,8 @@
+name: 'LTS Chargeback'
+type: module
+description: 'Adds a chargeback information checkout pane and order fields for Lehigh University Software Library purchases requiring index-based billing.'
+package: 'Lehigh Custom'
+core_version_requirement: ^10 || ^11
+dependencies:
+  - commerce:commerce_checkout
+  - commerce:commerce_order
