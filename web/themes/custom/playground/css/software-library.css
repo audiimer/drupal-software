@@ -13,6 +13,8 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  background: var(--color-teal);
+
 }
 .path-software-library-new .software-tabs__item {
   margin: 0;
@@ -34,9 +36,9 @@
 }
 .path-software-library-new .software-tabs__link--active {
   background: #fff;
-  color: var(--color-navy);
+  color: var(--color-teal);
   font-weight: 700;
-  border-bottom: 3px solid var(--color-navy);
+  border-bottom: 3px solid var(--color-teal);
 }
 
 /* ── SEARCH BAR ── */
@@ -46,8 +48,8 @@
 .path-software-library-new .software-search-bar {
   display: flex;
   align-items: center;
-  border: 2px solid var(--color-navy);
-  border-radius: 6px;
+  border: 2px solid var(--color-teal);
+  border-radius: 0 0 6px 6px;
   overflow: hidden;
   background: #fff;
 }
@@ -58,7 +60,7 @@
   justify-content: center;
   width: 46px;
   height: 46px;
-  background: var(--color-navy);
+  background: var(--color-teal);
   border: none;
   cursor: pointer;
   color: #fff;
