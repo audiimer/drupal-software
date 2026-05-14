@@ -10,10 +10,6 @@ global-styling:
       # External CDNs MUST be quoted
       https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css:
         { type: external }
-software-one-pager:
-  css:
-    theme:
-      css/software-one-pager.css: {}
 software-library:
   css:
     theme:
