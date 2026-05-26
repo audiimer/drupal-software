@@ -80,3 +80,31 @@ We rejected Option B for the following reasons:
   `commerce_order` event subscriber).
 - Order admin view filter by department/index for fulfillment reporting.
 - Export chargeback orders to CSV for Banner reconciliation.
+- Decide on the Billing Information redundancy above.
+
+
+NOTES FOR WMS!!!
+
+### CSS — clean ✅
+- No global HTML tag overrides in any custom CSS file
+- All session-built CSS scoped to either `.path-software-library-new`
+  or `.sop-*` prefix
+- Audit'd via `grep` for naked global selectors (Nov 2025) — none found
+
+### Template overrides — needs dev-team review ⚠️
+The playground theme overrides several site-wide Drupal templates
+(node, form, input, page, html, block, etc.). These should be reviewed
+before the dev team builds new content types or page patterns:
+
+- `templates/content/node.html.twig`
+- `templates/form/*.html.twig` (entire folder)
+- `templates/system/html.html.twig`
+- `templates/page/page.html.twig`
+- `templates/block/block.html.twig`
+
+**Known historic bug:** `templates/form/fieldset.html.twig` referenced
+a missing `playground:fieldset` SDC component. Fixed during chargeback
+module work — see `web/modules/custom/lts_chargeback/README.md`.
+
+**Recommended pre-launch task:** ~4-6 hours to audit each override
+against Drupal core's stock template and document divergences.
