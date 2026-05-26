@@ -63,7 +63,12 @@
             "php-http/discovery": true,
             "php-tuf/composer-integration": true
         },
-        "sort-packages": true
+        "sort-packages": true,
+        "audit": {
+            "ignore": {
+                "PKSA-dwsq-ppd2-mb1x": "Temporary - blocking Drupal 11.3.10 upgrade. symfony/polyfill-intl-idn 1.38.1 fixes this but 11.3.10 pins ~v1.37.0. Remove when 11.3.11 ships with bumped polyfill constraint."
+            }
+        }
     },
     "extra": {
         "drupal-scaffold": {
