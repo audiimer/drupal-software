@@ -1,0 +1,46 @@
+/**
+ * @file
+ * Styles for the Software Tabs block (lts_software module).
+ *
+ * Scoped under .software-tabs (the block's outer wrapper).
+ * Bootstrap 5 nav-tabs handle the active/inactive states; this file
+ * only adjusts spacing, separation, and PDF embed presentation.
+ */
+
+.software-tabs {
+  margin-top: 2rem;
+}
+
+.software-tabs .nav-tabs {
+  margin-bottom: 0;
+}
+
+.software-tabs .tab-content {
+  padding: 1.5rem;
+  border: 1px solid #dee2e6;
+  border-top: 0;
+  border-radius: 0 0 0.375rem 0.375rem;
+  background-color: #fff;
+}
+
+.software-tabs .tab-pane > :first-child {
+  margin-top: 0;
+}
+
+.software-tabs .tab-pane > :last-child {
+  margin-bottom: 0;
+}
+
+/* PDF embed presentation. */
+.software-tabs__pdf-embed iframe {
+  border: 1px solid #dee2e6;
+  border-radius: 0.25rem;
+  display: block;
+}
+
+.software-tabs__pdf-fallback {
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+}

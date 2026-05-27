@@ -1,0 +1,5 @@
+software_tabs:
+  version: 1.x
+  css:
+    component:
+      css/software-tabs.css: {}

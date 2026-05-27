@@ -2,6 +2,25 @@
 
 /**
  * @file
+ * Hook implementations for the LTS Software module.
+ */
+
+/**
+ * Implements hook_theme().
+ */
+function lts_software_theme($existing, $type, $theme, $path) {
+  return [
+    'software_tabs' => [
+      'variables' => [
+        'tabs' => [],
+      ],
+      'template' => 'block--software-tabs',
+    ],
+  ];
+}
+
+/**
+ * @file
  * Hook implementations and helper code for the LTS Software module.
  *
  * Provides custom blocks for the software content type detail pages:
