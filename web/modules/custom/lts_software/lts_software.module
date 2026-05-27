@@ -1,0 +1,13 @@
+<?php
+
+/**
+ * @file
+ * Hook implementations and helper code for the LTS Software module.
+ *
+ * Provides custom blocks for the software content type detail pages:
+ * - SoftwareCtaBlock: conditional CTA per access_type (chargeback/download/redirect)
+ * - SoftwareTabsBlock: Description / Terms of Use / System Specs tabs
+ *
+ * @see \Drupal\lts_software\Plugin\Block\SoftwareCtaBlock
+ * @see \Drupal\lts_software\Plugin\Block\SoftwareTabsBlock
+ */

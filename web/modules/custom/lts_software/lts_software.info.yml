@@ -1,0 +1,9 @@
+name: LTS Software
+type: module
+description: 'Custom blocks and display logic for the LTS software library detail pages. Provides the conditional CTA block (per access type) and the software content tabs block.'
+package: 'Lehigh Custom'
+core_version_requirement: ^11
+dependencies:
+  - drupal:node
+  - drupal:layout_builder
+  - commerce:commerce_product
