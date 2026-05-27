@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4206d627577ad85ce79534bd3545138b",
+    "content-hash": "816d4a5f2e2b209398144c2696b0c0f7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3288,65 +3288,6 @@
             "homepage": "https://www.drupal.org/project/paragraphs",
             "support": {
                 "source": "https://git.drupalcode.org/project/paragraphs"
-            }
-        },
-        {
-            "name": "drupal/paragraphs_bundles",
-            "version": "1.0.17",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/paragraphs_bundles.git",
-                "reference": "1.0.17"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/paragraphs_bundles-1.0.17.zip",
-                "reference": "1.0.17",
-                "shasum": "66cacd760121fa5bdc78a9f6bba1e7e5ca7640c5"
-            },
-            "require": {
-                "drupal/core": "*",
-                "drupal/entity_reference_revisions": "*",
-                "drupal/field_group": "*",
-                "drupal/paragraphs": "*"
-            },
-            "require-dev": {
-                "drupal/contact": "*",
-                "drupal/contact_formatter": "*",
-                "drupal/link_attributes": "*",
-                "drupal/paragraph_bundle_3d_carousel-paragraph_bundle_3d_carousel": "*",
-                "drupal/paragraph_bundle_image-paragraph_bundle_image": "*",
-                "drupal/paragraph_bundle_slideshow-paragraph_bundle_slideshow": "*",
-                "drupal/viewsreference": "*",
-                "drupal/webform": "*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "drupal": {
-                    "version": "1.0.17",
-                    "datestamp": "1774882933",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Alaa Haddad (alaahaddad.com)",
-                    "homepage": "https://www.drupal.org/u/flashwebcenter",
-                    "role": "Maintainer"
-                }
-            ],
-            "description": "A reusable Paragraphs Bundles.",
-            "homepage": "https://drupal.org/project/paragraphs_bundles",
-            "support": {
-                "source": "https://git.drupalcode.org/project/paragraphs_bundles",
-                "issues": "https://drupal.org/project/issues/paragraphs_bundles"
             }
         },
         {

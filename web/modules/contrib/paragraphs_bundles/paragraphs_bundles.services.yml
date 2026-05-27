@@ -1,5 +1,0 @@
-services:
-  paragraphs_bundles.twig_extension:
-    class: Drupal\paragraphs_bundles\Twig\ParagraphsBundlesTwigExtension
-    tags:
-      - { name: twig.extension }
