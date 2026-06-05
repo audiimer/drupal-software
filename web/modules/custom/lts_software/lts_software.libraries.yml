@@ -3,3 +3,9 @@ software_tabs:
   css:
     component:
       css/software-tabs.css: {}
+
+software_price:
+  version: 1.x
+  css:
+    component:
+      css/software-price.css: {}

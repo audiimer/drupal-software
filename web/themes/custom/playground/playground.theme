@@ -62,14 +62,13 @@ function playground_preprocess_views_view_fields(&$variables) {
     return;
   }
 
-  // Expose the formatted price separately.
-  $price = $variation->getPrice();
-  if ($price) {
-    $variables['software_price'] = [
-      '#markup' => \Drupal::service('commerce_price.currency_formatter')
-        ->format($price->getNumber(), $price->getCurrencyCode()),
-    ];
-  }
+  // Expose the formatted price separately, using the commerce_price_free
+// formatter so zero-priced items display as "Free" on catalog cards.
+$variables['software_price'] = $variation->get('price')->view([
+  'label' => 'hidden',
+  'type' => 'commerce_price_free',
+  'settings' => [],
+]);
 
   // Expose just the Add to Cart form (no other product fields).
   $variables['add_to_cart_form'] = \Drupal::service('entity.form_builder')
