@@ -1,0 +1,32 @@
+lts_chargeback_approval:
+  id: lts_chargeback_approval
+  group: commerce_order
+  label: 'Chargeback approval'
+  states:
+    draft:
+      label: Draft
+    pending_review:
+      label: 'Pending review'
+    approved:
+      label: Approved
+    denied:
+      label: Denied
+    canceled:
+      label: Canceled
+  transitions:
+    place:
+      label: 'Submit for review'
+      from: [draft]
+      to: pending_review
+    approve:
+      label: 'Approve order'
+      from: [pending_review]
+      to: approved
+    deny:
+      label: 'Deny order'
+      from: [pending_review]
+      to: denied
+    cancel:
+      label: 'Cancel order'
+      from: [draft, pending_review]
+      to: canceled
