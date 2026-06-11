@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Chargeback order, 'user' view mode — overrides commerce-order--user to
+ * render the approval gate (added to the build by OrderViewHooks).
+ */
+#}
+<div{{ attributes }}>
+  {{ order.lts_chargeback_gate }}
+  <div class="customer-information">
+    {{ order.mail }}
+    {% if order.shipping_information %}
+      <div class="customer-information__shipping">
+        <div class="field__label">{{ 'Shipping information'|t }}</div>
+        {{ order.shipping_information }}
+      </div>
+    {% endif %}
+    {% if order.billing_information %}
+      <div class="customer-billing">
+        <div class="field__label">{{ 'Billing information'|t }}</div>
+        {{ order.billing_information }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="order-information">
+    {{ order.completed }}
+    {{ order.placed }}
+    {{ order.state }}
+    {{ order.order_items }}
+    {{ order.total_price }}
+  </div>
+</div>

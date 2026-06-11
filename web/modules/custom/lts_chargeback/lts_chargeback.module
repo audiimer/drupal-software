@@ -56,5 +56,26 @@ function lts_chargeback_entity_base_field_info(EntityTypeInterface $entity_type)
     ->setDisplayConfigurable('form', TRUE)
     ->setDisplayConfigurable('view', TRUE);
 
+  $fields['denial_reason'] = BaseFieldDefinition::create('string_long')
+    ->setLabel(t('Denial reason'))
+    ->setDescription(t('Reason shown to the user when a chargeback order is denied. Set by an admin on the review screen.'))
+    ->setDisplayConfigurable('form', TRUE)
+    ->setDisplayConfigurable('view', TRUE);
   return $fields;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function lts_chargeback_theme($existing, $type, $theme, $path) {
+  return [
+    'lts_chargeback_gate' => [
+      'variables' => [
+        'gate_state' => NULL,
+        'message' => NULL,
+        'instructions_link' => NULL,
+        'reason' => NULL,
+      ],
+    ],
+  ];
 }

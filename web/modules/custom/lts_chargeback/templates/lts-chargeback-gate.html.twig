@@ -1,0 +1,33 @@
+{#
+/**
+ * @file
+ * Chargeback approval gate, rendered on the user's order view.
+ *
+ * Available variables:
+ * - gate_state: 'pending_review' | 'approved' | 'denied'
+ * - message: status message string
+ * - instructions_link: render array for the instructions link (approved only)
+ * - reason: denial reason string (denied only)
+ */
+#}
+<div class="chargeback-gate chargeback-gate--{{ gate_state }}">
+  {% if gate_state == 'pending_review' %}
+    <div class="chargeback-gate__notice chargeback-gate__notice--pending">
+      <p>{{ message }}</p>
+    </div>
+  {% elseif gate_state == 'approved' %}
+    <div class="chargeback-gate__notice chargeback-gate__notice--approved">
+      <p>{{ message }}</p>
+      {% if instructions_link %}
+        <div class="chargeback-gate__link">{{ instructions_link }}</div>
+      {% endif %}
+    </div>
+  {% elseif gate_state == 'denied' %}
+    <div class="chargeback-gate__notice chargeback-gate__notice--denied">
+      <p>{{ message }}</p>
+      {% if reason %}
+        <p class="chargeback-gate__reason">{{ reason }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
