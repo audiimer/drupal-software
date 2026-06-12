@@ -69,6 +69,13 @@ function lts_chargeback_entity_base_field_info(EntityTypeInterface $entity_type)
  */
 function lts_chargeback_theme($existing, $type, $theme, $path) {
   return [
+    'lts_download_reveal' => [
+      'variables' => [
+        'product_label' => NULL,
+        'rows' => [],
+        'instructions_link' => NULL,
+      ],
+    ],
     'lts_chargeback_gate' => [
       'variables' => [
         'gate_state' => NULL,

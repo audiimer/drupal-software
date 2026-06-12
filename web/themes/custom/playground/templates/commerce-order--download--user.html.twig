@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Download order, 'user' view mode — outputs the download reveal block.
+ * PORT ITEM: Move into lts_chargeback module with proper hook_theme
+ * registration before WMS handoff (same as chargeback equivalent).
+ */
+#}
+<div{{ attributes }}>
+  {{ order.lts_download_reveal }}
+  <div class="customer-information">
+    {{ order.mail }}
+    {% if order.billing_information %}
+      <div class="customer-billing">
+        <div class="field__label">{{ 'Billing information'|t }}</div>
+        {{ order.billing_information }}
+      </div>
+    {% endif %}
+  </div>
+  <div class="order-information">
+    {{ order.completed }}
+    {{ order.placed }}
+    {{ order.order_items }}
+    {{ order.total_price }}
+  </div>
+</div>

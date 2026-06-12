@@ -140,3 +140,70 @@
 .chargeback-gate__instructions-link:hover {
   background: #254e6e;
 }
+
+.lts-download-reveal {
+  border-radius: 8px;
+  border: 0.5px solid rgba(0,0,0,0.15);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+  background: #fff;
+}
+
+.lts-download-reveal__badge {
+  background: #E1F5EE;
+  color: #085041;
+}
+
+.lts-download-reveal__notice {
+  border-left: 3px solid #1D9E75;
+  background: #E1F5EE;
+  border-radius: 0;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.lts-download-reveal__icon {
+  font-size: 18px;
+  color: #085041;
+  margin-top: 1px;
+  flex-shrink: 0;
+}
+
+.lts-download-reveal__message {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #04342C;
+}
+
+.lts-download-reveal__table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+.lts-download-reveal__table tr {
+  border-bottom: 0.5px solid rgba(0,0,0,0.1);
+}
+
+.lts-download-reveal__table tr:last-child {
+  border-bottom: none;
+}
+
+.lts-download-reveal__label {
+  padding: 8px 0;
+  color: #5F5E5A;
+  width: 160px;
+  font-weight: 500;
+}
+
+.lts-download-reveal__value {
+  padding: 8px 0;
+  font-family: monospace;
+  color: #993556;
+  font-size: 13px;
+}
