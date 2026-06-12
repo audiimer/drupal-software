@@ -73,6 +73,7 @@ function lts_chargeback_theme($existing, $type, $theme, $path) {
       'variables' => [
         'product_label' => NULL,
         'rows' => [],
+        'installer_modal' => NULL,
         'instructions_link' => NULL,
       ],
     ],
@@ -81,6 +82,7 @@ function lts_chargeback_theme($existing, $type, $theme, $path) {
         'gate_state' => NULL,
         'product_label' => NULL,
         'message' => NULL,
+        'installer_modal' => NULL,
         'instructions_link' => NULL,
         'reason' => NULL,
       ],

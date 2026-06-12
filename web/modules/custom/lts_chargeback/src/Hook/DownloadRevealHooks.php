@@ -68,6 +68,7 @@ class DownloadRevealHooks {
       '#theme' => 'lts_download_reveal',
       '#product_label' => $node->label(),
       '#rows' => $rows,
+      '#installer_modal' => $this->renderInstallerModal($node),
       '#instructions_link' => $instructions_link,
       '#cache' => ['tags' => $order->getCacheTags()],
     ];
@@ -85,6 +86,26 @@ class DownloadRevealHooks {
       }
     }
     return NULL;
+  }
+
+
+  /**
+   * Renders the installer_modal paragraph for the given software node.
+   *
+   * PORT ITEM: playground/installer_modal library lives in the playground
+   * theme. WMS must port this library to their theme before production.
+   */
+  protected function renderInstallerModal($node): array {
+    if (!$node->hasField('field_installer_modal') || $node->get('field_installer_modal')->isEmpty()) {
+      return [];
+    }
+    $paragraph = $node->get('field_installer_modal')->entity;
+    if (!$paragraph) {
+      return [];
+    }
+    return \Drupal::entityTypeManager()
+      ->getViewBuilder('paragraph')
+      ->view($paragraph, 'default');
   }
 
 }

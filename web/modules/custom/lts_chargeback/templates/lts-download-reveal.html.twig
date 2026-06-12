@@ -30,6 +30,11 @@
         {% endfor %}
       </table>
     {% endif %}
+    {% if installer_modal %}
+      <div class="lts-download-reveal__installer">
+        {{ installer_modal }}
+      </div>
+    {% endif %}
     {% if instructions_link %}
       <a href="{{ instructions_link.url }}" class="chargeback-gate__instructions-link" target="_blank" rel="noopener noreferrer">
         <i class="ti ti-external-link" aria-hidden="true"></i>
