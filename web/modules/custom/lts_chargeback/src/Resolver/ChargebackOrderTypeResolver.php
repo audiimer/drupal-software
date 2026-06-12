@@ -6,18 +6,14 @@ use Drupal\commerce_order\Entity\OrderItemInterface;
 use Drupal\commerce_order\Resolver\OrderTypeResolverInterface;
 
 /**
- * Resolves the 'chargeback' order type for chargeback-access software.
+ * Resolves order type based on the software node's field_access_type.
  *
- * When an order item references a Software node whose field_access_type is
- * 'chargeback', this resolver claims the order for the 'chargeback' order
- * type, which carries the lts_chargeback_approval workflow. Returning NULL
- * lets the next resolver in the chain (DefaultOrderTypeResolver) decide,
- * which is what happens for download/redirect items.
+ * - chargeback → 'chargeback' order type (approval workflow)
+ * - download   → 'download' order type (instant completion)
+ * - anything else → NULL (falls through to DefaultOrderTypeResolver)
  *
- * POC NOTE: This resolves order type at add-to-cart time, based on the item
- * being added. It is sufficient for single-type carts (the demo path). The
- * seamless mixed-cart split (one checkout producing a chargeback order AND a
- * download order) is a separate, larger piece of work and is NOT handled here.
+ * POC NOTE: Single-type carts only. Mixed-cart splitting (one checkout
+ * producing both a chargeback and a download order) is deferred to production.
  */
 class ChargebackOrderTypeResolver implements OrderTypeResolverInterface {
 
@@ -33,8 +29,12 @@ class ChargebackOrderTypeResolver implements OrderTypeResolverInterface {
     if (!$software || !$software->hasField('field_access_type')) {
       return NULL;
     }
-    if ($software->get('field_access_type')->value === 'chargeback') {
+    $access_type = $software->get('field_access_type')->value;
+    if ($access_type === 'chargeback') {
       return 'chargeback';
+    }
+    if ($access_type === 'download') {
+      return 'download';
     }
     return NULL;
   }
