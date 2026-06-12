@@ -1,33 +1,51 @@
 {#
 /**
  * @file
- * Chargeback approval gate, rendered on the user's order view.
+ * Chargeback approval gate — user-facing order view.
  *
- * Available variables:
+ * Variables:
  * - gate_state: 'pending_review' | 'approved' | 'denied'
  * - message: status message string
+ * - product_label: software product name (from the order item)
  * - instructions_link: render array for the instructions link (approved only)
  * - reason: denial reason string (denied only)
  */
 #}
+{{ attach_library('lts_chargeback/chargeback_gate') }}
 <div class="chargeback-gate chargeback-gate--{{ gate_state }}">
-  {% if gate_state == 'pending_review' %}
-    <div class="chargeback-gate__notice chargeback-gate__notice--pending">
-      <p>{{ message }}</p>
-    </div>
-  {% elseif gate_state == 'approved' %}
-    <div class="chargeback-gate__notice chargeback-gate__notice--approved">
-      <p>{{ message }}</p>
-      {% if instructions_link %}
-        <div class="chargeback-gate__link">{{ instructions_link }}</div>
+  <div class="chargeback-gate__header">
+    <p class="chargeback-gate__title">{{ product_label ?: 'Software request' }}</p>
+    {% if gate_state == 'pending_review' %}
+      <span class="chargeback-gate__badge">Pending review</span>
+    {% elseif gate_state == 'approved' %}
+      <span class="chargeback-gate__badge">Approved</span>
+    {% elseif gate_state == 'denied' %}
+      <span class="chargeback-gate__badge">Denied</span>
+    {% endif %}
+  </div>
+  <div class="chargeback-gate__body">
+    <div class="chargeback-gate__notice">
+      {% if gate_state == 'pending_review' %}
+        <i class="ti ti-clock chargeback-gate__icon" aria-hidden="true"></i>
+        <p class="chargeback-gate__message">{{ message }}</p>
+      {% elseif gate_state == 'approved' %}
+        <i class="ti ti-circle-check chargeback-gate__icon" aria-hidden="true"></i>
+        <p class="chargeback-gate__message">{{ message }}</p>
+      {% elseif gate_state == 'denied' %}
+        <i class="ti ti-alert-circle chargeback-gate__icon" aria-hidden="true"></i>
+        <div>
+          <p class="chargeback-gate__message">{{ message }}</p>
+          {% if reason %}
+            <p class="chargeback-gate__reason">{{ reason }}</p>
+          {% endif %}
+        </div>
       {% endif %}
     </div>
-  {% elseif gate_state == 'denied' %}
-    <div class="chargeback-gate__notice chargeback-gate__notice--denied">
-      <p>{{ message }}</p>
-      {% if reason %}
-        <p class="chargeback-gate__reason">{{ reason }}</p>
-      {% endif %}
-    </div>
-  {% endif %}
+    {% if gate_state == 'approved' and instructions_link %}
+      <a href="{{ instructions_link['#url'] }}" class="chargeback-gate__instructions-link" target="_blank" rel="noopener noreferrer">
+        <i class="ti ti-external-link" aria-hidden="true"></i>
+        {{ instructions_link['#title'] }}
+      </a>
+    {% endif %}
+  </div>
 </div>

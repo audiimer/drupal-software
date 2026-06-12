@@ -35,11 +35,14 @@ class OrderViewHooks {
 
   protected function gateRender($order, $state): array {
     $base = ['#cache' => ['tags' => $order->getCacheTags()]];
+    $node = $this->orderSoftwareNode($order);
+    $product_label = $node ? $node->label() : '';
 
     if ($state === 'pending_review') {
       return $base + [
         '#theme' => 'lts_chargeback_gate',
         '#gate_state' => 'pending_review',
+        '#product_label' => $product_label,
         '#message' => t('Your request is pending review. Instructions will appear here once it has been approved. You will be notified by email.'),
       ];
     }
@@ -71,6 +74,7 @@ class OrderViewHooks {
       return $base + [
         '#theme' => 'lts_chargeback_gate',
         '#gate_state' => 'approved',
+        '#product_label' => $product_label,
         '#message' => t('Your request has been approved. Use the link below for installation and activation instructions.'),
         '#instructions_link' => $link,
       ];
@@ -83,6 +87,7 @@ class OrderViewHooks {
     return $base + [
       '#theme' => 'lts_chargeback_gate',
       '#gate_state' => 'denied',
+        '#product_label' => $product_label,
       '#message' => t('Your request was denied.'),
       '#reason' => $reason,
     ];

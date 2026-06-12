@@ -1,0 +1,5 @@
+chargeback_gate:
+  version: 1.x
+  css:
+    component:
+      css/chargeback-gate.css: {}
