@@ -637,3 +637,37 @@
 
     
 }
+
+/* ── ALERT LINK CONTRAST (root-cause fix) ──
+   Bootswatch Flatly sets --bs-alert-link-color to a low-contrast shade that
+   disappears against the alert background. global-styling loads AFTER flatly-cdn
+   (see playground.info.yml), so overriding the variable here wins cleanly.
+   Sets the variable Bootstrap actually reads — applies to all alert types,
+   no !important needed. Playground theme only; WMS LTS theme replaces this. */
+.alert-success { --bs-alert-link-color: #0a3622; }
+.alert-info    { --bs-alert-link-color: #0a3a4a; }
+.alert-warning { --bs-alert-link-color: #5a3d00; }
+.alert-danger  { --bs-alert-link-color: #5a1212; }
+
+/* ALERT LINK FIX: compiled bundle sets .alert a { color:#fff } (white = invisible
+   on light alert areas). Override with higher specificity. Playground theme only. */
+[aria-label] .alert.alert-success a,
+div.alert.alert-success a,
+.alert.alert-success a.alert-link,
+.alert.alert-success a {
+  color: #0a3622 !important;
+  text-decoration: underline;
+}
+
+/* ALERT PLACEHOLDER FIX: Drupal wraps the subject in <em class="placeholder">,
+   but Bootstrap's .placeholder utility paints a semi-transparent skeleton block
+   over it (background-color:currentcolor; opacity:.5). Reset it inside alerts so
+   the text shows normally. Playground theme only. */
+.alert .placeholder {
+  background-color: transparent !important;
+  opacity: 1 !important;
+  cursor: auto !important;
+  min-height: auto !important;
+  display: inline !important;
+  vertical-align: baseline !important;
+}
