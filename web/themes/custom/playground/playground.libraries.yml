@@ -87,13 +87,3 @@ flatly-cdn:
     theme:
       https://cdn.jsdelivr.net/npm/bootswatch@5/dist/flatly/bootstrap.min.css:
         { type: external }
-
-installer_modal:
-  js:
-    js/installer-modal.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
-    - core/drupalSettings
-    - core/bootstrap5
-    - core/once

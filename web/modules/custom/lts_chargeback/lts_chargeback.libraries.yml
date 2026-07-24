@@ -3,3 +3,14 @@ chargeback_gate:
   css:
     component:
       css/chargeback-gate.css: {}
+
+installer_modal:
+  version: 1.x
+  js:
+    js/installer-modal.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
+    - core/bootstrap5
+    - core/once
