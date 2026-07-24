@@ -69,6 +69,21 @@ function lts_chargeback_entity_base_field_info(EntityTypeInterface $entity_type)
  */
 function lts_chargeback_theme($existing, $type, $theme, $path) {
   return [
+    // Register the per-bundle commerce_order template variants as real theme
+    // hooks so their templates are discovered from THIS module's templates/
+    // directory, not the active theme. This is what makes the gate and download
+    // reveal survive a theme swap (playground -> Lehigh LTS). Mirrors Commerce's
+    // own commerce_order__user registration. base hook inherits commerce_order's
+    // preprocessing so order.* render keys remain available in the template.
+    'commerce_order__chargeback__user' => [
+      'base hook' => 'commerce_order',
+      'render element' => 'elements',
+    ],
+    'commerce_order__download__user' => [
+      'base hook' => 'commerce_order',
+      'render element' => 'elements',
+    ],
+
     'lts_download_reveal' => [
       'variables' => [
         'product_label' => NULL,
