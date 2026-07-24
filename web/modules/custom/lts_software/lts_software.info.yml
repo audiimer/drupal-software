@@ -7,3 +7,4 @@ dependencies:
   - drupal:node
   - drupal:layout_builder
   - commerce:commerce_product
+  - drupal:views
