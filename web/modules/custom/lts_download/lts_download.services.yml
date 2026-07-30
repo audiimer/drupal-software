@@ -2,3 +2,5 @@ services:
   lts_download.logger:
     class: Drupal\lts_download\DownloadLogger
     arguments: ['@entity_type.manager']
+  lts_download.installer_entries_builder:
+    class: Drupal\lts_download\InstallerEntriesBuilder

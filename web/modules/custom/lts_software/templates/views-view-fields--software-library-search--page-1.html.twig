@@ -29,15 +29,13 @@
   {% if software_price %}
     <div class="software-card__price">{{ software_price }}</div>
   {% endif %}
-  {# Download: link through to the detail page, where the installer
-     modal (OS/variant selection) lives. Downloads never use the Commerce
-     add-to-cart form -- see download-workflow-logging-design.md. #}
+  {# Download: renders the same installer modal as the detail page
+     (built by the shared lts_download.installer_entries_builder
+     service via CatalogViewsPreprocessHooks). Downloads never use the
+     Commerce add-to-cart form -- see download-workflow-logging-design.md. #}
   {% if card_access_type == 'download' %}
     <div class="software-card__cta-wrap">
-      <a href="{{ path('entity.node.canonical', {'node': entity.id}) }}"
-         class="btn btn-success software-card__cta">
-        Download
-      </a>
+      {{ installer_modal }}
     </div>
   {# Chargeback: real Commerce Add to Cart form. #}
   {% elseif card_access_type == 'chargeback' %}

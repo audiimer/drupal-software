@@ -153,10 +153,13 @@ class CatalogViewsPreprocessHooks {
       ? $node->get('field_access_type')->value
       : NULL;
 
-    // Downloads never use the Commerce add-to-cart form -- the card
-    // links to the detail page's installer modal instead (see Twig
-    // template). No need to build a cart form nobody will render.
+    // Downloads never use the Commerce add-to-cart form. Instead the
+    // card renders the same installer modal as the detail page, built
+    // by the shared lts_download.installer_entries_builder service so
+    // the two never drift apart.
     if ($variables['card_access_type'] === 'download') {
+      $variables['installer_modal'] = \Drupal::service('lts_download.installer_entries_builder')
+        ->buildRenderArray($node);
       return;
     }
 
