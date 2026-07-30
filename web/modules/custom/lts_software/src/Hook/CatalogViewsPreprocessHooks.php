@@ -14,11 +14,68 @@ use Drupal\Core\Hook\Attribute\Hook;
  * D11 note: procedural preprocess hooks did not reliably register for
  * this project's custom modules, so these are written as OOP #[Hook]
  * attribute methods, consistent with lts_chargeback's hook classes.
+ *
+ * This class also computes the role-based audience tab visibility (which
+ * tabs a given user sees) and the card filter-attribute data (category/OS),
+ * so the Twig templates only render pre-computed data rather than making
+ * access-control decisions or looping over entity fields themselves.
+ *
+ * POC NOTE: the tab definitions (label/path/roles) are hardcoded here.
+ * This was flagged early in the project as a "Field Group refactor of
+ * hardcoded Twig tabs" deferred item — moving the hardcoding from Twig to
+ * PHP is a real improvement (testable, no entity/access logic in templates)
+ * but the tab list itself should eventually become configuration (e.g. a
+ * taxonomy or a config entity) rather than a literal array in code, so WMS
+ * can edit tabs without a code deploy.
  */
 class CatalogViewsPreprocessHooks {
 
   /**
-   * Attaches the catalog library and exposes user roles to the view template.
+   * The audience tab definitions: label, path suffix, url-match string, and
+   * which roles may see the tab. 'administrator' always sees every tab.
+   */
+  protected const TABS = [
+    [
+      'label' => 'Students',
+      'path' => '/software-library-new/Students',
+      'match' => 'Students',
+      'roles' => ['student', 'lts'],
+    ],
+    [
+      'label' => 'Faculty/Staff',
+      'path' => '/software-library-new/Faculty%20Staff',
+      'match' => 'Faculty',
+      'roles' => ['faculty_staff', 'lts'],
+    ],
+    [
+      'label' => 'LTS',
+      'path' => '/software-library-new/LTS',
+      'match' => 'LTS',
+      'roles' => ['lts'],
+    ],
+    [
+      'label' => 'Public Sites',
+      'path' => '/software-library-new/Public%20Sites',
+      'match' => 'Public',
+      'roles' => ['student', 'faculty_staff', 'lts'],
+    ],
+    [
+      'label' => 'HPC',
+      'path' => '/software-library-new/HPC',
+      'match' => 'HPC',
+      'roles' => ['student', 'faculty_staff', 'lts'],
+    ],
+    [
+      'label' => 'LUapps',
+      'path' => '/software-library-new/LUapps',
+      'match' => 'LUapps',
+      'roles' => ['student', 'faculty_staff', 'lts'],
+    ],
+  ];
+
+  /**
+   * Attaches the catalog library and exposes the visible tabs to the
+   * page template, already filtered by the current user's roles.
    */
   #[Hook('preprocess_views_view')]
   public function preprocessViewsView(array &$variables): void {
@@ -26,16 +83,53 @@ class CatalogViewsPreprocessHooks {
       return;
     }
     $variables['#attached']['library'][] = 'playground/software-library';
-    $variables['user_roles'] = \Drupal::currentUser()->getRoles();
+
+    $user_roles = \Drupal::currentUser()->getRoles();
+    $variables['user_roles'] = $user_roles;
+    $variables['visible_tabs'] = $this->buildVisibleTabs($user_roles);
   }
 
   /**
-   * Exposes formatted price and an add-to-cart form for each catalog row.
+   * Builds the list of tabs the current user is allowed to see, with an
+   * 'active' flag set for whichever tab matches the current URL.
+   *
+   * @param string[] $user_roles
+   *   The current user's role machine names.
+   *
+   * @return array
+   *   A list of ['label' => ..., 'path' => ..., 'active' => bool].
+   */
+  protected function buildVisibleTabs(array $user_roles): array {
+    $current_path = \Drupal::request()->getRequestUri();
+    $is_admin = in_array('administrator', $user_roles, TRUE);
+
+    $tabs = [];
+    foreach (self::TABS as $tab) {
+      $has_access = $is_admin || !empty(array_intersect($tab['roles'], $user_roles));
+      if (!$has_access) {
+        continue;
+      }
+      $tabs[] = [
+        'label' => $tab['label'],
+        'path' => $tab['path'],
+        'active' => str_contains($current_path, $tab['match']),
+      ];
+    }
+    return $tabs;
+  }
+
+  /**
+   * Exposes formatted price, add-to-cart form, and card filter-attribute
+   * data for each catalog row.
    *
    * Looks up the Commerce product variation matching the row's Software
    * node (via field_software), and builds:
    * - software_price: rendered price (Free if $0, via commerce_price_free).
    * - add_to_cart_form: the add-to-cart form for that variation.
+   * - card_data_category: comma-joined category labels, for the sidebar's
+   *   client-side filter (data-category attribute on the card).
+   * - card_data_os: comma-joined "available for" values, same purpose
+   *   (data-os attribute).
    *
    * POC NOTE: assumes exactly one active variation per software node
    * (range(0,1)). If a node ever needs multiple purchasable variations,
@@ -46,14 +140,22 @@ class CatalogViewsPreprocessHooks {
     if ($variables['view']->id() !== 'software_library_search') {
       return;
     }
+
+    $row = $variables['row'];
+    $node = $row->_entity ?? NULL;
+    if (!$node || $node->bundle() !== 'software') {
+      return;
+    }
+
+    $variables['card_data_category'] = $this->extractTermLabels($node, 'field_category');
+    $variables['card_data_os'] = $this->extractOsValues($node, 'field_available_for');
+    $variables['card_access_type'] = $node->hasField('field_access_type')
+      ? $node->get('field_access_type')->value
+      : NULL;
+
     if (!\Drupal::moduleHandler()->moduleExists('commerce_product')) {
       return;
     }
-    $row = $variables['row'];
-    if (empty($row->_entity) || $row->_entity->bundle() !== 'software') {
-      return;
-    }
-    $node = $row->_entity;
 
     $variation_storage = \Drupal::entityTypeManager()
       ->getStorage('commerce_product_variation');
@@ -95,6 +197,37 @@ class CatalogViewsPreprocessHooks {
         'add_to_cart',
         ['product' => $product]
       );
+  }
+
+  /**
+   * Returns a comma-joined, lowercased list of referenced term labels.
+   */
+  protected function extractTermLabels($node, string $field_name): string {
+    if (!$node->hasField($field_name)) {
+      return '';
+    }
+    $values = [];
+    foreach ($node->get($field_name) as $item) {
+      if ($item->entity) {
+        $values[] = strtolower($item->entity->label());
+      }
+    }
+    return implode(',', $values);
+  }
+
+  /**
+   * Returns a comma-joined, lowercased, space-normalized list of a list
+   * field's raw values (e.g. field_available_for's machine-name options).
+   */
+  protected function extractOsValues($node, string $field_name): string {
+    if (!$node->hasField($field_name)) {
+      return '';
+    }
+    $values = [];
+    foreach ($node->get($field_name) as $item) {
+      $values[] = str_replace('_', ' ', strtolower($item->value));
+    }
+    return implode(',', $values);
   }
 
 }

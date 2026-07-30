@@ -1,30 +1,17 @@
 {#
   Software Library Search - Fields (card) template
+
+  card_data_category, card_data_os, card_access_type are pre-computed in PHP
+  (CatalogViewsPreprocessHooks) — no entity field traversal in Twig.
 #}
-
 {% set entity = row._entity %}
-
-{% set cat_values = [] %}
-{% for item in entity.field_category %}
-  {% set cat_values = cat_values|merge([item.entity.label|lower]) %}
-{% endfor %}
-
-{% set os_list = [] %}
-{% for item in entity.field_available_for %}
-  {% set os_list = os_list|merge([item.value|lower|replace({'_': ' '})]) %}
-{% endfor %}
-
-{% set access_type = entity.field_access_type.value %}
-
 <div class="software-card"
-     data-category="{{ cat_values|join(',') }}"
-     data-os="{{ os_list|join(',') }}"
-     data-access="{{ access_type }}">
-
+     data-category="{{ card_data_category }}"
+     data-os="{{ card_data_os }}"
+     data-access="{{ card_access_type }}">
   <div class="software-card__logo">
     {{ fields.field_software_logo_image.content }}
   </div>
-
   <div class="software-card__title">
     <a href="{{ path('entity.node.canonical', {'node': entity.id}) }}"
        class="software-card__link"
@@ -32,21 +19,18 @@
       {{ entity.label }}
     </a>
   </div>
-
   {# Access Type indicator pill #}
-  {% if access_type %}
-    <div class="software-card__access-tag software-card__access-tag--{{ access_type }}">
-      {{ access_type|capitalize }}
+  {% if card_access_type %}
+    <div class="software-card__access-tag software-card__access-tag--{{ card_access_type }}">
+      {{ card_access_type|capitalize }}
     </div>
   {% endif %}
-
   {# Price (above button) #}
   {% if software_price %}
     <div class="software-card__price">{{ software_price }}</div>
   {% endif %}
-
   {# Real Commerce Add to Cart form for Download/Chargeback types #}
-  {% if access_type == 'download' or access_type == 'chargeback' %}
+  {% if card_access_type == 'download' or card_access_type == 'chargeback' %}
     {% if add_to_cart_form %}
       <div class="software-card__cta-wrap">
         {{ add_to_cart_form }}
@@ -61,5 +45,4 @@
       </button>
     {% endif %}
   {% endif %}
-
 </div>

@@ -16,6 +16,20 @@ function lts_software_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'block--software-tabs',
     ],
+    // Register the software_library_search catalog view template
+    // variants as real theme hooks so they're discovered from THIS module,
+    // not the active theme. base hook inherits Views' own variable
+    // structure. Same mechanism proven for the commerce_order and
+    // paragraph template extractions.
+    'views_view__software_library_search__page_1' => [
+      'base hook' => 'views_view',
+    ],
+    'views_view_unformatted__software_library_search__page_1' => [
+      'base hook' => 'views_view_unformatted',
+    ],
+    'views_view_fields__software_library_search__page_1' => [
+      'base hook' => 'views_view_fields',
+    ],
   ];
 }
 

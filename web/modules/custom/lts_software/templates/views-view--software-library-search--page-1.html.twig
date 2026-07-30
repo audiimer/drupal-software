@@ -1,0 +1,47 @@
+{#
+  Software Library Search - Page Template
+  View: software_library_search
+  Display: page_1
+
+  visible_tabs is pre-computed in PHP (CatalogViewsPreprocessHooks) —
+  already filtered to the current user's roles, with 'active' set for
+  whichever tab matches the current URL. No role/access logic in Twig.
+#}
+<div class="software-library">
+  {# ====== TAB NAVIGATION ====== #}
+  <nav class="software-tabs" aria-label="Software Library Tabs">
+    <ul class="software-tabs__list">
+      {% for tab in visible_tabs %}
+        <li class="software-tabs__item{% if tab.active %} is-active{% endif %}">
+          <a href="{{ tab.path }}"
+             class="software-tabs__link{% if tab.active %} software-tabs__link--active{% endif %}"
+             {% if tab.active %}aria-current="page"{% endif %}>
+            {{ tab.label }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </nav>
+  {# ====== SEARCH BAR ====== #}
+  {% if exposed %}
+    <div class="software-library__search">
+      {{ exposed }}
+    </div>
+  {% endif %}
+  {# ====== TWO COLUMN LAYOUT ====== #}
+  <div class="software-library__layout">
+    {# Sidebar — JS builds filter checkboxes here from card data attributes #}
+    <aside class="software-library__sidebar"></aside>
+    {# Results #}
+    <div class="software-library__grid">
+      {% if rows %}
+        {{ rows }}
+      {% elseif empty %}
+        <div class="software-library__empty">{{ empty }}</div>
+      {% endif %}
+      {% if pager %}
+        <div class="software-library__pager">{{ pager }}</div>
+      {% endif %}
+    </div>
+  </div>
+</div>
