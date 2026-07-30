@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Module hooks for lts_download.
+ */
+
+/**
+ * Implements hook_theme().
+ *
+ * Registers the installer modal as a standalone theme hook (NOT a paragraph
+ * template). This deliberately decouples the download modal from the
+ * paragraph system — the modal is rendered from a flat list of installer
+ * entries passed by SoftwareCtaBlock, grouped by OS in the template.
+ */
+function lts_download_theme($existing, $type, $theme, $path) {
+  return [
+    'lts_installer_modal' => [
+      'variables' => [
+        'node_id' => NULL,
+        'entries' => [],
+      ],
+    ],
+  ];
+}

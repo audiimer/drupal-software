@@ -83,14 +83,6 @@ function lts_chargeback_theme($existing, $type, $theme, $path) {
       'base hook' => 'commerce_order',
       'render element' => 'elements',
     ],
-    // Register the installer_modal paragraph bundle template as a real
-    // theme hook so it's discovered from this module, not the active theme.
-    // Same base-hook mechanism as the commerce_order variants above.
-    'paragraph__installer_modal' => [
-      'base hook' => 'paragraph',
-      'render element' => 'elements',
-    ],
-
     'lts_download_reveal' => [
       'variables' => [
         'product_label' => NULL,

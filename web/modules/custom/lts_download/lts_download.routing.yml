@@ -1,0 +1,12 @@
+lts_download.deliver:
+  path: '/download/{node}/{installer_file}'
+  defaults:
+    _controller: '\Drupal\lts_download\Controller\DownloadController::deliver'
+  requirements:
+    _custom_access: '\Drupal\lts_download\Controller\DownloadController::access'
+  options:
+    parameters:
+      node:
+        type: entity:node
+      installer_file:
+        type: entity:paragraph

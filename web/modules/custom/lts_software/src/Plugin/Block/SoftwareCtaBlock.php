@@ -92,8 +92,10 @@ class SoftwareCtaBlock extends BlockBase implements ContainerFactoryPluginInterf
         return $this->buildRedirectButton($node);
 
       case 'chargeback':
-      case 'download':
         return $this->buildAddToCartForm($node);
+
+      case 'download':
+        return $this->buildInstallerModal($node);
 
       default:
         return [];
@@ -132,6 +134,70 @@ class SoftwareCtaBlock extends BlockBase implements ContainerFactoryPluginInterf
       '#type' => 'link',
       '#title' => $title,
       '#url' => $url,
+      '#cache' => [
+        'tags' => $node->getCacheTags(),
+      ],
+    ];
+  }
+
+  /**
+   * Renders the software's installer modal (direct download, no cart).
+   *
+   * Reads the flat field_installer_files paragraph field directly off the
+   * Software node (each entry = OS + variant + file). Grouping by OS is
+   * done at render time in the Twig template, not in the data model.
+   *
+   * NOTE: this deliberately does NOT use the old field_installer_modal
+   * paragraph wrapper, which is being retired (see design doc). All
+   * download installer data now lives in field_installer_files on the node.
+   */
+  protected function buildInstallerModal($node): array {
+    // Guard against unsaved/sample entities (e.g. Layout Builder's
+    // "manage default layout" preview screen, which renders blocks
+    // against a generated sample entity with no real ID). Without a
+    // real node ID we cannot build a valid download route, so bail
+    // out cleanly rather than let Twig's path() throw.
+    if (!$node->id()) {
+      return [];
+    }
+
+    if (!$node->hasField('field_installer_files') || $node->get('field_installer_files')->isEmpty()) {
+      return [];
+    }
+
+    $entries = [];
+    foreach ($node->get('field_installer_files')->referencedEntities() as $installer) {
+      if ($installer->get('field_installer_file')->isEmpty()) {
+        continue;
+      }
+      $file = $installer->get('field_installer_file')->entity;
+      if (!$file) {
+        continue;
+      }
+      $variant = NULL;
+      if (!$installer->get('field_installer_variant')->isEmpty()) {
+        $term = $installer->get('field_installer_variant')->entity;
+        $variant = $term ? $term->label() : NULL;
+      }
+      $entries[] = [
+        'id' => $installer->id(),
+        'os' => $installer->get('field_installer_os')->value,
+        'variant' => $variant,
+        'filename' => $file->getFilename(),
+      ];
+    }
+
+    if (empty($entries)) {
+      return [];
+    }
+
+    return [
+      '#theme' => 'lts_installer_modal',
+      '#node_id' => $node->id(),
+      '#entries' => $entries,
+      '#attached' => [
+        'library' => ['lts_download/installer_modal'],
+      ],
       '#cache' => [
         'tags' => $node->getCacheTags(),
       ],

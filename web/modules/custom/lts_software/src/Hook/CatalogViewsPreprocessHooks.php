@@ -153,6 +153,13 @@ class CatalogViewsPreprocessHooks {
       ? $node->get('field_access_type')->value
       : NULL;
 
+    // Downloads never use the Commerce add-to-cart form -- the card
+    // links to the detail page's installer modal instead (see Twig
+    // template). No need to build a cart form nobody will render.
+    if ($variables['card_access_type'] === 'download') {
+      return;
+    }
+
     if (!\Drupal::moduleHandler()->moduleExists('commerce_product')) {
       return;
     }

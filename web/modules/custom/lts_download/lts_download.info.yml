@@ -1,0 +1,9 @@
+name: LTS Download
+type: module
+description: 'Direct-download delivery and acquisition logging for software installers, replacing the cart/checkout flow for free downloads.'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - node
+  - paragraphs
+  - file

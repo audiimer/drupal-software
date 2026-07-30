@@ -1,0 +1,4 @@
+services:
+  lts_download.logger:
+    class: Drupal\lts_download\DownloadLogger
+    arguments: ['@entity_type.manager']

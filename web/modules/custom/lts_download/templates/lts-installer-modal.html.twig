@@ -1,0 +1,73 @@
+{#
+  Installer modal — flat list of installer entries, grouped by OS at render.
+  Each entry: { id, os, variant, filename }. The radio value is the download
+  route URL (lts_download.deliver), so the file is served + logged server-side.
+#}
+{% set modal_id = 'installer-modal-' ~ node_id %}
+
+{% set os_labels = { 'windows': 'Windows', 'macos': 'macOS', 'linux': 'Linux' } %}
+{% set os_order = ['windows', 'macos', 'linux'] %}
+
+<button type="button"
+        class="btn btn-success"
+        data-bs-toggle="modal"
+        data-bs-target="#{{ modal_id }}">
+  Download
+</button>
+
+<div id="{{ modal_id }}" class="modal fade" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <div class="modal-header border-0">
+        <h6 class="modal-title">Select installer</h6>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <form class="installer-form">
+
+          {% for os_key in os_order %}
+            {% set os_entries = entries|filter(e => e.os == os_key) %}
+            {% if os_entries is not empty %}
+              <div class="installer-os-group mb-3">
+                <div class="installer-os-label fw-semibold text-secondary mb-2">
+                  {{ os_labels[os_key] ?? os_key }}
+                </div>
+                {% for entry in os_entries %}
+                  {% set download_url = path('lts_download.deliver', {'node': node_id, 'installer_file': entry.id}) %}
+                  <div class="form-check mb-2">
+                    <input class="form-check-input"
+                           type="radio"
+                           name="os_selector"
+                           id="inst-{{ entry.id }}"
+                           value="{{ download_url }}">
+                    <label class="form-check-label" for="inst-{{ entry.id }}">
+                      {{ entry.variant ?: 'Installer' }}
+                      <span class="text-muted small">· {{ entry.filename }}</span>
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endfor %}
+
+          <div class="form-check mt-3">
+            <input class="form-check-input agree-checkbox" type="checkbox" id="agree-{{ node_id }}">
+            <label class="form-check-label small" for="agree-{{ node_id }}">
+              Yes, I agree to the terms of use.
+            </label>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="modal-footer border-0 justify-content-center">
+        <button type="button" class="btn btn-success w-100 download-btn disabled" disabled>
+          Agree &amp; download
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

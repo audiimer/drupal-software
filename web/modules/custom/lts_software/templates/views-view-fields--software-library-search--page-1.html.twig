@@ -29,8 +29,18 @@
   {% if software_price %}
     <div class="software-card__price">{{ software_price }}</div>
   {% endif %}
-  {# Real Commerce Add to Cart form for Download/Chargeback types #}
-  {% if card_access_type == 'download' or card_access_type == 'chargeback' %}
+  {# Download: link through to the detail page, where the installer
+     modal (OS/variant selection) lives. Downloads never use the Commerce
+     add-to-cart form -- see download-workflow-logging-design.md. #}
+  {% if card_access_type == 'download' %}
+    <div class="software-card__cta-wrap">
+      <a href="{{ path('entity.node.canonical', {'node': entity.id}) }}"
+         class="btn btn-success software-card__cta">
+        Download
+      </a>
+    </div>
+  {# Chargeback: real Commerce Add to Cart form. #}
+  {% elseif card_access_type == 'chargeback' %}
     {% if add_to_cart_form %}
       <div class="software-card__cta-wrap">
         {{ add_to_cart_form }}
