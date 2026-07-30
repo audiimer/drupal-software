@@ -9,3 +9,12 @@ software_price:
   css:
     component:
       css/software-price.css: {}
+software-library:
+  version: 1.x
+  css:
+    theme:
+      css/software-library.css: {}
+  js:
+    js/software-search.js: {}
+  dependencies:
+    - core/drupal

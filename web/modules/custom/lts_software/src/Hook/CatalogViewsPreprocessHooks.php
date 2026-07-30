@@ -82,7 +82,7 @@ class CatalogViewsPreprocessHooks {
     if ($variables['view']->id() !== 'software_library_search') {
       return;
     }
-    $variables['#attached']['library'][] = 'playground/software-library';
+    $variables['#attached']['library'][] = 'lts_software/software-library';
 
     $user_roles = \Drupal::currentUser()->getRoles();
     $variables['user_roles'] = $user_roles;

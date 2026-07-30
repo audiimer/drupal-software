@@ -10,12 +10,6 @@ global-styling:
       # External CDNs MUST be quoted
       https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css:
         { type: external }
-software-library:
-  css:
-    theme:
-      css/software-library.css: {}
-  js:
-    js/software-search.js: {}
   dependencies:
     - core/drupal
 style:

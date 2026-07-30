@@ -30,6 +30,12 @@ function lts_software_theme($existing, $type, $theme, $path) {
     'views_view_fields__software_library_search__page_1' => [
       'base hook' => 'views_view_fields',
     ],
+    // Exposed search form template. base hook views_exposed_form uses
+    // render element 'form'. Template file must be named to match the hook:
+    // views-exposed-form--software-library-search--page-1.html.twig
+    'views_exposed_form__software_library_search__page_1' => [
+      'base hook' => 'views_exposed_form',
+    ],
   ];
 }
 
