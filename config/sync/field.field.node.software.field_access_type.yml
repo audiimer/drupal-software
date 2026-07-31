@@ -1,0 +1,21 @@
+uuid: 9fea0327-1b03-4584-a6ad-b7875835eb1e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_access_type
+    - node.type.software
+  module:
+    - options
+id: node.software.field_access_type
+field_name: field_access_type
+entity_type: node
+bundle: software
+label: 'Access Type'
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

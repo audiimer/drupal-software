@@ -1,0 +1,27 @@
+uuid: fb7c8d63-0bc5-477c-b651-5c33222361d9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_file
+    - media.type.installers
+  module:
+    - file
+id: media.installers.field_media_file
+field_name: field_media_file
+entity_type: media
+bundle: installers
+label: File
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'exe dmg iso zip'
+  max_filesize: ''
+  description_field: false
+field_type: file

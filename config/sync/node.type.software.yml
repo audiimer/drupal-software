@@ -1,0 +1,18 @@
+uuid: daa16dac-63e8-4109-a7a1-287e13d5c27a
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - content
+    parent: 'content:navigation.content.node_type.software'
+name: Software
+type: software
+description: 'University-licensed software items.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

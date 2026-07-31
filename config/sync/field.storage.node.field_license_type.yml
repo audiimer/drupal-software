@@ -1,0 +1,30 @@
+uuid: 0c1ad3ab-238d-44c7-a053-98a18ebb76c1
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_license_type
+field_name: field_license_type
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: single
+      label: Single
+    -
+      value: server
+      label: Server
+    -
+      value: user_based
+      label: 'User based'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

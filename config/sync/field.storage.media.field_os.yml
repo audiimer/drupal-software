@@ -1,0 +1,30 @@
+uuid: 4370f0fe-7470-41ed-83c6-aa7de9fd1088
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - options
+id: media.field_os
+field_name: field_os
+entity_type: media
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: windows
+      label: Windows
+    -
+      value: macos
+      label: MacOS
+    -
+      value: linux
+      label: Linux
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

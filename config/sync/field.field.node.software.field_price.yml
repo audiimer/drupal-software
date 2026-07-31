@@ -1,0 +1,25 @@
+uuid: 776c4eb3-d78e-4cc7-a5da-b6508daec1c5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_price
+    - node.type.software
+id: node.software.field_price
+field_name: field_price
+entity_type: node
+bundle: software
+label: Price
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0.0
+default_value_callback: ''
+settings:
+  min: 0.0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: decimal

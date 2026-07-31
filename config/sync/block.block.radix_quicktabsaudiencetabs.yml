@@ -1,0 +1,25 @@
+uuid: 62f6fde4-78fb-4a1f-b8ac-64bf0274ae44
+langcode: en
+status: true
+dependencies:
+  module:
+    - quicktabs
+    - system
+  theme:
+    - radix
+id: radix_quicktabsaudiencetabs
+theme: radix
+region: content
+weight: 0
+provider: null
+plugin: 'quicktabs_block:audience_tabs'
+settings:
+  id: 'quicktabs_block:audience_tabs'
+  label: 'QuickTabs - Audience tabs'
+  label_display: '0'
+  provider: quicktabs
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /software-library

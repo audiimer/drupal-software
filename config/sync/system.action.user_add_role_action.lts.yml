@@ -1,0 +1,14 @@
+uuid: 4346f3ef-4a67-4b9d-8783-73baebe1b08f
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.lts
+  module:
+    - user
+id: user_add_role_action.lts
+label: 'Add the LTS role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: lts

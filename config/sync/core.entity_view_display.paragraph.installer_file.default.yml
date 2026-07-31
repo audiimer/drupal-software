@@ -1,0 +1,42 @@
+uuid: 5eef4134-bd9c-4d8c-85f1-c60512160903
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.installer_file.field_installer_file
+    - field.field.paragraph.installer_file.field_installer_os
+    - field.field.paragraph.installer_file.field_installer_variant
+    - paragraphs.paragraphs_type.installer_file
+  module:
+    - file
+    - options
+id: paragraph.installer_file.default
+targetEntityType: paragraph
+bundle: installer_file
+mode: default
+content:
+  field_installer_file:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_installer_os:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_installer_variant:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

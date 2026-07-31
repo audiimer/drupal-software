@@ -1,0 +1,25 @@
+uuid: b3ba3e6b-22a8-4727-8702-93a33c1813b4
+langcode: en
+status: true
+dependencies:
+  module:
+    - quicktabs
+    - system
+  theme:
+    - bootstrap5
+id: bootstrap5_quicktabsaudiencetabs
+theme: bootstrap5
+region: content
+weight: 0
+provider: null
+plugin: 'quicktabs_block:audience_tabs'
+settings:
+  id: 'quicktabs_block:audience_tabs'
+  label: 'QuickTabs - Audience tabs'
+  label_display: '0'
+  provider: quicktabs
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /software-library

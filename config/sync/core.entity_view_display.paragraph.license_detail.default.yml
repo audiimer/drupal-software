@@ -1,0 +1,31 @@
+uuid: b6f6aef6-e4f7-4290-a0d5-a144b181f75b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.license_detail.field_label
+    - field.field.paragraph.license_detail.field_value
+    - paragraphs.paragraphs_type.license_detail
+id: paragraph.license_detail.default
+targetEntityType: paragraph
+bundle: license_detail
+mode: default
+content:
+  field_label:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_value:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  search_api_excerpt: true

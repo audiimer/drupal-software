@@ -1,0 +1,34 @@
+uuid: 675724fb-02e4-49ca-b232-ab40afd18a0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_license_details
+    - node.type.software
+    - paragraphs.paragraphs_type.license_detail
+  module:
+    - entity_reference_revisions
+id: node.software.field_license_details
+field_name: field_license_details
+entity_type: node
+bundle: software
+label: 'License details'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      license_detail: license_detail
+    negate: 0
+    target_bundles_drag_drop:
+      installer_modal:
+        weight: 3
+        enabled: false
+      license_detail:
+        weight: 4
+        enabled: true
+field_type: entity_reference_revisions

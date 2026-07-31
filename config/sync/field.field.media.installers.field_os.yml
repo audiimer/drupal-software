@@ -1,0 +1,21 @@
+uuid: c0f58dab-4308-4265-8459-05311e99fa00
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_os
+    - media.type.installers
+  module:
+    - options
+id: media.installers.field_os
+field_name: field_os
+entity_type: media
+bundle: installers
+label: OS
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

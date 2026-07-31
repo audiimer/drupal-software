@@ -1,0 +1,10 @@
+uuid: 6746c894-2dc6-49be-8443-e0681f923369
+langcode: en
+status: true
+dependencies: {  }
+id: installer_file
+label: 'Installer File'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

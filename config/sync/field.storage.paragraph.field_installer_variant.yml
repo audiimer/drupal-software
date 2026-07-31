@@ -1,0 +1,20 @@
+uuid: 5cd9a503-6ea2-4870-b3c3-bc080b19dc36
+langcode: en
+status: true
+dependencies:
+  module:
+    - paragraphs
+    - taxonomy
+id: paragraph.field_installer_variant
+field_name: field_installer_variant
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: taxonomy_term
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

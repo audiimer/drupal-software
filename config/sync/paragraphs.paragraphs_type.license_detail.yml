@@ -1,0 +1,10 @@
+uuid: f2f8fb74-5045-4a67-9a24-8ce4533912f9
+langcode: en
+status: true
+dependencies: {  }
+id: license_detail
+label: 'License detail'
+icon_uuid: null
+icon_default: null
+description: ''
+behavior_plugins: {  }

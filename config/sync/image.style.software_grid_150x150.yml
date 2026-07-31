@@ -1,0 +1,15 @@
+uuid: f8e4dabc-33f9-436e-97fd-909db19f385f
+langcode: en
+status: true
+dependencies: {  }
+name: software_grid_150x150
+label: software_grid_150x150
+effects:
+  84b59058-406c-4e15-adb2-528c41892277:
+    uuid: 84b59058-406c-4e15-adb2-528c41892277
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 150
+      height: 150
+      anchor: center-center

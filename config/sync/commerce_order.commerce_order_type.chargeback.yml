@@ -1,0 +1,28 @@
+uuid: 83fd5a92-e6c7-4302-89c1-79ab62302ad6
+langcode: en
+status: true
+dependencies:
+  module:
+    - commerce_cart
+    - commerce_checkout
+    - lts_chargeback
+third_party_settings:
+  commerce_cart:
+    cart_block_view: commerce_cart_block
+    cart_form_view: commerce_cart_form
+    cart_expiration: {  }
+    enable_cart_message: true
+  commerce_checkout:
+    checkout_flow: default
+id: chargeback
+label: Chargeback
+traits: {  }
+locked: false
+workflow: lts_chargeback_approval
+showOrderEditLinks: true
+numberPattern: null
+refresh_mode: customer
+refresh_frequency: 300
+sendReceipt: false
+receiptBcc: ''
+receiptSubject: ''

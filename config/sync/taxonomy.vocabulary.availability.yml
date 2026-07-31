@@ -1,0 +1,9 @@
+uuid: 52a8c113-1973-4181-8b20-ae2bb1cc836b
+langcode: en
+status: true
+dependencies: {  }
+name: Availability
+vid: availability
+description: 'Software Alternate Availability'
+weight: 0
+new_revision: false

@@ -1,0 +1,19 @@
+uuid: 66a01d01-1c5b-4f27-b0a6-d95839535080
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_value
+    - paragraphs.paragraphs_type.license_detail
+id: paragraph.license_detail.field_value
+field_name: field_value
+entity_type: paragraph
+bundle: license_detail
+label: Value
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

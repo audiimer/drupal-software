@@ -1,0 +1,14 @@
+uuid: 5a186af6-8cfe-4678-b0bb-02b5cb17520b
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.faculty_staff
+  module:
+    - user
+id: user_remove_role_action.faculty_staff
+label: 'Remove the Faculty/Staff role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: faculty_staff

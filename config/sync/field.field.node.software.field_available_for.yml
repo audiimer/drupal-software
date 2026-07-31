@@ -1,0 +1,21 @@
+uuid: 02e52127-0a82-41b2-8708-db680e52558c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_available_for
+    - node.type.software
+  module:
+    - options
+id: node.software.field_available_for
+field_name: field_available_for
+entity_type: node
+bundle: software
+label: 'Operating System'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

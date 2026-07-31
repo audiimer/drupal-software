@@ -1,0 +1,21 @@
+uuid: d093ffc3-912b-4c4d-b63d-13567ea9038e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_installer_os
+    - paragraphs.paragraphs_type.installer_file
+  module:
+    - options
+id: paragraph.installer_file.field_installer_os
+field_name: field_installer_os
+entity_type: paragraph
+bundle: installer_file
+label: 'Installer OS'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

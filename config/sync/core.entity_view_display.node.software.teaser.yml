@@ -1,0 +1,220 @@
+uuid: 6f996a30-76e6-4a58-bf1c-d25dc7964c63
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.software.body
+    - field.field.node.software.field_access_type
+    - field.field.node.software.field_available_for
+    - field.field.node.software.field_category
+    - field.field.node.software.field_computing_consultant_name
+    - field.field.node.software.field_email
+    - field.field.node.software.field_installer_files
+    - field.field.node.software.field_instructions_url
+    - field.field.node.software.field_license_details
+    - field.field.node.software.field_license_type
+    - field.field.node.software.field_price
+    - field.field.node.software.field_publisher
+    - field.field.node.software.field_redirect_button
+    - field.field.node.software.field_software_logo_image
+    - field.field.node.software.field_software_tab
+    - field.field.node.software.field_specs
+    - field.field.node.software.field_terms_of_use
+    - field.field.node.software.field_website_url
+    - field.field.node.software.layout_builder__layout
+    - node.type.software
+  module:
+    - bootstrap_layout_builder
+    - image
+    - layout_builder
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: false
+    sections:
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_1'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: ''
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: video
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: ''
+                video:
+                  media_id: ''
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: bs-text-black
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              scroll_effects:
+                class: null
+              text_alignment:
+                class: bs-text-center
+              box_shadow:
+                class: null
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: w-100
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: ''
+          regions_attributes:
+            blb_region_col_1: null
+          breakpoints: {  }
+          layout_regions_classes: {  }
+          remove_gutters: '0'
+          context_mapping: {  }
+        components:
+          746c1fc4-8ed1-4ffd-97b2-b2ebdfb9c739:
+            uuid: 746c1fc4-8ed1-4ffd-97b2-b2ebdfb9c739
+            region: blb_region_col_1
+            configuration:
+              id: 'field_block:node:software:field_software_logo_image'
+              label: 'Software logo/image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: image
+                label: hidden
+                settings:
+                  image_link: content
+                  image_style: ''
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          9e2232e2-7b3b-4715-b14b-d6b58638dc45:
+            uuid: 9e2232e2-7b3b-4715-b14b-d6b58638dc45
+            region: blb_region_col_1
+            configuration:
+              id: 'field_block:node:software:title'
+              label: Title
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: true
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+id: node.software.teaser
+targetEntityType: node
+bundle: software
+mode: teaser
+content:
+  field_software_logo_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  field_access_type: true
+  field_available_for: true
+  field_category: true
+  field_computing_consultant_name: true
+  field_email: true
+  field_installer_files: true
+  field_instructions_url: true
+  field_license_details: true
+  field_license_type: true
+  field_price: true
+  field_publisher: true
+  field_redirect_button: true
+  field_software_tab: true
+  field_specs: true
+  field_terms_of_use: true
+  field_website_url: true
+  layout_builder__layout: true
+  links: true
+  search_api_excerpt: true

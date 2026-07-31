@@ -1,0 +1,111 @@
+uuid: 95e3de79-36af-4d59-8c45-389bba4f7d07
+langcode: en
+status: true
+dependencies: {  }
+id: software_catalog_students
+label: 'Software Catalog - Students'
+renderer: quick_tabs
+hide_empty_tabs: false
+default_tab: 9999
+options:
+  quick_tabs:
+    ajax: false
+    class: software-catalog-tabs
+    style: ''
+  accordion_tabs:
+    jquery_ui:
+      collapsible: false
+      heightStyle: auto
+configuration_data:
+  -
+    title: Students
+    weight: 0
+    type: block_content
+    content:
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+      block_content:
+        options:
+          bid: 'views_block:software_library-block_7'
+          block_title: ''
+          display_title: false
+      qtabs_content:
+        options:
+          machine_name: audience_tabs
+      view_content:
+        options:
+          vid: block_content
+          display: default
+          args: ''
+  -
+    title: 'Public Sites'
+    weight: 0
+    type: block_content
+    content:
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+      block_content:
+        options:
+          bid: 'views_block:software_library-block_4'
+          block_title: ''
+          display_title: false
+      qtabs_content:
+        options:
+          machine_name: audience_tabs
+      view_content:
+        options:
+          vid: block_content
+          display: default
+          args: ''
+  -
+    title: HPC
+    weight: 0
+    type: block_content
+    content:
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+      block_content:
+        options:
+          bid: 'views_block:software_library-block_5'
+          block_title: ''
+          display_title: false
+      qtabs_content:
+        options:
+          machine_name: audience_tabs
+      view_content:
+        options:
+          vid: block_content
+          display: default
+          args: ''
+  -
+    title: LUapps
+    weight: 0
+    type: block_content
+    content:
+      node_content:
+        options:
+          nid: ''
+          view_mode: full
+          hide_title: true
+      block_content:
+        options:
+          bid: 'views_block:software_library-block_6'
+          block_title: ''
+          display_title: false
+      qtabs_content:
+        options:
+          machine_name: audience_tabs
+      view_content:
+        options:
+          vid: block_content
+          display: default
+          args: ''

@@ -1,0 +1,13 @@
+uuid: 170bb7e6-3bff-4fcd-949c-1499691b553d
+langcode: en
+status: true
+dependencies: {  }
+id: software_license
+label: 'Software License'
+traits: {  }
+locked: false
+description: 'Purchasable license for a software item in the catalog'
+variationTypes:
+  - software_license
+multipleVariations: true
+injectVariationFields: true

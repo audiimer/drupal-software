@@ -1,0 +1,40 @@
+uuid: e870408b-3716-4b94-ad85-e1807a5beaa5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.license_detail.field_label
+    - field.field.paragraph.license_detail.field_value
+    - paragraphs.paragraphs_type.license_detail
+  module:
+    - field_layout
+    - layout_discovery
+third_party_settings:
+  field_layout:
+    id: layout_onecol
+    settings:
+      label: ''
+id: paragraph.license_detail.default
+targetEntityType: paragraph
+bundle: license_detail
+mode: default
+content:
+  field_label:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_value:
+    type: string_textfield
+    weight: 1
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

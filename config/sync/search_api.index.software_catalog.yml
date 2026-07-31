@@ -1,0 +1,105 @@
+uuid: caa466e0-c8b1-4dc5-bbb7-0da6eb774456
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_available_for
+    - field.storage.node.field_category
+    - field.storage.node.field_software_tab
+    - search_api.server.default_server
+  module:
+    - node
+    - taxonomy
+id: software_catalog
+name: 'Software Catalog'
+description: ''
+read_only: false
+field_settings:
+  field_available_for:
+    label: 'Operating System'
+    datasource_id: 'entity:node'
+    property_path: field_available_for
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_available_for
+  field_category:
+    label: Category
+    datasource_id: 'entity:node'
+    property_path: field_category
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_category
+  field_software_tab:
+    label: 'Software Tab'
+    datasource_id: 'entity:node'
+    property_path: field_software_tab
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_software_tab
+  field_software_tab_name:
+    label: 'Software Tab Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_software_tab:entity:name'
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_software_tab
+      module:
+        - taxonomy
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: true
+      selected: {  }
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  custom_value: {  }
+  entity_type: {  }
+  ignorecase:
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+    all_fields: false
+    fields:
+      - field_available_for
+      - field_category
+      - field_software_tab
+      - field_software_tab_name
+      - title
+  language_with_fallback: {  }
+  rendered_item: {  }
+  tokenizer:
+    weights:
+      preprocess_index: -6
+      preprocess_query: -6
+    all_fields: false
+    fields:
+      - field_software_tab_name
+    spaces: ''
+    ignored: ._-
+    overlap_cjk: 1
+    minimum_word_size: '2'
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  cron_limit: 50
+  delete_on_fail: true
+  index_directly: true
+  track_changes_in_references: true
+server: default_server

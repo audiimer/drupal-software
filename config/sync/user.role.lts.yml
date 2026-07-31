@@ -1,0 +1,9 @@
+uuid: b380942f-eb78-4a29-958b-f6e827c5a67f
+langcode: en
+status: true
+dependencies: {  }
+id: lts
+label: LTS
+weight: 6
+is_admin: false
+permissions: {  }

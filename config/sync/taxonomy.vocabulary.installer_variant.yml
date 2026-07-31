@@ -1,0 +1,9 @@
+uuid: 3973b653-508a-4121-8976-e4cc67adc654
+langcode: en
+status: true
+dependencies: {  }
+name: 'Installer Variant'
+vid: installer_variant
+description: 'Architecture or package format of an installer file independent of operating system'
+weight: 0
+new_revision: false

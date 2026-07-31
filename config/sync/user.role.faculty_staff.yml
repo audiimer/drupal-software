@@ -1,0 +1,9 @@
+uuid: 146e526c-66fe-4078-a9ce-7317f9f10420
+langcode: en
+status: true
+dependencies: {  }
+id: faculty_staff
+label: Faculty/Staff
+weight: 5
+is_admin: false
+permissions: {  }

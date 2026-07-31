@@ -1,0 +1,21 @@
+uuid: a256927f-5d3c-4a68-a79b-3a11b18a1ef6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_email
+    - node.type.software
+id: node.software.field_email
+field_name: field_email
+entity_type: node
+bundle: software
+label: Email
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: user@schooldomain.edu
+default_value_callback: ''
+settings: {  }
+field_type: email

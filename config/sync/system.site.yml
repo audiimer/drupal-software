@@ -1,0 +1,15 @@
+_core:
+  default_config_hash: ijfbzDTN4CbE7Sr-6ubWzy_t1vH4OtU1doNCLssVz-4
+langcode: en
+uuid: 04ab6c2b-792b-4966-b4a1-317667692c25
+name: 'Software Hub'
+mail: admin@example.com
+slogan: ''
+page:
+  403: ''
+  404: ''
+  front: /node/16
+admin_compact_mode: false
+weight_select_max: 100
+default_langcode: en
+mail_notification: null

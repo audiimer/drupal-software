@@ -1,0 +1,11 @@
+uuid: 30663132-b265-40c3-91dc-808775e57c43
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.software_card
+label: 'Software Card'
+description: null
+targetEntityType: node
+cache: true

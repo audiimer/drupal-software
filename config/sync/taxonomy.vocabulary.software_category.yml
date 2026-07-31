@@ -1,0 +1,9 @@
+uuid: 98b78a8d-f12c-4344-b384-9d3e3a669070
+langcode: en
+status: true
+dependencies: {  }
+name: 'Software Category'
+vid: software_category
+description: null
+weight: 0
+new_revision: false

@@ -1,0 +1,27 @@
+uuid: a153421f-0579-40b8-8415-ee94605f98c0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_terms_of_use
+    - node.type.software
+  module:
+    - file
+id: node.software.field_terms_of_use
+field_name: field_terms_of_use
+entity_type: node
+bundle: software
+label: 'Terms of Use'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: pdf
+  max_filesize: '5 MB'
+  description_field: true
+field_type: file

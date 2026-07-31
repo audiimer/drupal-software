@@ -1,0 +1,67 @@
+uuid: 59559912-8f46-478f-a5c8-4534a8922f0b
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.software.body
+    - field.field.node.software.field_access_type
+    - field.field.node.software.field_available_for
+    - field.field.node.software.field_category
+    - field.field.node.software.field_computing_consultant_name
+    - field.field.node.software.field_email
+    - field.field.node.software.field_installer_files
+    - field.field.node.software.field_instructions_url
+    - field.field.node.software.field_license_details
+    - field.field.node.software.field_license_type
+    - field.field.node.software.field_price
+    - field.field.node.software.field_publisher
+    - field.field.node.software.field_redirect_button
+    - field.field.node.software.field_software_logo_image
+    - field.field.node.software.field_software_tab
+    - field.field.node.software.field_specs
+    - field.field.node.software.field_terms_of_use
+    - field.field.node.software.field_website_url
+    - field.field.node.software.layout_builder__layout
+    - node.type.software
+  module:
+    - text
+    - user
+id: node.software.search_result
+targetEntityType: node
+bundle: software
+mode: search_result
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 300
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_access_type: true
+  field_available_for: true
+  field_category: true
+  field_computing_consultant_name: true
+  field_email: true
+  field_installer_files: true
+  field_instructions_url: true
+  field_license_details: true
+  field_license_type: true
+  field_price: true
+  field_publisher: true
+  field_redirect_button: true
+  field_software_logo_image: true
+  field_software_tab: true
+  field_specs: true
+  field_terms_of_use: true
+  field_website_url: true
+  layout_builder__layout: true
+  search_api_excerpt: true

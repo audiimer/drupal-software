@@ -1,0 +1,29 @@
+uuid: 52ec1e7c-9130-4599-8085-0409cd04259e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_software_tab
+    - node.type.software
+    - taxonomy.vocabulary.software_tab
+id: node.software.field_software_tab
+field_name: field_software_tab
+entity_type: node
+bundle: software
+label: 'Available for'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      software_tab: software_tab
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

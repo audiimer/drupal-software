@@ -1,0 +1,37 @@
+uuid: ba3e468e-f283-41b0-b72e-a13e45cdeb9e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.installers.field_media_file
+    - field.field.media.installers.field_os
+    - media.type.installers
+  module:
+    - file
+    - options
+id: media.installers.default
+targetEntityType: media
+bundle: installers
+mode: default
+content:
+  field_media_file:
+    type: file_default
+    label: visually_hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_os:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  created: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

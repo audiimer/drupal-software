@@ -1,0 +1,23 @@
+uuid: 9b3e1921-a251-4c8d-b2e1-f7dadd239555
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_redirect_button
+    - node.type.software
+  module:
+    - link
+id: node.software.field_redirect_button
+field_name: field_redirect_button
+entity_type: node
+bundle: software
+label: 'Redirect Button'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

@@ -1,0 +1,784 @@
+uuid: 1121eaa7-1fc8-459b-9278-9b4ddf4d6959
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.software.body
+    - field.field.node.software.field_access_type
+    - field.field.node.software.field_available_for
+    - field.field.node.software.field_category
+    - field.field.node.software.field_computing_consultant_name
+    - field.field.node.software.field_email
+    - field.field.node.software.field_installer_files
+    - field.field.node.software.field_instructions_url
+    - field.field.node.software.field_license_details
+    - field.field.node.software.field_license_type
+    - field.field.node.software.field_price
+    - field.field.node.software.field_publisher
+    - field.field.node.software.field_redirect_button
+    - field.field.node.software.field_software_logo_image
+    - field.field.node.software.field_software_tab
+    - field.field.node.software.field_specs
+    - field.field.node.software.field_terms_of_use
+    - field.field.node.software.field_website_url
+    - field.field.node.software.layout_builder__layout
+    - node.type.software
+  module:
+    - bootstrap_layout_builder
+    - entity_reference_revisions
+    - file
+    - image
+    - layout_builder
+    - link
+    - lts_software
+    - options
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_1'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: 'fs-2 py-3 px-lg-5 bg-primary text-white rounded-top-4 shadow-sm'
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: video
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: bs-ml-3
+              margin_top:
+                class: _none
+              margin_right:
+                class: bs-mr-3
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              scroll_effects:
+                class: null
+              text_alignment:
+                class: null
+              box_shadow:
+                class: null
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: container
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: ''
+          regions_attributes:
+            blb_region_col_1: null
+          breakpoints: {  }
+          layout_regions_classes: {  }
+          remove_gutters: '0'
+          context_mapping: {  }
+        components:
+          53756cbb-60ba-48b6-80d6-27a5ef9dc41f:
+            uuid: 53756cbb-60ba-48b6-80d6-27a5ef9dc41f
+            region: blb_region_col_1
+            configuration:
+              id: 'field_block:node:software:title'
+              label: Title
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: hidden
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_3'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: 'software-meta p-4 bg-white shadow-lg rounded-1 border border-3 border-primary-subtle'
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: video
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: bs-pl-5
+              padding_top:
+                class: _none
+              padding_right:
+                class: bs-pr-5
+              padding_bottom:
+                class: bs-pb-5
+              margin:
+                class: _none
+              margin_left:
+                class: bs-ml-3
+              margin_top:
+                class: _none
+              margin_right:
+                class: bs-mr-3
+              margin_bottom:
+                class: bs-mb-3
+              border:
+                border_style:
+                  class: _none
+                border_width:
+                  class: _none
+                border_color:
+                  class: _none
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: bs-border-radius-top-right-2
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: bs-border-radius-bottom-right-2
+              scroll_effects:
+                class: null
+              text_alignment:
+                class: null
+              box_shadow:
+                class: bs-shadow
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: container
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: ''
+            blb_region_col_2: ''
+            blb_region_col_3: ''
+          regions_attributes:
+            blb_region_col_1: null
+            blb_region_col_2: null
+            blb_region_col_3: null
+          breakpoints:
+            desktop: blb_col_4_4_4
+            tablet: blb_col_12
+            mobile: blb_col_12
+          layout_regions_classes:
+            blb_region_col_1:
+              - col-lg-4
+              - col-md-12
+              - col-12
+            blb_region_col_2:
+              - col-lg-4
+              - col-md-12
+              - col-12
+            blb_region_col_3:
+              - col-lg-4
+              - col-md-12
+              - col-12
+          remove_gutters: '0'
+          context_mapping: {  }
+        components:
+          d7d48cd1-b454-4648-b00d-611d979566c3:
+            uuid: d7d48cd1-b454-4648-b00d-611d979566c3
+            region: blb_region_col_1
+            configuration:
+              id: 'field_block:node:software:field_software_logo_image'
+              label: 'Software logo/image'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: responsive_image
+                label: hidden
+                settings:
+                  responsive_image_style: narrow
+                  image_link: ''
+                  image_loading:
+                    attribute: lazy
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          6b195d10-53cb-4c51-a15d-c6076dd62e0b:
+            uuid: 6b195d10-53cb-4c51-a15d-c6076dd62e0b
+            region: blb_region_col_2
+            configuration:
+              id: 'field_block:node:software:field_publisher'
+              label: Publisher
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: string
+                label: inline
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 0
+            additional: {  }
+          08c03435-39a8-4bb1-9b89-6822b89b8aae:
+            uuid: 08c03435-39a8-4bb1-9b89-6822b89b8aae
+            region: blb_region_col_2
+            configuration:
+              id: 'field_block:node:software:field_website_url'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: link
+                label: above
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: ''
+                  target: ''
+                third_party_settings: {  }
+            weight: 1
+            additional: {  }
+          69cb1c4e-de73-4964-bf69-4d68f4113199:
+            uuid: 69cb1c4e-de73-4964-bf69-4d68f4113199
+            region: blb_region_col_2
+            configuration:
+              id: 'field_block:node:software:field_license_type'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: list_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          f4fd675a-0d47-4a0b-9172-3f707306b2e5:
+            uuid: f4fd675a-0d47-4a0b-9172-3f707306b2e5
+            region: blb_region_col_2
+            configuration:
+              id: 'field_block:node:software:field_computing_consultant_name'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: string
+                label: above
+                settings:
+                  link_to_entity: false
+                third_party_settings: {  }
+            weight: 4
+            additional: {  }
+          0c437929-e732-42cb-aa2f-6cdd32c25c95:
+            uuid: 0c437929-e732-42cb-aa2f-6cdd32c25c95
+            region: blb_region_col_2
+            configuration:
+              id: 'field_block:node:software:field_email'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: basic_string
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+          85526eed-76b0-43af-bda0-bb627a48ec12:
+            uuid: 85526eed-76b0-43af-bda0-bb627a48ec12
+            region: blb_region_col_3
+            configuration:
+              id: 'field_block:node:software:field_available_for'
+              label: 'Available for'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: list_default
+                label: above
+                settings: {  }
+                third_party_settings: {  }
+            weight: 5
+            additional: {  }
+          f64aedf8-5ce9-4aa4-9588-2e578dd9f1ff:
+            uuid: f64aedf8-5ce9-4aa4-9588-2e578dd9f1ff
+            region: blb_region_col_3
+            configuration:
+              id: 'field_block:node:software:field_instructions_url'
+              label: 'Instructions Url'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: link
+                label: above
+                settings:
+                  trim_length: 80
+                  url_only: false
+                  url_plain: false
+                  rel: '0'
+                  target: '0'
+                third_party_settings: {  }
+            weight: 6
+            additional: {  }
+          9a9b9af1-09c9-40b6-9b45-b2bbac49a945:
+            uuid: 9a9b9af1-09c9-40b6-9b45-b2bbac49a945
+            region: blb_region_col_3
+            configuration:
+              id: 'field_block:node:software:field_software_tab'
+              label: 'Available to:'
+              label_display: '0'
+              provider: layout_builder
+              context_mapping:
+                entity: layout_builder.entity
+                view_mode: view_mode
+              formatter:
+                type: entity_reference_label
+                label: above
+                settings:
+                  link: true
+                third_party_settings: {  }
+            weight: 2
+            additional: {  }
+          439dad7b-3747-4bfd-aa4f-25985cd8e5e1:
+            uuid: 439dad7b-3747-4bfd-aa4f-25985cd8e5e1
+            region: blb_region_col_3
+            configuration:
+              id: software_cta_block
+              label: 'Software CTA'
+              label_display: '0'
+              provider: lts_software
+              context_mapping:
+                node: layout_builder.entity
+            weight: 7
+            additional: {  }
+          a58757bc-1fa8-4848-8a54-11432a5f31e1:
+            uuid: a58757bc-1fa8-4848-8a54-11432a5f31e1
+            region: blb_region_col_1
+            configuration:
+              id: software_price_block
+              label: 'Software Price'
+              label_display: '0'
+              provider: lts_software
+              context_mapping:
+                node: layout_builder.entity
+            weight: 1
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: 'bootstrap_layout_builder:blb_col_1'
+        layout_settings:
+          label: ''
+          container_wrapper_classes: ''
+          container_wrapper_attributes: null
+          container_wrapper:
+            bootstrap_styles:
+              background:
+                background_type: null
+              background_color:
+                class: null
+              background_media:
+                image:
+                  media_id: null
+                video:
+                  media_id: null
+                background_options:
+                  background_position: center
+                  background_repeat: no-repeat
+                  background_attachment: not_fixed
+                  background_size: cover
+              text_color:
+                class: null
+              padding:
+                class: _none
+              padding_left:
+                class: _none
+              padding_top:
+                class: _none
+              padding_right:
+                class: _none
+              padding_bottom:
+                class: _none
+              margin:
+                class: _none
+              margin_left:
+                class: _none
+              margin_top:
+                class: _none
+              margin_right:
+                class: _none
+              margin_bottom:
+                class: _none
+              border:
+                border_style:
+                  class: null
+                border_width:
+                  class: _none
+                border_color:
+                  class: null
+                rounded_corners:
+                  class: _none
+                border_left_style:
+                  class: null
+                border_left_width:
+                  class: _none
+                border_left_color:
+                  class: null
+                border_top_style:
+                  class: null
+                border_top_width:
+                  class: _none
+                border_top_color:
+                  class: null
+                border_right_style:
+                  class: null
+                border_right_width:
+                  class: _none
+                border_right_color:
+                  class: null
+                border_bottom_style:
+                  class: null
+                border_bottom_width:
+                  class: _none
+                border_bottom_color:
+                  class: null
+                rounded_corner_top_left:
+                  class: _none
+                rounded_corner_top_right:
+                  class: _none
+                rounded_corner_bottom_left:
+                  class: _none
+                rounded_corner_bottom_right:
+                  class: _none
+              scroll_effects:
+                class: null
+              text_alignment:
+                class: null
+              box_shadow:
+                class: null
+          container_wrapper_bg_color_class: ''
+          container_wrapper_bg_media: null
+          container: container-fluid
+          section_classes: ''
+          section_attributes: null
+          regions_classes:
+            blb_region_col_1: ''
+          regions_attributes:
+            blb_region_col_1: null
+          breakpoints: {  }
+          layout_regions_classes: {  }
+          remove_gutters: '1'
+          context_mapping: {  }
+        components:
+          d9dd617f-9c86-464c-88dc-2035222454a7:
+            uuid: d9dd617f-9c86-464c-88dc-2035222454a7
+            region: blb_region_col_1
+            configuration:
+              id: software_tabs_block
+              label: 'Software Tabs'
+              label_display: '0'
+              provider: lts_software
+              context_mapping:
+                node: layout_builder.entity
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: node.software.default
+targetEntityType: node
+bundle: software
+mode: default
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_access_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 24
+    region: blb_region_col_1
+  field_action_link:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 14
+    region: blb_region_col_1
+  field_action_mode:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 13
+    region: blb_region_col_1
+  field_category:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 21
+    region: blb_region_col_1
+  field_computing_consultant_name:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 8
+    region: content
+  field_email:
+    type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 9
+    region: content
+  field_installer_files:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 26
+    region: blb_region_col_1
+  field_installers:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 15
+    region: blb_region_col_1
+  field_license_details:
+    type: entity_reference_revisions_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    weight: 25
+    region: blb_region_col_1
+  field_license_type:
+    type: list_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_price:
+    type: number_decimal
+    label: above
+    settings:
+      thousand_separator: ''
+      decimal_separator: .
+      scale: 2
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 12
+    region: blb_region_col_1
+  field_publisher:
+    type: string
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_redirect_button:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 17
+    region: blb_region_col_1
+  field_software_logo_image:
+    type: image
+    label: visually_hidden
+    settings:
+      image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_software_tab:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 23
+    region: blb_region_col_1
+  field_specs:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 20
+    region: blb_region_col_1
+  field_terms_of_use:
+    type: file_default
+    label: above
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    weight: 11
+    region: content
+  field_website_url:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  field_action: true
+  field_available_for: true
+  field_instructions_url: true
+  layout_builder__layout: true
+  search_api_excerpt: true

@@ -1,0 +1,35 @@
+uuid: 93ea11fc-5eef-472c-8f16-b3a8bdfb0407
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.installers.field_media_file
+    - field.field.media.installers.field_os
+    - image.style.medium
+    - media.type.installers
+  module:
+    - image
+id: media.installers.media_library
+targetEntityType: media
+bundle: installers
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: medium
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_file: true
+  field_os: true
+  name: true
+  search_api_excerpt: true
+  uid: true

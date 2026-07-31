@@ -1,0 +1,13 @@
+uuid: 2f59846e-e33a-4ea2-9826-8ae074358662
+langcode: en
+status: true
+dependencies: {  }
+id: installers
+label: Installers
+description: 'Testing a Media File for Software'
+source: file
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_file
+field_map: {  }

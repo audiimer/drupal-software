@@ -1,0 +1,24 @@
+uuid: 516208a6-419a-4731-aef8-00c32c0f36c3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_specs
+    - node.type.software
+  module:
+    - text
+id: node.software.field_specs
+field_name: field_specs
+entity_type: node
+bundle: software
+label: Specs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

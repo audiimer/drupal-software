@@ -1,0 +1,33 @@
+uuid: e21b0c3d-d811-4aa9-b2cb-213aaf8d7766
+langcode: en
+status: true
+dependencies:
+  module:
+    - quicktabs
+    - system
+    - user
+  theme:
+    - playground
+id: playground_quicktabssoftwarecatalogstudents
+theme: playground
+region: content
+weight: 0
+provider: null
+plugin: 'quicktabs_block:software_catalog_students'
+settings:
+  id: 'quicktabs_block:software_catalog_students'
+  label: 'QuickTabs - Software Catalog - Students'
+  label_display: '0'
+  provider: quicktabs
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /software-library
+  user_role:
+    id: user_role
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'
+    roles:
+      student: student

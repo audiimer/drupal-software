@@ -1,0 +1,38 @@
+uuid: 492374ba-1f8c-44ad-ad08-ae73783280b9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_software_logo_image
+    - node.type.software
+  module:
+    - image
+id: node.software.field_software_logo_image
+field_name: field_software_logo_image
+entity_type: node
+bundle: software
+label: 'Software logo/image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:file'
+  handler_settings: {  }
+  file_directory: '[date:custom:Y]-[date:custom:m]'
+  file_extensions: 'png gif jpg jpeg webp'
+  max_filesize: '5 MB'
+  max_resolution: 200x200
+  min_resolution: 200x200
+  alt_field: true
+  alt_field_required: true
+  title_field: false
+  title_field_required: false
+  default_image:
+    uuid: ''
+    alt: ''
+    title: ''
+    width: 1024
+    height: 1024
+field_type: image
