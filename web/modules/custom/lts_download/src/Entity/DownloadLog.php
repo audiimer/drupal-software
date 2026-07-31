@@ -85,6 +85,11 @@ class DownloadLog extends ContentEntityBase {
       ->setLabel(t('Downloaded'))
       ->setDescription(t('The time the download was granted.'));
 
+    $fields['download_month'] = BaseFieldDefinition::create('string')
+      ->setLabel(t('Download Month'))
+      ->setDescription(t('Snapshot of the download month as YYYY-MM (e.g. "2026-07"), computed at write time so it groups cleanly in Views/Charts. Plain string, not a native date field -- see design doc for why: our custom entity\'s created field maps to the generic Views property handler, not the date-aware one, so month/year grouping is not available on it directly.'))
+      ->setSetting('max_length', 7);
+
     return $fields;
   }
 

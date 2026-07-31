@@ -89,6 +89,10 @@ class DownloadLogger {
       'file_id' => $file->id(),
       'department' => $this->resolveDepartment($uid),
       'ip_address' => $ip_address,
+      // Snapshot as YYYY-MM so Views/Charts can group by month directly
+      // on a plain string, since our custom entity's created field is
+      // not mapped to Views' date-aware handler. See design doc.
+      'download_month' => date('Y-m'),
     ]);
     $log->save();
 

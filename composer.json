@@ -23,6 +23,7 @@
         "drupal/bootstrap5": "^4.0",
         "drupal/bootstrap_barrio": "^5.5",
         "drupal/bootstrap_styles": "^1.2",
+        "drupal/charts": "^5.2",
         "drupal/ckeditor5_plugin_pack": "^1.5",
         "drupal/ckeditor5_premium_features": "^1.8",
         "drupal/commerce": "^3.3",
