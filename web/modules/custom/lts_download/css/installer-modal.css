@@ -1,0 +1,28 @@
+/*
+ * Installer modal styling — module-owned, theme-independent.
+ * Matches the catalog card's Add-to-Cart look (.software-card__cta,
+ * defined in lts_software/css/software-library.css) rather than
+ * depending on Bootstrap/Radix utility classes, so it survives a
+ * theme swap (playground -> Lehigh LTS). See design doc §4.5/§6.5.
+ */
+.lts-download__submit-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  background: var(--color-navy);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+.lts-download__submit-btn:hover {
+  background: var(--color-navy-hover, #154360);
+}
+.lts-download__submit-btn.disabled,
+.lts-download__submit-btn:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}

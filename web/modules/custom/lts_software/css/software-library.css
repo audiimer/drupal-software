@@ -67,7 +67,7 @@
   padding: 0;
 }
 .path-software-library-new .software-search-bar__btn:hover {
-  background: #154360;
+  background: #233140;
 }
 .path-software-library-new .software-search-bar__input {
   flex: 1;
@@ -253,22 +253,23 @@
 .path-software-library-new .software-card__price {
   font-size: 14px;
   font-weight: 600;
-  color: #1a5276;
+  color: #2c3e50;
   margin: 0;
 }
 
 /* ── ADD TO CART BUTTON ── */
-.path-software-library-new .software-card__cta {
+.software-card__cta {
   position: relative;
   z-index: 2;
   margin-top: 10px;
   padding: 7px 14px;
   font-size: 13px;
   font-weight: 500;
-  background: #1a5276;
+  background: var(--color-navy);
   color: #fff;
-  border: none;
+  border: 1px solid var(--color-navy);
   border-radius: 6px;
+  font-family: Lato, -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
@@ -276,11 +277,11 @@
   transition: background 0.15s;
 }
 
-.path-software-library-new .software-card__cta:hover {
-  background: #154360;
+.software-card__cta:hover {
+  background: #233140;
 }
 
-.path-software-library-new .software-card__cta-icon {
+.software-card__cta-icon {
   font-size: 16px;
   font-weight: 400;
   line-height: 1;
@@ -303,4 +304,19 @@
 .path-software-library-new .software-library__pager {
   margin-top: 24px;
   text-align: center;
+}
+/* Force Add to Cart (Bootstrap/Commerce-rendered) to share the same
+   origin color as our own Download button, so both buttons on this
+   page always match by construction, not by coincidence. Scoped to
+   this page only -- does not affect Commerce buttons elsewhere. */
+.software-card__cta-wrap .btn-primary,
+.software-card__cta-wrap .button--primary,
+.software-cta--cart .btn-primary,
+.software-cta--cart .button--primary {
+  background: var(--color-navy) !important;
+  border-color: var(--color-navy) !important;
+  padding: 7px 14px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  border-radius: 6px !important;
 }
