@@ -23,6 +23,9 @@ use Drupal\Core\Entity\Annotation\ContentEntityType;
  *     "uuid" = "uuid",
  *   },
  *   admin_permission = "administer software download logs",
+ *   handlers = {
+ *     "views_data" = "Drupal\views\EntityViewsData",
+ *   },
  * )
  */
 class DownloadLog extends ContentEntityBase {
