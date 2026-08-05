@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.software.field_category
     - field.field.node.software.field_computing_consultant_name
     - field.field.node.software.field_email
+    - field.field.node.software.field_installation_instructions
     - field.field.node.software.field_installer_files
     - field.field.node.software.field_instructions_url
     - field.field.node.software.field_license_details
@@ -779,6 +780,7 @@ content:
 hidden:
   field_action: true
   field_available_for: true
+  field_installation_instructions: true
   field_instructions_url: true
   layout_builder__layout: true
   search_api_excerpt: true

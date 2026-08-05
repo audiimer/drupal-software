@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.software.field_category
     - field.field.node.software.field_computing_consultant_name
     - field.field.node.software.field_email
+    - field.field.node.software.field_installation_instructions
     - field.field.node.software.field_installer_files
     - field.field.node.software.field_instructions_url
     - field.field.node.software.field_license_details
@@ -43,6 +44,7 @@ hidden:
   field_category: true
   field_computing_consultant_name: true
   field_email: true
+  field_installation_instructions: true
   field_installer_files: true
   field_instructions_url: true
   field_license_details: true

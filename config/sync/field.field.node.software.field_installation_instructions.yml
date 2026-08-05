@@ -1,0 +1,19 @@
+uuid: bf713345-2ab9-4721-af1b-5c2465781f18
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_installation_instructions
+    - node.type.software
+id: node.software.field_installation_instructions
+field_name: field_installation_instructions
+entity_type: node
+bundle: software
+label: 'Installation Instructions'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long
