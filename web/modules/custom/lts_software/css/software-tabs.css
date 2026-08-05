@@ -44,3 +44,40 @@
   font-size: 0.9rem;
   color: #6c757d;
 }
+
+/* Installation Instructions tab presentation. */
+.software-tabs__license-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25rem;
+}
+
+.software-tabs__license-table tr {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.software-tabs__license-table tr:last-child {
+  border-bottom: 0;
+}
+
+.software-tabs__license-label {
+  padding: 0.6rem 1rem 0.6rem 0;
+  color: #6c757d;
+  white-space: nowrap;
+}
+
+.software-tabs__license-value {
+  padding: 0.6rem 0;
+  font-family: var(--bs-font-monospace, monospace);
+  color: #212529;
+  width: 100%;
+}
+
+.software-tabs__inline-instructions {
+  margin-bottom: 1.25rem;
+}
+
+.software-tabs__instructions-link.btn-primary {
+  background: var(--color-navy);
+  border-color: var(--color-navy);
+}

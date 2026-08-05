@@ -3,18 +3,22 @@
  * @file
  * Template for the Software Tabs block.
  *
- * Renders Description / Terms of Use / System Specs as Bootstrap 5 nav-tabs.
- * Tabs are passed in via the SoftwareTabsBlock plugin; empty fields are
- * omitted before reaching this template.
+ * Renders Description / Terms of Use / System Specs / Installation
+ * Instructions as Bootstrap 5 nav-tabs. Tabs are passed in via the
+ * SoftwareTabsBlock plugin; empty fields are omitted before reaching
+ * this template.
  *
  * Available variables:
  *   - tabs: array of tabs, each containing:
  *     - id: machine name (used for tab/pane linking)
  *     - label: human-readable label
- *     - type: 'html' or 'pdf'
+ *     - type: 'html', 'pdf', or 'installation'
  *     - content: render array (for html type)
  *     - file_url: URL string (for pdf type)
  *     - file_name: original filename (for pdf type)
+ *     - license_rows: array of {label, value} (for installation type)
+ *     - inline_instructions: render array or null (for installation type)
+ *     - instructions_link: {url, title} or null (for installation type)
  *     - active: TRUE on the first tab
  */
 #}
@@ -57,6 +61,29 @@
               {{ 'Can\'t view the PDF?'|t }}
               <a href="{{ tab.file_url }}" target="_blank" rel="noopener">{{ 'Download'|t }} {{ tab.file_name }}</a>
             </p>
+          </div>
+        {% elseif tab.type == 'installation' %}
+          <div class="software-tabs__installation">
+            {% if tab.license_rows %}
+              <table class="software-tabs__license-table">
+                {% for row in tab.license_rows %}
+                  <tr>
+                    <td class="software-tabs__license-label">{{ row.label }}</td>
+                    <td class="software-tabs__license-value">{{ row.value }}</td>
+                  </tr>
+                {% endfor %}
+              </table>
+            {% endif %}
+            {% if tab.inline_instructions %}
+              <div class="software-tabs__inline-instructions">
+                {{ tab.inline_instructions }}
+              </div>
+            {% endif %}
+            {% if tab.instructions_link %}
+              <a href="{{ tab.instructions_link.url }}" class="btn btn-primary software-tabs__instructions-link" target="_blank" rel="noopener noreferrer">
+                {{ tab.instructions_link.title }}
+              </a>
+            {% endif %}
           </div>
         {% else %}
           {{ tab.content }}
