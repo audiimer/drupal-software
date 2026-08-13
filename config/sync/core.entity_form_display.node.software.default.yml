@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.software.field_software_tab
     - field.field.node.software.field_specs
     - field.field.node.software.field_terms_of_use
+    - field.field.node.software.field_terms_summary
     - field.field.node.software.field_website_url
     - field.field.node.software.layout_builder__layout
     - image.style.thumbnail
@@ -205,6 +206,16 @@ content:
     region: content
     settings:
       progress_indicator: throbber
+    third_party_settings: {  }
+  field_terms_summary:
+    type: text_textarea_with_summary
+    weight: 33
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
     third_party_settings: {  }
   field_website_url:
     type: link_default

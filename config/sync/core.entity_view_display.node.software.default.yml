@@ -21,6 +21,7 @@ dependencies:
     - field.field.node.software.field_software_tab
     - field.field.node.software.field_specs
     - field.field.node.software.field_terms_of_use
+    - field.field.node.software.field_terms_summary
     - field.field.node.software.field_website_url
     - field.field.node.software.layout_builder__layout
     - node.type.software
@@ -760,6 +761,13 @@ content:
     third_party_settings: {  }
     weight: 11
     region: content
+  field_terms_summary:
+    type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 27
+    region: blb_region_col_1
   field_website_url:
     type: link
     label: above
