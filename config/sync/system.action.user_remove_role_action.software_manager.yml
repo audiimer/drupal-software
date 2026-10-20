@@ -1,0 +1,14 @@
+uuid: 1ed6d63e-2e76-46a7-bc4e-b4843187d782
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.software_manager
+  module:
+    - user
+id: user_remove_role_action.software_manager
+label: 'Remove the Software Manager role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: software_manager

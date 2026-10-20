@@ -1,0 +1,14 @@
+uuid: 8279d56d-af59-479d-8b4e-abc79fa553df
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.software_manager
+  module:
+    - user
+id: user_add_role_action.software_manager
+label: 'Add the Software Manager role to the selected user(s)'
+type: user
+plugin: user_add_role_action
+configuration:
+  rid: software_manager

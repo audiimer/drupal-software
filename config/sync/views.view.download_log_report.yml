@@ -4,6 +4,7 @@ status: true
 dependencies:
   module:
     - lts_download
+    - user
 id: download_log_report
 label: 'Download Log'
 module: views
@@ -577,8 +578,9 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'access site reports'
       cache:
         type: tag
         options: {  }
@@ -646,6 +648,7 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.permissions
       tags: {  }
   page_1:
     id: page_1
@@ -661,4 +664,5 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - user.permissions
       tags: {  }

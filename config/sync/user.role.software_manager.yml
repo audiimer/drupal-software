@@ -1,0 +1,12 @@
+uuid: ac9ed6c1-d15d-4383-a625-b42da510870e
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+id: software_manager
+label: 'Software Manager'
+weight: 7
+is_admin: false
+permissions:
+  - 'access site reports'
