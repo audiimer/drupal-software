@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: lts
-label: LTS
+label: 'ITS (old)'
 weight: 6
 is_admin: false
 permissions: {  }

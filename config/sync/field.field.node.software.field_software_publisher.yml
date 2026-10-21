@@ -1,0 +1,29 @@
+uuid: c764047d-5de8-40f9-9301-df6a88030f82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_software_publisher
+    - node.type.software
+    - taxonomy.vocabulary.software_publisher
+id: node.software.field_software_publisher
+field_name: field_software_publisher
+entity_type: node
+bundle: software
+label: Publisher
+description: "Company or project that makes the software, for example Microsoft or MathWorks. You're open to create if it doesn't exist"
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      software_publisher: software_publisher
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

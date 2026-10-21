@@ -1,0 +1,9 @@
+uuid: f9ba866a-b0f3-461d-9cb7-534a7a83a8df
+langcode: en
+status: true
+dependencies: {  }
+name: 'Software Channel'
+vid: software_channel
+description: 'Where a title is offered: public sites and labs, HPC, or LUapps, any future entries.'
+weight: 0
+new_revision: false

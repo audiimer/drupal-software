@@ -5,7 +5,10 @@ dependencies:
   config:
     - node.type.software
     - taxonomy.vocabulary.installer_variant
+    - taxonomy.vocabulary.software_audience
     - taxonomy.vocabulary.software_category
+    - taxonomy.vocabulary.software_channel
+    - taxonomy.vocabulary.software_publisher
   module:
     - commerce
     - commerce_order
@@ -31,11 +34,17 @@ permissions:
   - 'access toolbar'
   - 'create software content'
   - 'create terms in installer_variant'
+  - 'create terms in software_audience'
   - 'create terms in software_category'
+  - 'create terms in software_channel'
+  - 'create terms in software_publisher'
   - 'delete any software content'
   - 'edit any software content'
   - 'edit terms in installer_variant'
+  - 'edit terms in software_audience'
   - 'edit terms in software_category'
+  - 'edit terms in software_channel'
+  - 'edit terms in software_publisher'
   - 'revert software revisions'
   - 'update chargeback commerce_order'
   - 'view chargeback commerce_order'

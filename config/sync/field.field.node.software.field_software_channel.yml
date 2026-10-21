@@ -1,0 +1,29 @@
+uuid: a8181d67-50dd-47ca-bd51-2bb24ff25a98
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_software_channel
+    - node.type.software
+    - taxonomy.vocabulary.software_channel
+id: node.software.field_software_channel
+field_name: field_software_channel
+entity_type: node
+bundle: software
+label: Channel
+description: 'Where people can get or use this title.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      software_channel: software_channel
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

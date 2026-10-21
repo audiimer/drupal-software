@@ -16,9 +16,11 @@ dependencies:
     - field.field.node.software.field_license_details
     - field.field.node.software.field_license_type
     - field.field.node.software.field_price
-    - field.field.node.software.field_publisher
     - field.field.node.software.field_redirect_button
+    - field.field.node.software.field_software_audience
+    - field.field.node.software.field_software_channel
     - field.field.node.software.field_software_logo_image
+    - field.field.node.software.field_software_publisher
     - field.field.node.software.field_software_tab
     - field.field.node.software.field_specs
     - field.field.node.software.field_terms_of_use
@@ -212,8 +214,10 @@ hidden:
   field_license_details: true
   field_license_type: true
   field_price: true
-  field_publisher: true
   field_redirect_button: true
+  field_software_audience: true
+  field_software_channel: true
+  field_software_publisher: true
   field_software_tab: true
   field_specs: true
   field_terms_of_use: true

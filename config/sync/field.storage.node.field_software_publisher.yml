@@ -1,17 +1,16 @@
-uuid: 422ae36e-7976-472c-bd3a-4d06aa14db72
+uuid: f3e1a79f-61e4-4329-b680-703a7229edd0
 langcode: en
 status: true
 dependencies:
   module:
     - node
-id: node.field_publisher
-field_name: field_publisher
+    - taxonomy
+id: node.field_software_publisher
+field_name: field_software_publisher
 entity_type: node
-type: string
+type: entity_reference
 settings:
-  max_length: 255
-  case_sensitive: false
-  is_ascii: false
+  target_type: taxonomy_term
 module: core
 locked: false
 cardinality: 1

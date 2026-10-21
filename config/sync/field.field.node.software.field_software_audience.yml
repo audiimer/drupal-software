@@ -1,0 +1,29 @@
+uuid: f3f90537-c5a7-40ab-b815-9ec1f5d94435
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_software_audience
+    - node.type.software
+    - taxonomy.vocabulary.software_audience
+id: node.software.field_software_audience
+field_name: field_software_audience
+entity_type: node
+bundle: software
+label: Audience
+description: 'Who may get this title. Tick every group that may download, request, or be sent to it. This controls the catalog tabs.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      software_audience: software_audience
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

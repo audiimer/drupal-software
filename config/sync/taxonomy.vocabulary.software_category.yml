@@ -4,6 +4,6 @@ status: true
 dependencies: {  }
 name: 'Software Category'
 vid: software_category
-description: null
+description: 'Functional category of a title, for example Statistics, Office, Engineering.'
 weight: 0
 new_revision: false

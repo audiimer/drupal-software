@@ -15,9 +15,11 @@ dependencies:
     - field.field.node.software.field_license_details
     - field.field.node.software.field_license_type
     - field.field.node.software.field_price
-    - field.field.node.software.field_publisher
     - field.field.node.software.field_redirect_button
+    - field.field.node.software.field_software_audience
+    - field.field.node.software.field_software_channel
     - field.field.node.software.field_software_logo_image
+    - field.field.node.software.field_software_publisher
     - field.field.node.software.field_software_tab
     - field.field.node.software.field_specs
     - field.field.node.software.field_terms_of_use
@@ -40,7 +42,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 22
+    weight: 17
     region: content
     settings:
       rows: 9
@@ -56,25 +58,25 @@ content:
     third_party_settings: {  }
   field_access_type:
     type: options_select
-    weight: 29
+    weight: 25
     region: content
     settings: {  }
     third_party_settings: {  }
   field_available_for:
     type: options_buttons
-    weight: 17
+    weight: 14
     region: content
     settings: {  }
     third_party_settings: {  }
   field_category:
     type: options_buttons
-    weight: 26
+    weight: 20
     region: content
     settings: {  }
     third_party_settings: {  }
   field_computing_consultant_name:
     type: string_textfield
-    weight: 13
+    weight: 11
     region: content
     settings:
       size: 60
@@ -82,7 +84,7 @@ content:
     third_party_settings: {  }
   field_email:
     type: email_default
-    weight: 14
+    weight: 12
     region: content
     settings:
       placeholder: ''
@@ -90,7 +92,7 @@ content:
     third_party_settings: {  }
   field_installation_instructions:
     type: string_textarea
-    weight: 32
+    weight: 28
     region: content
     settings:
       rows: 5
@@ -98,7 +100,7 @@ content:
     third_party_settings: {  }
   field_installer_files:
     type: paragraphs
-    weight: 31
+    weight: 27
     region: content
     settings:
       title: Paragraph
@@ -116,7 +118,7 @@ content:
     third_party_settings: {  }
   field_instructions_url:
     type: link_default
-    weight: 19
+    weight: 15
     region: content
     settings:
       placeholder_url: ''
@@ -124,7 +126,7 @@ content:
     third_party_settings: {  }
   field_license_details:
     type: paragraphs
-    weight: 30
+    weight: 26
     region: content
     settings:
       title: Paragraph
@@ -142,32 +144,36 @@ content:
     third_party_settings: {  }
   field_license_type:
     type: options_select
-    weight: 12
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
   field_price:
     type: number
-    weight: 16
+    weight: 13
     region: content
     settings:
-      placeholder: ''
-    third_party_settings: {  }
-  field_publisher:
-    type: string_textfield
-    weight: 9
-    region: content
-    settings:
-      size: 60
       placeholder: ''
     third_party_settings: {  }
   field_redirect_button:
     type: link_default
-    weight: 20
+    weight: 16
     region: content
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_software_audience:
+    type: options_buttons
+    weight: 22
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_software_channel:
+    type: options_buttons
+    weight: 23
+    region: content
+    settings: {  }
     third_party_settings: {  }
   field_software_logo_image:
     type: image_image
@@ -177,15 +183,25 @@ content:
       progress_indicator: throbber
       preview_image_style: thumbnail
     third_party_settings: {  }
+  field_software_publisher:
+    type: entity_reference_autocomplete
+    weight: 24
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_software_tab:
     type: options_buttons
-    weight: 28
+    weight: 21
     region: content
     settings: {  }
     third_party_settings: {  }
   field_specs:
     type: text_textarea_with_summary
-    weight: 24
+    weight: 19
     region: content
     settings:
       rows: 9
@@ -195,14 +211,14 @@ content:
     third_party_settings: {  }
   field_terms_of_use:
     type: file_generic
-    weight: 23
+    weight: 18
     region: content
     settings:
       progress_indicator: throbber
     third_party_settings: {  }
   field_terms_summary:
     type: text_textarea_with_summary
-    weight: 33
+    weight: 29
     region: content
     settings:
       rows: 9
@@ -212,7 +228,7 @@ content:
     third_party_settings: {  }
   field_website_url:
     type: link_default
-    weight: 10
+    weight: 9
     region: content
     settings:
       placeholder_url: ''

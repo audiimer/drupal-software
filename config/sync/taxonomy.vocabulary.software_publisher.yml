@@ -1,0 +1,9 @@
+uuid: 7abf48cb-e33a-4d5b-b7b9-a40fa92805e1
+langcode: en
+status: true
+dependencies: {  }
+name: 'Software Publisher'
+vid: software_publisher
+description: 'Company or project that publishes the software. Editors add terms from the Software form.'
+weight: 0
+new_revision: false
