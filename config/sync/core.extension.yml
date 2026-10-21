@@ -44,10 +44,6 @@ module:
   history: 0
   image: 0
   inline_entity_form: 0
-  jquery_ui: 0
-  jquery_ui_accordion: 0
-  jquery_ui_tabs: 0
-  js_cookie: 0
   layout_builder: 0
   layout_discovery: 0
   layout_paragraphs: 0
@@ -70,9 +66,6 @@ module:
   profile: 0
   project_browser: 0
   project_browser_source_example: 0
-  quicktabs: 0
-  quicktabs_accordion: 0
-  quicktabs_jqueryui: 0
   rebuild_cache_access: 0
   responsive_image: 0
   search: 0
