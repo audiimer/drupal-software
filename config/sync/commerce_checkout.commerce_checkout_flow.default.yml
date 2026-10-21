@@ -1,11 +1,13 @@
 uuid: a74ced4c-b1ff-40c1-88b2-638f5534f351
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - lts_chargeback
 _core:
   default_config_hash: 50QUbDL5hfMj6JF3n2JcOsPZtzq8PyU9UR0iXIpVThA
-id: default
 label: Default
+id: default
 plugin: multistep_default
 configuration:
   display_checkout_progress: true
@@ -16,28 +18,56 @@ configuration:
   guest_new_account_notify: false
   panes:
     login:
-      allow_guest_checkout: true
-      allow_registration: false
       step: login
       weight: 0
+      wrapper_element: container
+      allow_guest_checkout: false
+      allow_registration: false
+      registration_form_mode: register
     contact_information:
-      double_entry: true
+      display_label: null
       step: order_information
       weight: 1
+      wrapper_element: fieldset
+      double_entry: true
+      always_display: false
     billing_information:
-      step: order_information
-      weight: 2
+      display_label: null
+      step: _disabled
+      weight: 7
+      wrapper_element: fieldset
     review:
+      display_label: null
       step: review
       weight: 3
+      wrapper_element: null
     completion_message:
+      display_label: null
+      step: complete
+      weight: 4
+      wrapper_element: null
       message:
         value: "Your order number is [commerce_order:order_number].\r\nYou can view your order on your account page when logged in."
         format: plain_text
       display_pane_summaries: true
-      step: complete
-      weight: 4
     order_summary:
-      view: commerce_checkout_order_summary
+      display_label: null
       step: _sidebar
+      weight: 6
+      wrapper_element: container
+      view: commerce_checkout_order_summary
+    customer_comments:
+      display_label: null
+      step: _disabled
+      weight: 8
+      wrapper_element: fieldset
+    completion_register:
+      display_label: null
+      step: complete
       weight: 5
+      wrapper_element: null
+    lts_chargeback_information:
+      display_label: null
+      step: order_information
+      weight: 2
+      wrapper_element: container
