@@ -10,12 +10,10 @@ field_name: field_email
 entity_type: node
 bundle: software
 label: Email
-description: ''
+description: 'Email of the ITS computing consultant for this title. Internal reference for ITS; not shown to end users.'
 required: false
 translatable: false
-default_value:
-  -
-    value: user@schooldomain.edu
+default_value: {  }
 default_value_callback: ''
 settings: {  }
 field_type: email
