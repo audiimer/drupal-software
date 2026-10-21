@@ -7,15 +7,8 @@ dependencies:
     - field.field.commerce_product.software_license.body
   module:
     - commerce
-    - field_layout
-    - layout_discovery
     - path
     - text
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 id: commerce_product.software_license.default
 targetEntityType: commerce_product
 bundle: software_license

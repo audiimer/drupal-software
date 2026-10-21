@@ -6,14 +6,6 @@ dependencies:
     - field.field.paragraph.license_detail.field_label
     - field.field.paragraph.license_detail.field_value
     - paragraphs.paragraphs_type.license_detail
-  module:
-    - field_layout
-    - layout_discovery
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 id: paragraph.license_detail.default
 targetEntityType: paragraph
 bundle: license_detail

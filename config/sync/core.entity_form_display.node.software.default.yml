@@ -27,19 +27,12 @@ dependencies:
     - image.style.thumbnail
     - node.type.software
   module:
-    - field_layout
     - file
     - image
-    - layout_discovery
     - link
     - paragraphs
     - path
     - text
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 id: node.software.default
 targetEntityType: node
 bundle: software

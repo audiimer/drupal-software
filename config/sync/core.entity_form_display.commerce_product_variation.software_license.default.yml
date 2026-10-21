@@ -7,13 +7,6 @@ dependencies:
     - field.field.commerce_product_variation.software_license.field_software
   module:
     - commerce_price
-    - field_layout
-    - layout_discovery
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 id: commerce_product_variation.software_license.default
 targetEntityType: commerce_product_variation
 bundle: software_license

@@ -7,17 +7,10 @@ dependencies:
     - core.entity_form_mode.commerce_order_item.add_to_cart
   module:
     - commerce_product
-    - field_layout
-    - layout_discovery
   enforced:
     module:
       - commerce_cart
       - commerce_product
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 _core:
   default_config_hash: 8dIszGyXfy-kBaUEuUEQjWjRVtfq6f8cCI0QUHIlJdc
 id: commerce_order_item.default.add_to_cart
@@ -28,9 +21,9 @@ content:
   purchased_entity:
     type: commerce_product_variation_attributes
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   adjustments: true
   created: true

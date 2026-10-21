@@ -6,13 +6,6 @@ dependencies:
     - commerce_order.commerce_order_type.default
   module:
     - commerce_order
-    - field_layout
-    - layout_discovery
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 _core:
   default_config_hash: ZT4pREnvh4c-BSAu2qMMjclCYJxb16VDTHJaxIjnQFE
 id: commerce_order.default.default
@@ -23,21 +16,21 @@ content:
   adjustments:
     type: commerce_adjustment_default
     weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   billing_profile:
     type: commerce_billing_profile
     weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
   cart:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 20
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   mail:
     type: email_default
@@ -50,6 +43,7 @@ content:
   order_items:
     type: commerce_order_items
     weight: 1
+    region: content
     settings:
       allow_new: true
       collapsible: false
@@ -57,10 +51,15 @@ content:
       allow_duplicate: false
       draggable: true
     third_party_settings: {  }
-    region: content
 hidden:
+  chargeback_authorized_signer: true
+  chargeback_department: true
+  chargeback_email: true
+  chargeback_index: true
+  chargeback_name: true
   created: true
   customer_comments: true
+  denial_reason: true
   ip_address: true
   mail: true
   order_number: true

@@ -5,17 +5,9 @@ dependencies:
   config:
     - commerce_order.commerce_order_type.default
     - core.entity_form_mode.commerce_order.order_details
-  module:
-    - field_layout
-    - layout_discovery
   enforced:
     module:
       - commerce_order
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 _core:
   default_config_hash: 0ZwZqvJQJvElE8AQiaMbXwtoV8gXUnp0Hdpat9Mu2pM
 id: commerce_order.default.order_details
@@ -25,10 +17,10 @@ mode: order_details
 content:
   cart:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 20
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   mail:
     type: email_default
@@ -41,7 +33,13 @@ content:
 hidden:
   adjustments: true
   billing_profile: true
+  chargeback_authorized_signer: true
+  chargeback_department: true
+  chargeback_email: true
+  chargeback_index: true
+  chargeback_name: true
   customer_comments: true
+  denial_reason: true
   ip_address: true
   order_items: true
   order_number: true

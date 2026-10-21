@@ -65,15 +65,4 @@ sections:
           icon_class: help
         weight: -2
         additional: {  }
-      134211ba-c94f-42e5-8849-a4701ace567b:
-        uuid: 134211ba-c94f-42e5-8849-a4701ace567b
-        region: content
-        configuration:
-          id: rebuild_cache_access_navigation
-          label: 'Rebuild cache'
-          label_display: '0'
-          provider: rebuild_cache_access
-          context_mapping: {  }
-        weight: 3
-        additional: {  }
     third_party_settings: {  }

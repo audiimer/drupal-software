@@ -7,14 +7,7 @@ dependencies:
     - field.field.media.installers.field_os
     - media.type.installers
   module:
-    - field_layout
     - file
-    - layout_discovery
-third_party_settings:
-  field_layout:
-    id: layout_onecol
-    settings:
-      label: ''
 id: media.installers.default
 targetEntityType: media
 bundle: installers
