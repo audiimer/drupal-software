@@ -1,0 +1,41 @@
+site_name: Webform Workflows Element
+repo_url: https://git.drupalcode.org/project/webform_workflows_element
+repo_name: drupal/webform_workflows_element
+theme:
+  name: material
+  icon:
+    repo: fontawesome/brands/gitlab
+  palette:
+    primary: blue
+  features:
+    - content.code.copy
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.path
+    - navigation.top
+    - toc.follow
+extra:
+  generator: false
+extra_css:
+  - css/pygments.css
+plugins:
+  - privacy:
+      enabled: !ENV [CI, false]
+  - search
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Usage: usage.md
+  - Email handlers & tokens: email-handlers.md
+  - Filtering results: submission-filtering.md
+  - Developer API: api.md
+  - Architecture: architecture.md
+  - Submodules: submodules.md
+  - Tugboat preview: tugboat.md
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - toc:
+      permalink: true

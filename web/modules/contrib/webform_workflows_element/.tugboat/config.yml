@@ -1,0 +1,50 @@
+services:
+  php:
+    image: tugboatqa/drupal:11
+    default: true
+    http: false
+    depends: mysql
+    commands:
+      update: |
+        set -eux
+        cd $DRUPAL_COMPOSER_ROOT
+        composer config minimum-stability dev
+        composer config repositories.tugboat path $TUGBOAT_ROOT
+        composer require drupal/webform_workflows_element drupal/admin_toolbar
+        vendor/bin/drush \
+          --yes \
+          --db-url=mysql://tugboat:tugboat@mysql:3306/tugboat \
+          --site-name="Live preview for ${TUGBOAT_PREVIEW_NAME}" \
+          --account-pass=admin \
+          site:install standard
+        echo "\$settings['trusted_host_patterns'] = ['\.tugboatqa\.com\$'];" >> $DOCROOT/sites/default/settings.php
+        mkdir -p $DRUPAL_DOCROOT/sites/default/files
+        chgrp -R www-data $DRUPAL_DOCROOT/sites/default/files
+        chmod 2775 $DRUPAL_DOCROOT/sites/default/files
+        chmod -R g+w $DRUPAL_DOCROOT/sites/default/files
+        vendor/bin/drush --yes pm:enable webform_workflows_element webform_node webform_ui webform_submission_log admin_toolbar
+        # Import workflows, webforms, and roles.
+        vendor/bin/drush config:import --partial --source=$TUGBOAT_ROOT/.tugboat/config --yes
+        # Create demo users for the lifecycle workflow demo.
+        # Matches the WorkflowLifecycleTest setup:
+        # - user: basic authenticated user, no workflow roles (gets 403)
+        # - submitter: creates submissions, submits for review
+        # - reviewer: views any submission, approves or rejects
+        vendor/bin/drush user:create user --password=user --mail=user@example.com
+        vendor/bin/drush user:create submitter --password=submitter --mail=submitter@example.com
+        vendor/bin/drush user:role:add submitter submitter
+        vendor/bin/drush user:create reviewer --password=reviewer --mail=reviewer@example.com
+        vendor/bin/drush user:role:add reviewer reviewer
+        # Create demo node, toolbar shortcuts, and set front page.
+        vendor/bin/drush php:script $TUGBOAT_ROOT/.tugboat/setup.php
+        vendor/bin/drush config:set system.site page.front /lifecycle --yes
+        vendor/bin/drush cache:rebuild
+      build: |
+        set -eux
+        cd $DRUPAL_COMPOSER_ROOT
+        composer install --optimize-autoloader
+        composer update drupal/webform_workflows_element --with-all-dependencies
+        vendor/bin/drush --yes updb
+        vendor/bin/drush cache:rebuild
+  mysql:
+    image: tugboatqa/mariadb

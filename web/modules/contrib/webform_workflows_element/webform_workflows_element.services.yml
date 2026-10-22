@@ -1,0 +1,36 @@
+services:
+  webform_workflows_element.manager:
+    class: Drupal\webform_workflows_element\Service\WebformWorkflowsManager
+    arguments: ['@logger.factory', '@module_handler', '@plugin.manager.webform.element', '@webform.access_rules_manager', '@event_dispatcher', '@entity_type.manager', '@current_user', '@current_route_match', '@config.factory', '@date.formatter', '@renderer', '@?webform_submission_log.manager']
+  webform_workflows_element.transition_events_subscriber:
+    class: '\Drupal\webform_workflows_element\EventSubscriber\TransitionEventSubscriber'
+    arguments: ['@webform_workflows_element.manager']
+    tags:
+      - { name: 'event_subscriber' }
+  Drupal\webform_workflows_element\Hook\WebformWorkflowsElementHooks:
+    arguments:
+      - '@webform_workflows_element.manager'
+      - '@current_user'
+      - '@entity.form_builder'
+  Drupal\webform_workflows_element\Hook\EntityTypeHooks:
+    arguments:
+      - '@module_handler'
+  Drupal\webform_workflows_element\Hook\FormHooks:
+    arguments:
+      - '@webform_workflows_element.manager'
+      - '@current_user'
+      - '@current_route_match'
+      - '@request_stack'
+  Drupal\webform_workflows_element\Hook\ThemeHooks:
+    arguments:
+      - '@webform_workflows_element.manager'
+  Drupal\webform_workflows_element\Hook\TokenHooks:
+    arguments:
+      - '@webform_workflows_element.manager'
+  Drupal\webform_workflows_element\Hook\ResultsFilterHooks:
+    arguments:
+      - '@webform_workflows_element.manager'
+      - '@module_handler'
+      - '@current_route_match'
+      - '@request_stack'
+      - '@webform.entity_reference_manager'

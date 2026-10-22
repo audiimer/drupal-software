@@ -1,0 +1,31 @@
+workflow.type_settings.webform_workflows_element:
+  type: mapping
+  label: "Webform workflow"
+  mapping:
+    initial_state:
+      type: string
+      label: "Initial state"
+    states:
+      type: sequence
+      sequence:
+        type: workflows.state
+    transitions:
+      type: sequence
+      sequence:
+        type: workflows.transition
+action.configuration.webform_workflow_state_change:*:
+  type: mapping
+  label: 'Run workflow transition'
+  mapping:
+    workflow:
+      type: string
+      label: 'The ID of the workflow'
+    transition:
+      type: string
+      label: 'The ID of the transition'
+    element:
+      type: string
+      label: 'The ID of the element'
+    log_public:
+      type: string
+      label: 'Log message'

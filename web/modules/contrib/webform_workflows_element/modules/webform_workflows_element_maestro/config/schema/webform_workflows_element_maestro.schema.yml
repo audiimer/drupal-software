@@ -1,0 +1,22 @@
+maestro.task.MaestroWebformWorkflowStateIfTask:
+  type: maestro.task.MaestroIf
+  label: 'Maestro Webform Workflow State If Task'
+  mapping:
+    if:
+      type: mapping
+      label: 'If'
+      mapping:
+        workflow_element:
+          type: string
+          label: 'Workflow element'
+        workflow_state:
+          type: string
+          label: 'Workflow state'
+
+maestro.task.MaestroTransitionWebformWorkflowTask:
+  type: maestro.task.*
+  label: 'Maestro Transition Webform Workflow Task'
+  mapping:
+    button_text:
+      type: string
+      label: 'Button text'

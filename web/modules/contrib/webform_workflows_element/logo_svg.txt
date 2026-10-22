@@ -1,0 +1,17 @@
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <rect width="200" height="200" rx="15" fill="#0678be"/>
+    <g transform="matrix(1.0462 0 0 1.0462 -4.62 -4.62)">
+        <rect x="18.421" y="19.324" width="163.158" height="161.352" rx="6.798" fill="#fff" style="stroke-width:1.2518"/>
+        <rect x="32.017" y="39.719" width="135.965" height="13.597" rx="2.719" fill="#e6e6e6" style="fill:#fff;stroke:#0678be;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"/>
+        <rect x="32.017" y="66.912" width="135.965" height="13.597" rx="2.719" fill="#e6e6e6" style="fill:#fff;stroke:#0678be;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"/>
+        <rect x="32.017" y="94.105" width="81.579" height="13.597" rx="2.719" fill="#e6e6e6" style="fill:#fff;fill-opacity:1;stroke:#0678be;stroke-width:3;stroke-dasharray:none;stroke-opacity:1"/>
+        <circle cx="45.614" cy="141.693" r="16.316" fill="#43a047" style="stroke-width:1.35965"/>
+        <text x="45.614" y="147.131" font-family="Arial" font-size="16.316" text-anchor="middle" fill="#fff" style="stroke-width:1.35965">1</text>
+        <circle cx="100" cy="141.693" r="16.316" fill="#fb8c00" style="stroke-width:1.35965"/>
+        <text x="100" y="147.131" font-family="Arial" font-size="16.316" text-anchor="middle" fill="#fff" style="stroke-width:1.35965">2</text>
+        <circle cx="154.386" cy="141.693" r="16.316" fill="#e53935" style="stroke-width:1.35965"/>
+        <text x="154.386" y="147.131" font-family="Arial" font-size="16.316" text-anchor="middle" fill="#fff" style="stroke-width:1.35965">3</text>
+        <path d="M61.93 141.693h10.877M116.316 141.693h10.877" stroke="#2196f3" stroke-width="2.884" fill="none"/>
+        <path fill="#2196f3" d="m72.807 147.131 10.877-5.438-10.877-5.439zM127.193 147.131l10.877-5.438-10.877-5.439z"/>
+    </g>
+</svg>

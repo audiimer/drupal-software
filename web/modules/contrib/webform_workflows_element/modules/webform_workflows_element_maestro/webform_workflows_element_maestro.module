@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * @file
+ * Hooks implementations for the webform_workflows_element_maestro module.
+ */
+
+use Drupal\Core\Hook\Attribute\LegacyHook;
+use Drupal\webform_workflows_element_maestro\Hook\MaestroHooks;
+
+/**
+ * Implements hook_task_console_interactive_link_alter().
+ */
+#[LegacyHook]
+function webform_workflows_element_maestro_task_console_interactive_link_alter(&$link, $taskTemplate, $queueRecord, $templateMachineName) {
+  \Drupal::service(MaestroHooks::class)->taskConsoleInteractiveLinkAlter($link, $taskTemplate, $queueRecord, $templateMachineName);
+}
+
+/**
+ * Implements hook_execute_title().
+ */
+#[LegacyHook]
+function webform_workflows_element_maestro_execute_title() {
+  return \Drupal::service(MaestroHooks::class)->executeTitle();
+}

@@ -1,0 +1,2 @@
+services:
+  Drupal\webform_workflows_element_views\Hook\ViewsHooks: {}

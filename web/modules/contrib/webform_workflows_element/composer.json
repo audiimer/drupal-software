@@ -1,0 +1,28 @@
+{
+    "name": "drupal/webform_workflows_element",
+    "type": "drupal-module",
+    "description": "Provides a webform element that hooks into the core Workflows module to allow transitioning submissions through workflow states.",
+    "homepage": "https://drupal.org/project/webform_workflows_element",
+    "license": "GPL-2.0-or-later",
+    "minimum-stability": "dev",
+    "authors": [
+        {
+            "name": "maxwellkeeble",
+            "homepage": "https://www.drupal.org/u/maxwellkeeble",
+            "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://drupal.org/project/issues/webform_workflows_element",
+        "source": "https://git.drupalcode.org/project/webform_workflows_element"
+    },
+    "require": {
+        "drupal/webform": "^6.3"
+    },
+    "require-dev": {
+        "drupal/group": "^2 || ^3",
+        "drupal/maestro": "^4",
+        "drupal/webform_group": "^2 || ^3",
+        "drupal/webform_views": "^5"
+    }
+}

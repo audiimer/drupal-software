@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - webform_workflows_element
+id: lifecycle_workflow
+label: 'Lifecycle Workflow'
+type: webform_workflows_element
+type_settings:
+  initial_state: draft
+  states:
+    draft:
+      label: Draft
+      weight: 0
+    review:
+      label: Review
+      weight: 1
+    approved:
+      label: Approved
+      weight: 2
+  transitions:
+    submit:
+      label: 'Submit for review'
+      from:
+        - draft
+      to: review
+      weight: 0
+    approve:
+      label: Approve
+      from:
+        - review
+      to: approved
+      weight: 1
+    reject:
+      label: Reject
+      from:
+        - review
+      to: draft
+      weight: 2

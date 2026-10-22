@@ -37,6 +37,8 @@
         "drupal/radix": "^6.0",
         "drupal/search_api": "^1.40",
         "drupal/search_api_db": "^1.40",
+        "drupal/webform": "^6.3",
+        "drupal/webform_workflows_element": "^2.1",
         "drush/drush": "^13.6"
     },
     "conflict": {
