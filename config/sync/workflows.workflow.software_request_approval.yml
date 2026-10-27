@@ -1,0 +1,34 @@
+uuid: 691d53b3-e56b-4136-9b3a-afb4629c4ae0
+langcode: en
+status: true
+dependencies:
+  module:
+    - webform_workflows_element
+id: software_request_approval
+label: 'Software request approval'
+type: webform_workflows_element
+type_settings:
+  initial_state: pending
+  states:
+    approved:
+      label: Approved
+      weight: 1
+    denied:
+      label: Denied
+      weight: 2
+    pending:
+      label: Pending
+      weight: 0
+  transitions:
+    approve:
+      label: Approve
+      from:
+        - pending
+      to: approved
+      weight: 0
+    deny:
+      label: Deny
+      from:
+        - pending
+      to: denied
+      weight: 1

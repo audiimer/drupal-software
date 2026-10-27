@@ -1,0 +1,25 @@
+uuid: 6a50724e-3fb1-4ddd-a153-7def36393522
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_request_form
+    - node.type.software
+  module:
+    - webform
+id: node.software.field_request_form
+field_name: field_request_form
+entity_type: node
+bundle: software
+label: 'Request form'
+description: 'Paid (chargeback) titles only: choose Software request. Leave empty for free downloads and redirects.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:webform'
+  handler_settings:
+    target_bundles: null
+    auto_create: false
+field_type: webform

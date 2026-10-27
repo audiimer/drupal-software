@@ -18,6 +18,8 @@ dependencies:
     - system
     - taxonomy
     - toolbar
+    - webform
+    - webform_submission_log
 id: software_manager
 label: 'Software Manager'
 weight: 7
@@ -32,6 +34,8 @@ permissions:
   - 'access site reports'
   - 'access taxonomy overview'
   - 'access toolbar'
+  - 'access webform overview'
+  - 'access webform submission log'
   - 'create software content'
   - 'create terms in installer_variant'
   - 'create terms in software_audience'

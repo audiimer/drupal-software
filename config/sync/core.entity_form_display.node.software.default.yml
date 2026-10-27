@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.software.field_license_type
     - field.field.node.software.field_price
     - field.field.node.software.field_redirect_button
+    - field.field.node.software.field_request_form
     - field.field.node.software.field_software_audience
     - field.field.node.software.field_software_channel
     - field.field.node.software.field_software_logo_image
@@ -35,6 +36,7 @@ dependencies:
     - paragraphs
     - path
     - text
+    - webform
 id: node.software.default
 targetEntityType: node
 bundle: software
@@ -162,6 +164,14 @@ content:
     settings:
       placeholder_url: ''
       placeholder_title: ''
+    third_party_settings: {  }
+  field_request_form:
+    type: webform_entity_reference_select
+    weight: 30
+    region: content
+    settings:
+      default_data: true
+      webforms: {  }
     third_party_settings: {  }
   field_software_audience:
     type: options_buttons

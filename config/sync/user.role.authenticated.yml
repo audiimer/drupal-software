@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - filter.format.basic_html
+    - filter.format.webform_default
   module:
     - commerce_checkout
     - commerce_order
@@ -13,6 +14,7 @@ dependencies:
     - media
     - search
     - system
+    - webform
 _core:
   default_config_hash: cFrlqjtkTfvY3RGccjJkPf1SGIfJ942IrxTLWAO4mgA
 id: authenticated
@@ -22,9 +24,11 @@ is_admin: false
 permissions:
   - 'access checkout'
   - 'access content'
+  - 'access webform submission user'
   - 'delete own files'
   - 'search content'
   - 'use text format basic_html'
+  - 'use text format webform_default'
   - 'view commerce_product'
   - 'view media'
   - 'view own commerce_order'

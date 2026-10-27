@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.software.field_license_type
     - field.field.node.software.field_price
     - field.field.node.software.field_redirect_button
+    - field.field.node.software.field_request_form
     - field.field.node.software.field_software_audience
     - field.field.node.software.field_software_channel
     - field.field.node.software.field_software_logo_image
@@ -54,6 +55,7 @@ hidden:
   field_license_type: true
   field_price: true
   field_redirect_button: true
+  field_request_form: true
   field_software_audience: true
   field_software_channel: true
   field_software_logo_image: true
