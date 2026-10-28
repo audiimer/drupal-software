@@ -507,11 +507,16 @@ third_party_settings:
                 entity: layout_builder.entity
                 view_mode: view_mode
               formatter:
-                type: webform_entity_reference_entity_view
+                type: webform_entity_reference_link
                 label: hidden
                 settings:
-                  source_entity: true
-                  lazy: false
+                  label: 'Request this software'
+                  dialog: ''
+                  attributes:
+                    class:
+                      - btn
+                      - btn-primary
+                      - software-cta
                 third_party_settings: {  }
             weight: 8
             additional: {  }

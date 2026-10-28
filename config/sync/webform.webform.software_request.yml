@@ -15,73 +15,104 @@ title: 'Software request'
 description: 'Shared request form for paid (chargeback) software. Appears on Software pages through the Request form field and replaces the Kivuto cart and checkout.'
 categories: {  }
 elements: |-
-  requester_name:
-    '#type': textfield
-    '#title': 'Requester name'
-    '#required': true
-    '#default_value': '[current-user:display-name]'
-  requester_email:
-    '#type': email
-    '#title': 'Requester email'
-    '#description': 'Used to send confirmation and follow-up.'
-    '#required': true
-    '#default_value': '[current-user:mail]'
-  request_for:
-    '#type': radios
-    '#title': 'Request for'
-    '#options':
-      myself: Myself
-      someone_else: 'Someone else'
-    '#required': true
-    '#default_value': myself
-  for_name:
-    '#type': textfield
-    '#title': 'Their name'
-    '#required': true
+  software:
+    '#type': webform_computed_token
+    '#title': Software
+    '#required_error': 'Open this form from a software page.'
+    '#states':
+      required:
+        ':input[name="software"]':
+          empty: true
+    '#display_on': form
+    '#mode': text
+    '#template': '[webform_submission:source-entity:title:clear]'
+    '#hide_empty': true
+  software_missing:
+    '#type': webform_message
     '#states':
       visible:
-        ':input[name="request_for"]':
-          value: someone_else
-  for_email:
-    '#type': email
-    '#title': 'Their Lehigh email'
-    '#required': true
-    '#pattern': '[^@\s]+@lehigh\.edu'
-    '#pattern_error': 'Please use a @lehigh.edu email address'
+        ':input[name="software"]':
+          empty: true
+    '#message_type': warning
+    '#message_message': '<p>Open this form from a software page. Find the software in the catalog and click its Request this software button.</p>'
+  request_details:
+    '#type': container
     '#states':
       visible:
-        ':input[name="request_for"]':
-          value: someone_else
-  index_number:
-    '#type': textfield
-    '#title': 'Index number'
-    '#description': 'The Banner index number that will be charged.'
-    '#required': true
-    '#pattern': '[A-Za-z0-9\-]{3,20}'
-    '#pattern_error': 'Index number should be 3-20 letters, numbers or dashes'
-  department:
-    '#type': textfield
-    '#title': Department
-    '#required': true
-  authorized_signer:
-    '#type': textfield
-    '#title': 'Authorized signer'
-    '#description': 'Person authorized to approve charges to this index.'
-    '#required': true
-  price_display:
-    '#type': webform_markup
-    '#admin_title': 'Price display'
-    '#markup': '<p>Price: $[webform_submission:source-entity:field_price:value:clear] per license</p>'
-  quantity:
-    '#type': number
-    '#title': Quantity
-    '#required': true
-    '#default_value': '1'
-    '#min': 1
-    '#step': 1
-  notes:
-    '#type': textarea
-    '#title': Notes
+        ':input[name="software"]':
+          filled: true
+    '#format': container
+    requester_name:
+      '#type': textfield
+      '#title': 'Requester name'
+      '#required': true
+      '#default_value': '[current-user:display-name]'
+    requester_email:
+      '#type': email
+      '#title': 'Requester email'
+      '#description': 'Used to send confirmation and follow-up.'
+      '#required': true
+      '#default_value': '[current-user:mail]'
+    request_for:
+      '#type': radios
+      '#title': 'Request for'
+      '#options':
+        myself: Myself
+        someone_else: 'Someone else'
+      '#required': true
+      '#default_value': myself
+    for_name:
+      '#type': textfield
+      '#title': 'Their name'
+      '#required': true
+      '#states':
+        visible:
+          ':input[name="request_for"]':
+            value: someone_else
+    for_email:
+      '#type': email
+      '#title': 'Their Lehigh email'
+      '#required': true
+      '#pattern': '[^@\s]+@lehigh\.edu'
+      '#pattern_error': 'Please use a @lehigh.edu email address'
+      '#states':
+        visible:
+          ':input[name="request_for"]':
+            value: someone_else
+    index_number:
+      '#type': textfield
+      '#title': 'Index number'
+      '#description': 'The Banner index number that will be charged.'
+      '#required': true
+      '#pattern': '[A-Za-z0-9\-]{3,20}'
+      '#pattern_error': 'Index number should be 3-20 letters, numbers or dashes'
+    department:
+      '#type': textfield
+      '#title': Department
+      '#required': true
+    authorized_signer:
+      '#type': textfield
+      '#title': 'Authorized signer'
+      '#description': 'Person authorized to approve charges to this index.'
+      '#required': true
+    price_display:
+      '#type': webform_markup
+      '#states':
+        visible:
+          ':input[name="software"]':
+            filled: true
+      '#admin_title': 'Price display'
+      '#markup': '<p>Price: $[webform_submission:source-entity:field_price:value:clear] per license</p>'
+    quantity:
+      '#type': number
+      '#title': Quantity
+      '#required': true
+      '#default_value': '1'
+      '#min': 1
+      '#step': 1
+    notes:
+      '#type': textarea
+      '#title': Notes
   price:
     '#type': value
     '#title': Price
@@ -92,20 +123,33 @@ elements: |-
     '#access_update_roles':
       - software_manager
     '#access_transition_approve_roles':
+      - administrator
       - software_manager
     '#access_transition_deny_roles':
+      - administrator
       - software_manager
     '#access_update_at_state_approved_override': true
     '#access_update_at_state_approved_workflow_enabled': false
     '#access_update_at_state_denied_override': true
     '#access_update_at_state_denied_workflow_enabled': false
     '#workflow': software_request_approval
+    '#show_workflow_form_on_view': false
     '#log_public_setting': Optional
     '#log_admin_setting': Optional
     '#transition_element_type': radios
     '#state_pending_color': Orange
     '#state_approved_color': Green
     '#state_denied_color': Red
+  actions:
+    '#type': webform_actions
+    '#title': 'Submit button(s)'
+    '#states':
+      visible:
+        ':input[name="software"]':
+          filled: true
+    '#submit__label': 'Submit request'
+    '#preview_prev__label': 'Edit request'
+    '#preview_next__label': 'Review request'
 css: ''
 javascript: ''
 settings:
@@ -119,11 +163,11 @@ settings:
   page_confirm_path: ''
   page_theme_name: ''
   form_title: source_entity_webform
-  form_submit_once: false
+  form_submit_once: true
   form_open_message: ''
   form_close_message: ''
   form_exception_message: ''
-  form_previous_submissions: true
+  form_previous_submissions: false
   form_confidential: false
   form_confidential_message: ''
   form_disable_remote_addr: false
@@ -173,8 +217,8 @@ settings:
   submission_access_denied_title: ''
   submission_access_denied_message: ''
   submission_access_denied_attributes: {  }
-  previous_submission_message: ''
-  previous_submissions_message: ''
+  previous_submission_message: '<p>You have already requested [webform_submission:source-title]. <a href="#">View your previous request</a>.</p>'
+  previous_submissions_message: '<p>You have already requested [webform_submission:source-title]. <a href="#">View your previous requests</a>.</p>'
   autofill: false
   autofill_message: ''
   autofill_excluded_elements: {  }
@@ -183,10 +227,10 @@ settings:
   wizard_progress_percentage: false
   wizard_progress_link: false
   wizard_progress_states: false
-  wizard_start_label: ''
+  wizard_start_label: 'Request details'
   wizard_preview_link: false
   wizard_confirmation: true
-  wizard_confirmation_label: ''
+  wizard_confirmation_label: Submitted
   wizard_auto_forward: true
   wizard_auto_forward_hide_next_button: false
   wizard_keyboard: true
@@ -198,12 +242,13 @@ settings:
   wizard_toggle_hide_label: ''
   wizard_page_type: container
   wizard_page_title_tag: h2
-  preview: 0
-  preview_label: ''
-  preview_title: ''
-  preview_message: ''
+  preview: 2
+  preview_label: Review
+  preview_title: 'Review request: [webform_submission:source-title]'
+  preview_message: '<p>Check the details below. Nothing is sent or saved until you press the last button on this page.</p>'
   preview_attributes: {  }
-  preview_excluded_elements: {  }
+  preview_excluded_elements:
+    workflow: workflow
   preview_exclude_empty: true
   preview_exclude_empty_checkbox: false
   draft: none
@@ -219,7 +264,7 @@ settings:
   confirmation_message: '<p>Thank you. ITS received your request ITS-[webform_submission:sid] for [webform_submission:source-title]. It is pending review, and a copy was sent to your email. To check its status later, open your account and choose the Submissions tab.</p>'
   confirmation_attributes: {  }
   confirmation_back: true
-  confirmation_back_label: ''
+  confirmation_back_label: 'Back to the software page'
   confirmation_back_attributes: {  }
   confirmation_exclude_query: false
   confirmation_exclude_token: false
@@ -359,7 +404,7 @@ handlers:
       sender_mail: ''
       sender_name: ''
       subject: 'New software request ITS-[webform_submission:sid]: [webform_submission:source-title]'
-      body: '<p>A new software request needs review.</p><p><strong>ITS-[webform_submission:sid]</strong>: [webform_submission:source-title]<br>Requested by [webform_submission:values:requester_name] ([webform_submission:values:requester_email])</p><p>Open it to approve or deny: [webform_submission:url]</p><p>[webform_submission:values]</p>'
+      body: '<p>A new software request needs review.</p><p><strong>ITS-[webform_submission:sid]</strong>: [webform_submission:source-title]<br>Requested by [webform_submission:values:requester_name] ([webform_submission:values:requester_email])</p><p>Check the software name and the details below, then choose one. You must be logged in to the site to use these links.</p><ul><li data-list-item-id="ebb7fa03ed7e2555751d7489912eec7de"><a href="[webform_submission:url]/workflow/workflow/approve">Approve ITS-[webform_submission:sid]</a></li><li data-list-item-id="e29e42a87b9e1e075e748769ce19e7e35"><a href="[webform_submission:url]/workflow/workflow/deny">Deny ITS-[webform_submission:sid]</a> (you will be asked for a reason)</li><li data-list-item-id="e597790d24ed06995cc8f2c4c14296443"><a href="[webform_submission:url]">Open the full request</a></li></ul><p>[webform_submission:values]</p>'
       excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
