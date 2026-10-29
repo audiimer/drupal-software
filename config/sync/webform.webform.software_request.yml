@@ -56,29 +56,61 @@ elements: |-
     request_for:
       '#type': radios
       '#title': 'Request for'
+      '#description': '<p>Myself is one license for you. Someone else is one license for each person you list.</p>'
       '#options':
         myself: Myself
         someone_else: 'Someone else'
       '#required': true
       '#default_value': myself
-    for_name:
-      '#type': textfield
-      '#title': 'Their name'
+    for_people:
+      '#type': webform_custom_composite
+      '#title': 'People who need this software'
+      '#description': '<p>Include yourself if you also need a license for the requested software.</p>'
       '#required': true
       '#states':
         visible:
           ':input[name="request_for"]':
             value: someone_else
-    for_email:
-      '#type': email
-      '#title': 'Their Lehigh email'
-      '#required': true
-      '#pattern': '[^@\s]+@lehigh\.edu'
-      '#pattern_error': 'Please use a @lehigh.edu email address'
-      '#states':
-        visible:
-          ':input[name="request_for"]':
-            value: someone_else
+      '#multiple__item_label': person
+      '#multiple__min_items': 1
+      '#multiple__sorting': false
+      '#multiple__add': false
+      '#multiple__add_more_input': false
+      '#multiple__add_more_button_label': 'Add another person'
+      '#format_items': table
+      '#element':
+        name:
+          '#type': textfield
+          '#required': true
+          '#title': Name
+          '#required_error': 'Enter a name, or remove this row with the minus button.'
+        email:
+          '#type': email
+          '#required': true
+          '#title': 'Lehigh email'
+          '#pattern': '[^@\s]+@[Ll][Ee][Hh][Ii][Gg][Hh]\.[Ee][Dd][Uu]'
+          '#pattern_error': 'Please use a @lehigh.edu email address.'
+          '#required_error': 'Enter a Lehigh email, or remove this row with the minus button.'
+    price:
+      '#type': value
+      '#title': 'Price per license'
+      '#value': '[webform_submission:source-entity:field_price:value:clear]'
+      '#field_prefix': $
+    licenses:
+      '#type': webform_computed_twig
+      '#title': Licenses
+      '#display_on': view
+      '#mode': text
+      '#template': '{{ data.for_people ? data.for_people|length : 1 }}'
+      '#whitespace': trim
+      '#store': true
+    total:
+      '#type': webform_computed_twig
+      '#title': Total
+      '#display_on': view
+      '#mode': text
+      '#template': '${{ ((data.price ?: 0) * (data.licenses ?: 1))|number_format(2) }}'
+      '#whitespace': trim
     index_number:
       '#type': textfield
       '#title': 'Index number'
@@ -102,21 +134,10 @@ elements: |-
           ':input[name="software"]':
             filled: true
       '#admin_title': 'Price display'
-      '#markup': '<p>Price: $[webform_submission:source-entity:field_price:value:clear] per license</p>'
-    quantity:
-      '#type': number
-      '#title': Quantity
-      '#required': true
-      '#default_value': '1'
-      '#min': 1
-      '#step': 1
+      '#markup': '<p>Price per license: $[webform_submission:source-entity:field_price:value:clear]. Your total is shown on the review page, before you submit.</p>'
     notes:
       '#type': textarea
       '#title': Notes
-  price:
-    '#type': value
-    '#title': Price
-    '#value': '[webform_submission:source-entity:field_price:value:clear]'
   workflow:
     '#type': webform_workflows_element
     '#title': 'Approval status'
@@ -134,12 +155,20 @@ elements: |-
     '#access_update_at_state_denied_workflow_enabled': false
     '#workflow': software_request_approval
     '#show_workflow_form_on_view': false
+    '#hide_if_no_transitions': true
     '#log_public_setting': Optional
     '#log_admin_setting': Optional
     '#transition_element_type': radios
     '#state_pending_color': Orange
     '#state_approved_color': Green
     '#state_denied_color': Red
+  for_emails:
+    '#type': webform_computed_twig
+    '#title': 'Proxy emails'
+    '#display_on': none
+    '#mode': text
+    '#template': "{% for person in data.for_people %}{{ person.email }}{{ loop.last ? '' : ', ' }}{% endfor %}"
+    '#whitespace': trim
   actions:
     '#type': webform_actions
     '#title': 'Submit button(s)'
@@ -355,7 +384,7 @@ handlers:
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }
-      cc_mail: '[webform_submission:values:for_email:raw]'
+      cc_mail: ''
       cc_options: {  }
       from_mail: _default
       from_options: {  }
@@ -432,7 +461,7 @@ handlers:
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }
-      cc_mail: '[webform_submission:values:for_email:raw]'
+      cc_mail: ''
       cc_options: {  }
       from_mail: _default
       from_options: {  }
@@ -442,7 +471,7 @@ handlers:
       sender_mail: ''
       sender_name: ''
       subject: 'ITS-[webform_submission:sid] approved: [webform_submission:source-title]'
-      body: '<p>Hello [webform_submission:values:requester_name],</p><p>Your request has been approved. Use the link below for installation and activation instructions.</p><p><strong>Receipt</strong></p><ul><li data-list-item-id="e5f3f0864d9e94507a0f0088ec0ca4ac0">Request number: ITS-[webform_submission:sid]</li><li data-list-item-id="e03bb2f56a82893c229ae6d16f6090275">Software: [webform_submission:source-title]</li><li data-list-item-id="e1b3640bcc8e85a9d5bc261e26c7bb26b">Price (each): $[webform_submission:values:price]</li><li data-list-item-id="e9d7530b21d53f869ec7b0d990e69b671">Quantity: [webform_submission:values:quantity]</li><li data-list-item-id="e5a6487a79b96c528d7e87f7cfa80e389">Index number to be charged: [webform_submission:values:index_number]</li></ul><p>[webform_submission:values:workflow:log_public]</p><p>Installation instructions (open the Installation Instructions tab): [webform_submission:source-entity:url]</p><p><strong>Your answers</strong></p><p>[webform_submission:values]</p><p>Lehigh ITS</p>'
+      body: '<p>Hello [webform_submission:values:requester_name],</p><p>Your request <strong>ITS-[webform_submission:sid]</strong> for <strong>[webform_submission:source-title]</strong> has been approved.</p><p>[webform_submission:source-entity:field_post_approval_instructions:processed:clear]</p><p><strong>Receipt</strong></p><ul><li data-list-item-id="e5f3f0864d9e94507a0f0088ec0ca4ac0">Request number: ITS-[webform_submission:sid]</li><li data-list-item-id="e03bb2f56a82893c229ae6d16f6090275">Software: [webform_submission:source-title]</li><li data-list-item-id="e1b3640bcc8e85a9d5bc261e26c7bb26b">Price per license: [webform_submission:values:price]</li><li data-list-item-id="e9d7530b21d53f869ec7b0d990e69b671">Licenses: [webform_submission:values:licenses]</li><li data-list-item-id="e1c1cf25f3b1397b0ec41117ac1d64f13">Total: [webform_submission:values:total]</li><li data-list-item-id="e5a6487a79b96c528d7e87f7cfa80e389">Index number to be charged: [webform_submission:values:index_number]</li></ul><p>[webform_submission:values:workflow:log_public]</p><p>[webform_submission:source-entity:field_instructions_url:clear]</p><p>Software page: [webform_submission:source-entity:url]</p><p><strong>Your answers</strong></p><p>[webform_submission:values]</p><p>Lehigh ITS</p>'
       excluded_elements:
         workflow: workflow
       ignore_access: false
@@ -471,7 +500,7 @@ handlers:
       to_options: {  }
       bcc_mail: ''
       bcc_options: {  }
-      cc_mail: '[webform_submission:values:for_email:raw]'
+      cc_mail: ''
       cc_options: {  }
       from_mail: _default
       from_options: {  }
@@ -484,6 +513,47 @@ handlers:
       body: '<p>Hello [webform_submission:values:requester_name],</p><p>Your request <strong>ITS-[webform_submission:sid]</strong> for <strong>[webform_submission:source-title]</strong> was denied.</p><p><strong>Reason:</strong> [webform_submission:values:workflow:log_public]</p><p>If you have questions, contact the ITS Help Desk and mention ITS-[webform_submission:sid].</p><p>Lehigh ITS</p>'
       excluded_elements:
         workflow: workflow
+      ignore_access: false
+      exclude_empty: true
+      exclude_empty_checkbox: false
+      exclude_attachments: false
+      html: true
+      attachments: false
+      twig: false
+      theme_name: ''
+      langcode: ''
+      parameters: {  }
+      debug: false
+  proxy_notice:
+    id: workflows_transition_email
+    handler_id: proxy_notice
+    label: 'Proxy notice (approved)'
+    notes: ''
+    status: true
+    conditions:
+      enabled:
+        ':input[name="request_for"]':
+          value: someone_else
+    weight: 0
+    settings:
+      states:
+        - 'workflow:approve'
+      to_mail: '[webform_submission:values:for_emails]'
+      to_options: {  }
+      bcc_mail: ''
+      bcc_options: {  }
+      cc_mail: ''
+      cc_options: {  }
+      from_mail: _default
+      from_options: {  }
+      from_name: 'Lehigh ITS'
+      reply_to: ''
+      return_path: ''
+      sender_mail: ''
+      sender_name: ''
+      subject: 'ITS-[webform_submission:sid] approved: [webform_submission:source-title] for you'
+      body: '<p>Hello,</p><p>[webform_submission:values:requester_name] requested <strong>[webform_submission:source-title]</strong> for you. ITS approved request <strong>ITS-[webform_submission:sid]</strong>.</p><p>[webform_submission:source-entity:field_post_approval_instructions:processed:clear]</p><p>[webform_submission:source-entity:field_instructions_url:clear]</p><p>Software page: [webform_submission:source-entity:url]</p><p>If you have questions, contact the ITS Help Desk and mention ITS-[webform_submission:sid].</p><p>Lehigh ITS</p>'
+      excluded_elements: {  }
       ignore_access: false
       exclude_empty: true
       exclude_empty_checkbox: false

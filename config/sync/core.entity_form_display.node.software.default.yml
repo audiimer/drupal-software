@@ -14,6 +14,7 @@ dependencies:
     - field.field.node.software.field_instructions_url
     - field.field.node.software.field_license_details
     - field.field.node.software.field_license_type
+    - field.field.node.software.field_post_approval_instructions
     - field.field.node.software.field_price
     - field.field.node.software.field_redirect_button
     - field.field.node.software.field_request_form
@@ -149,6 +150,14 @@ content:
     weight: 10
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_post_approval_instructions:
+    type: text_textarea
+    weight: 31
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
     third_party_settings: {  }
   field_price:
     type: number

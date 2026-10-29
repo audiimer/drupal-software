@@ -1,0 +1,24 @@
+uuid: 35072a78-1630-437f-a6f1-73bb5710b120
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_post_approval_instructions
+    - filter.format.basic_html
+    - node.type.software
+  module:
+    - text
+id: node.software.field_post_approval_instructions
+field_name: field_post_approval_instructions
+entity_type: node
+bundle: software
+label: 'Post-approval instructions'
+description: 'Sent only in the "Request approved" email and the proxy notice. Not shown on the Software page. You can start with a Heading 3 such as "Next steps". For links, select the text, click Link and enter a full https:// address. No images. Leave empty if there is nothing extra to send.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  allowed_formats:
+    - basic_html
+field_type: text_long
