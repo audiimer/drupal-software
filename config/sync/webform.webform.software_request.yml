@@ -12,7 +12,7 @@ template: false
 archive: false
 id: software_request
 title: 'Software request'
-description: 'Shared request form for paid (chargeback) software. Appears on Software pages through the Request form field and replaces the Kivuto cart and checkout.'
+description: '<p>Shared request form for paid (chargeback) software. Appears on Software pages through the Request form field and replaces the Kivuto cart and checkout.</p>'
 categories: {  }
 elements: |-
   software:
@@ -53,6 +53,44 @@ elements: |-
       '#description': 'Used to send confirmation and follow-up.'
       '#required': true
       '#default_value': '[current-user:mail]'
+    billing_account:
+      '#type': webform_entity_select
+      '#title': 'Billing account'
+      '#description': '<p>Choose one of your saved billing accounts. <a href="/form/billing-account?destination=/form/software-request%3Fsource_entity_type%3Dnode%26source_entity_id%3D[webform_submission:source-id]">Add a billing account</a> or <a href="/form/billing-account/submissions">manage your billing accounts</a>.</p>'
+      '#empty_option': '- Choose a billing account -'
+      '#sort_options': true
+      '#required': true
+      '#required_error': 'Choose a billing account. If the list is empty, click Add a billing account first.'
+      '#format': label
+      '#access_update_roles': {  }
+      '#target_type': webform_submission
+      '#selection_handler': 'default:webform_submission'
+      '#selection_settings':
+        target_bundles:
+          billing_account: billing_account
+    index_number:
+      '#type': textfield
+      '#title': 'Index number'
+      '#description': '<p>The Banner index number that will be charged.</p>'
+      '#required': true
+      '#pattern': '[0-9]{6}'
+      '#pattern_error': 'Index number should be 6 digits, with no letters, dashes or spaces.'
+      '#access_create_roles': {  }
+    department:
+      '#type': textfield
+      '#title': Department
+      '#required': true
+      '#access_create_roles': {  }
+    authorized_signer:
+      '#type': textfield
+      '#title': 'Authorized signer'
+      '#description': '<p>Person authorized to approve charges to this index.</p>'
+      '#required': true
+      '#access_create_roles': {  }
+    authorized_signer_email:
+      '#type': email
+      '#title': 'Authorized signer email'
+      '#access_create_roles': {  }
     request_for:
       '#type': radios
       '#title': 'Request for'
@@ -111,22 +149,6 @@ elements: |-
       '#mode': text
       '#template': '${{ ((data.price ?: 0) * (data.licenses ?: 1))|number_format(2) }}'
       '#whitespace': trim
-    index_number:
-      '#type': textfield
-      '#title': 'Index number'
-      '#description': 'The Banner index number that will be charged.'
-      '#required': true
-      '#pattern': '[A-Za-z0-9\-]{3,20}'
-      '#pattern_error': 'Index number should be 3-20 letters, numbers or dashes'
-    department:
-      '#type': textfield
-      '#title': Department
-      '#required': true
-    authorized_signer:
-      '#type': textfield
-      '#title': 'Authorized signer'
-      '#description': 'Person authorized to approve charges to this index.'
-      '#required': true
     price_display:
       '#type': webform_markup
       '#states':
@@ -564,5 +586,23 @@ handlers:
       theme_name: ''
       langcode: ''
       parameters: {  }
+      debug: false
+  copy_billing_account:
+    id: action
+    handler_id: copy_billing_account
+    label: 'Copy billing account'
+    notes: 'Copies the chosen billing account into this request once, when it is submitted. Keep it at the top of the handler list.'
+    status: true
+    conditions: {  }
+    weight: -10
+    settings:
+      states:
+        - completed
+      notes: ''
+      sticky: null
+      locked: null
+      data: "index_number: '[webform_submission:values:billing_account:entity:values:index_number:htmldecode:striptags:clear]'\r\ndepartment: '[webform_submission:values:billing_account:entity:values:department:htmldecode:striptags:clear]'\r\nauthorized_signer: '[webform_submission:values:billing_account:entity:values:signer_name:htmldecode:striptags:clear]'\r\nauthorized_signer_email: '[webform_submission:values:billing_account:entity:values:signer_email:raw:htmldecode:striptags:clear]'"
+      message: ''
+      message_type: status
       debug: false
 variants: {  }
