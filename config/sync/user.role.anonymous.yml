@@ -5,7 +5,6 @@ dependencies:
   config:
     - filter.format.restricted_html
   module:
-    - commerce_product
     - filter
     - media
     - search
@@ -20,5 +19,4 @@ permissions:
   - 'access content'
   - 'search content'
   - 'use text format restricted_html'
-  - 'view commerce_product'
   - 'view media'

@@ -10,8 +10,6 @@ dependencies:
     - taxonomy.vocabulary.software_channel
     - taxonomy.vocabulary.software_publisher
   module:
-    - commerce
-    - commerce_order
     - file
     - navigation
     - node
@@ -26,8 +24,6 @@ weight: 7
 is_admin: false
 permissions:
   - 'access administration pages'
-  - 'access commerce administration pages'
-  - 'access commerce_order overview'
   - 'access content overview'
   - 'access files overview'
   - 'access navigation'
@@ -50,8 +46,6 @@ permissions:
   - 'edit terms in software_channel'
   - 'edit terms in software_publisher'
   - 'revert software revisions'
-  - 'update chargeback commerce_order'
-  - 'view chargeback commerce_order'
   - 'view own unpublished content'
   - 'view software revisions'
   - 'view the administration theme'
