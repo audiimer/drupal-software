@@ -4,7 +4,7 @@
  * Theme functions.
  */
 
-// Catalog preprocessing (price lookup, add-to-cart form, view library/roles)
+// Catalog preprocessing (price, request link, view library/roles)
 // has been extracted into lts_software's CatalogViewsPreprocessHooks
 // (OOP #[Hook] attributes) so this theme has no functional dependency on
 // the software library. See lts_software/src/Hook/CatalogViewsPreprocessHooks.php.

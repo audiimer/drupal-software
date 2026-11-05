@@ -4,19 +4,16 @@ namespace Drupal\lts_software\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Entity\EntityFormBuilderInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Url;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Provides a conditional CTA block for Software nodes.
  *
- * Renders one of three things depending on field_access_type:
- *   - chargeback / download: Commerce Add to Cart form for the matching
- *     product variation (looked up by field_software reference).
+ * Renders one of two things depending on field_access_type:
+ *   - download: the installer modal (lts_download).
  *   - redirect: styled external link button built from field_redirect_button.
+ * Chargeback software renders nothing here; its Request button is the
+ * field_request_form field block placed next to this block.
  *
  * Placed once in Layout Builder on the Software content type's default
  * display; renders correctly per-node based on the node's field_access_type.
@@ -30,45 +27,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class SoftwareCtaBlock extends BlockBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * The entity type manager.
-   */
-  protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
-   * The entity form builder.
-   */
-  protected EntityFormBuilderInterface $entityFormBuilder;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(
-    array $configuration,
-    $plugin_id,
-    $plugin_definition,
-    EntityTypeManagerInterface $entity_type_manager,
-    EntityFormBuilderInterface $entity_form_builder
-  ) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->entityTypeManager = $entity_type_manager;
-    $this->entityFormBuilder = $entity_form_builder;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity_type.manager'),
-      $container->get('entity.form_builder')
-    );
-  }
+class SoftwareCtaBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -90,9 +49,6 @@ class SoftwareCtaBlock extends BlockBase implements ContainerFactoryPluginInterf
     switch ($access_type) {
       case 'redirect':
         return $this->buildRedirectButton($node);
-
-      case 'chargeback':
-        return $this->buildAddToCartForm($node);
 
       case 'download':
         return $this->buildInstallerModal($node);
@@ -141,7 +97,7 @@ class SoftwareCtaBlock extends BlockBase implements ContainerFactoryPluginInterf
   }
 
   /**
-   * Renders the software's installer modal (direct download, no cart).
+   * Renders the software's installer modal (direct download).
    *
    * Delegates to lts_download.installer_entries_builder, the single
    * shared source of truth also used by the catalog card
@@ -150,68 +106,6 @@ class SoftwareCtaBlock extends BlockBase implements ContainerFactoryPluginInterf
   protected function buildInstallerModal($node): array {
     return \Drupal::service('lts_download.installer_entries_builder')
       ->buildRenderArray($node);
-  }
-
-  /**
-   * Builds the Commerce Add to Cart form for the matching variation.
-   *
-   * Mirrors the lookup pattern used in playground_preprocess_views_view_fields()
-   * so the catalog cards and detail page behave consistently.
-   */
-  protected function buildAddToCartForm($node): array {
-    if (!\Drupal::moduleHandler()->moduleExists('commerce_product')) {
-      return [];
-    }
-
-    $variation_storage = $this->entityTypeManager->getStorage('commerce_product_variation');
-
-    $vids = $variation_storage->getQuery()
-      ->accessCheck(TRUE)
-      ->condition('field_software', $node->id())
-      ->condition('status', 1)
-      ->range(0, 1)
-      ->execute();
-
-    if (empty($vids)) {
-      return [];
-    }
-
-    /** @var \Drupal\commerce_product\Entity\ProductVariationInterface|null $variation */
-    $variation = $variation_storage->load(reset($vids));
-    if (!$variation) {
-      return [];
-    }
-
-    $product = $variation->getProduct();
-    if (!$product) {
-      return [];
-    }
-
-    $order_item = $this->entityTypeManager
-      ->getStorage('commerce_order_item')
-      ->create([
-        'type' => 'default',
-        'purchased_entity' => $variation,
-        'quantity' => 1,
-      ]);
-
-    $form = $this->entityFormBuilder->getForm(
-      $order_item,
-      'add_to_cart',
-      ['product' => $product]
-    );
-
-    return [
-      '#type' => 'container',
-      '#attributes' => [
-        'class' => ['software-cta', 'software-cta--cart'],
-      ],
-      'form' => $form,
-      '#cache' => [
-        'tags' => Cache::mergeTags($node->getCacheTags(), $variation->getCacheTags()),
-        'contexts' => ['user', 'session'],
-      ],
-    ];
   }
 
   /**
@@ -230,7 +124,7 @@ class SoftwareCtaBlock extends BlockBase implements ContainerFactoryPluginInterf
    * {@inheritdoc}
    */
   public function getCacheContexts() {
-    return Cache::mergeContexts(parent::getCacheContexts(), ['user', 'session', 'url']);
+    return Cache::mergeContexts(parent::getCacheContexts(), ['url']);
   }
 
 }

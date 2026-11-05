@@ -3,6 +3,8 @@
 namespace Drupal\lts_software\Hook;
 
 use Drupal\Core\Hook\Attribute\Hook;
+use Drupal\Core\Render\Element;
+use Drupal\lts_software\Plugin\Block\SoftwarePriceBlock;
 
 /**
  * Preprocessing for the Software Library catalog view.
@@ -13,7 +15,7 @@ use Drupal\Core\Hook\Attribute\Hook;
  *
  * D11 note: procedural preprocess hooks did not reliably register for
  * this project's custom modules, so these are written as OOP #[Hook]
- * attribute methods, consistent with lts_chargeback's hook classes.
+ * attribute methods.
  *
  * This class also computes the role-based audience tab visibility (which
  * tabs a given user sees) and the card filter-attribute data (category/OS),
@@ -119,21 +121,22 @@ class CatalogViewsPreprocessHooks {
   }
 
   /**
-   * Exposes formatted price, add-to-cart form, and card filter-attribute
-   * data for each catalog row.
+   * Exposes price, call-to-action, and card filter-attribute data for each
+   * catalog row.
    *
-   * Looks up the Commerce product variation matching the row's Software
-   * node (via field_software), and builds:
-   * - software_price: rendered price (Free if $0, via commerce_price_free).
-   * - add_to_cart_form: the add-to-cart form for that variation.
+   * Builds:
    * - card_data_category: comma-joined category labels, for the sidebar's
    *   client-side filter (data-category attribute on the card).
    * - card_data_os: comma-joined "available for" values, same purpose
    *   (data-os attribute).
-   *
-   * POC NOTE: assumes exactly one active variation per software node
-   * (range(0,1)). If a node ever needs multiple purchasable variations,
-   * this will need a variation picker instead of a single lookup.
+   * - installer_modal: download software only (lts_download).
+   * - software_price: chargeback software only; the node's field_price
+   *   ("Free" if 0), formatted the same way as SoftwarePriceBlock.
+   * - request_link: chargeback software only; the node's field_request_form
+   *   rendered as a link to the Software request webform.
+   * - request_unavailable: set instead of request_link when the title has a
+   *   Request form but the current user cannot create submissions (e.g.
+   *   anonymous). Holds only cache metadata, so the card shows no button.
    */
   #[Hook('preprocess_views_view_fields')]
   public function preprocessViewsViewFields(array &$variables): void {
@@ -153,60 +156,41 @@ class CatalogViewsPreprocessHooks {
       ? $node->get('field_access_type')->value
       : NULL;
 
-    // Downloads never use the Commerce add-to-cart form. Instead the
-    // card renders the same installer modal as the detail page, built
-    // by the shared lts_download.installer_entries_builder service so
-    // the two never drift apart.
+    // Downloads render the same installer modal as the detail page, built
+    // by the shared lts_download.installer_entries_builder service so the
+    // two never drift apart.
     if ($variables['card_access_type'] === 'download') {
       $variables['installer_modal'] = \Drupal::service('lts_download.installer_entries_builder')
         ->buildRenderArray($node);
       return;
     }
 
-    if (!\Drupal::moduleHandler()->moduleExists('commerce_product')) {
+    if ($variables['card_access_type'] !== 'chargeback') {
       return;
     }
 
-    $variation_storage = \Drupal::entityTypeManager()
-      ->getStorage('commerce_product_variation');
-    $vids = $variation_storage->getQuery()
-      ->accessCheck(TRUE)
-      ->condition('field_software', $node->id())
-      ->condition('status', 1)
-      ->range(0, 1)
-      ->execute();
-    if (empty($vids)) {
-      return;
-    }
-    $variation = $variation_storage->load(reset($vids));
-    if (!$variation) {
-      return;
-    }
-    $product = $variation->getProduct();
-    if (!$product) {
-      return;
-    }
+    $variables['software_price'] = SoftwarePriceBlock::formatPrice($node);
 
-    // Formatted price; commerce_price_free renders zero as "Free".
-    $variables['software_price'] = $variation->get('price')->view([
-      'label' => 'hidden',
-      'type' => 'commerce_price_free',
-      'settings' => [],
-    ]);
-
-    // Add-to-cart form only (no other product fields rendered here).
-    $variables['add_to_cart_form'] = \Drupal::service('entity.form_builder')
-      ->getForm(
-        \Drupal::entityTypeManager()
-          ->getStorage('commerce_order_item')
-          ->create([
-            'type' => 'default',
-            'purchased_entity' => $variation,
-            'quantity' => 1,
-          ]),
-        'add_to_cart',
-        ['product' => $product]
-      );
+    if ($node->hasField('field_request_form') && !$node->get('field_request_form')->isEmpty()) {
+      $build = $node->get('field_request_form')->view([
+        'label' => 'hidden',
+        'type' => 'webform_entity_reference_link',
+        'settings' => [
+          'label' => 'Request',
+          'attributes' => [
+            'class' => ['btn', 'btn-primary', 'software-cta'],
+          ],
+        ],
+      ]);
+      // The formatter skips the link when the user cannot create
+      // submissions, but the build still carries its cache metadata.
+      if (Element::children($build)) {
+        $variables['request_link'] = $build;
+      }
+      else {
+        $variables['request_unavailable'] = ['#cache' => $build['#cache'] ?? []];
+      }
+    }
   }
 
   /**

@@ -22,8 +22,7 @@
   color: #6c757d;
 }
 
-.software-price .field,
-.software-price .field__item {
+.software-price__value {
   margin: 0;
   padding: 0;
   font-size: 1.75rem;
@@ -32,8 +31,7 @@
   color: #1a3a52;
 }
 
-/* Zero-value price rendered as "Free" via commerce_price_free formatter. */
-.software-price--free .field,
-.software-price--free .field__item {
+/* Zero price rendered as "Free" by SoftwarePriceBlock. */
+.software-price--free .software-price__value {
   color: #1f7a4d;
 }

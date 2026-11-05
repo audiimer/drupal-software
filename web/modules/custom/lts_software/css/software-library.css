@@ -257,7 +257,7 @@
   margin: 0;
 }
 
-/* ── ADD TO CART BUTTON ── */
+/* ── CTA BUTTON (also used by lts_download's Download button) ── */
 .software-card__cta {
   position: relative;
   z-index: 2;
@@ -305,14 +305,12 @@
   margin-top: 24px;
   text-align: center;
 }
-/* Force Add to Cart (Bootstrap/Commerce-rendered) to share the same
-   origin color as our own Download button, so both buttons on this
-   page always match by construction, not by coincidence. Scoped to
-   this page only -- does not affect Commerce buttons elsewhere. */
+/* Force the card's Request link (Bootstrap .btn-primary) to share the
+   same origin color as our own Download button, so both buttons on this
+   page always match by construction, not by coincidence. Scoped to the
+   card wrapper only. */
 .software-card__cta-wrap .btn-primary,
-.software-card__cta-wrap .button--primary,
-.software-cta--cart .btn-primary,
-.software-cta--cart .button--primary {
+.software-card__cta-wrap .button--primary {
   background: var(--color-navy) !important;
   border-color: var(--color-navy) !important;
   padding: 7px 14px !important;

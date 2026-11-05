@@ -4,24 +4,15 @@ namespace Drupal\lts_software\Plugin\Block;
 
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Cache\Cache;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Provides a Price block for Software detail pages.
  *
- * Looks up the matching Commerce product variation via field_software
- * (same pattern as SoftwareCtaBlock) and renders its price using the
- * commerce_price_free formatter so $0.00 displays as "Free".
- *
- * This block replaces the node-level field_price block previously placed
- * in the Layout Builder hero. The variation price is the source of truth
- * (it's what actually charges the user); the legacy field_price node
- * field should be deleted in a Phase F cleanup pass.
- *
- * Redirect-type Software nodes have no variation and produce no output;
- * the surrounding layout should accommodate that gracefully.
+ * Shows the node's field_price for chargeback software (the price per
+ * license that the Software request webform charges to an index). A zero
+ * price displays as "Free". Other access types produce no output; the
+ * surrounding layout accommodates that gracefully.
  *
  * @Block(
  *   id = "software_price_block",
@@ -32,37 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class SoftwarePriceBlock extends BlockBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * The entity type manager.
-   */
-  protected EntityTypeManagerInterface $entityTypeManager;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(
-    array $configuration,
-    $plugin_id,
-    $plugin_definition,
-    EntityTypeManagerInterface $entity_type_manager
-  ) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->entityTypeManager = $entity_type_manager;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('entity_type.manager')
-    );
-  }
+class SoftwarePriceBlock extends BlockBase {
 
   /**
    * {@inheritdoc}
@@ -75,42 +36,13 @@ class SoftwarePriceBlock extends BlockBase implements ContainerFactoryPluginInte
       return [];
     }
 
-    if (!\Drupal::moduleHandler()->moduleExists('commerce_product')) {
+    $price = static::formatPrice($node);
+    if ($price === NULL) {
       return [];
     }
-
-    $variation_storage = $this->entityTypeManager->getStorage('commerce_product_variation');
-
-    $vids = $variation_storage->getQuery()
-      ->accessCheck(TRUE)
-      ->condition('field_software', $node->id())
-      ->condition('status', 1)
-      ->range(0, 1)
-      ->execute();
-
-    if (empty($vids)) {
-      return [];
-    }
-
-    /** @var \Drupal\commerce_product\Entity\ProductVariationInterface|null $variation */
-    $variation = $variation_storage->load(reset($vids));
-    if (!$variation) {
-      return [];
-    }
-
-    // Render the variation's price field using the commerce_price_free
-    // formatter so zero-priced items display as "Free".
-    $price_render = $variation->get('price')->view([
-      'label' => 'hidden',
-      'type' => 'commerce_price_free',
-      'settings' => [],
-    ]);
-
-    $price_value = $variation->getPrice();
-    $is_free = $price_value && (float) $price_value->getNumber() == 0.0;
 
     $classes = ['software-price'];
-    if ($is_free) {
+    if ((float) $node->get('field_price')->value == 0.0) {
       $classes[] = 'software-price--free';
     }
 
@@ -125,14 +57,40 @@ class SoftwarePriceBlock extends BlockBase implements ContainerFactoryPluginInte
         '#value' => $this->t('Price'),
         '#attributes' => ['class' => ['software-price__label']],
       ],
-      'price' => $price_render,
+      'price' => [
+        '#type' => 'html_tag',
+        '#tag' => 'span',
+        '#value' => $price,
+        '#attributes' => ['class' => ['software-price__value']],
+      ],
       '#attached' => [
         'library' => ['lts_software/software_price'],
       ],
       '#cache' => [
-        'tags' => Cache::mergeTags($node->getCacheTags(), $variation->getCacheTags()),
+        'tags' => $node->getCacheTags(),
       ],
     ];
+  }
+
+  /**
+   * Formats a chargeback Software node's price for display.
+   *
+   * Shared with the catalog cards (CatalogViewsPreprocessHooks) so the
+   * detail page and the cards always agree.
+   *
+   * @return \Drupal\Core\StringTranslation\TranslatableMarkup|string|null
+   *   "Free" for zero, "$1,234.50" otherwise, or NULL when the node is not
+   *   chargeback software or has no price.
+   */
+  public static function formatPrice(NodeInterface $node) {
+    if (!$node->hasField('field_access_type') || $node->get('field_access_type')->value !== 'chargeback') {
+      return NULL;
+    }
+    if (!$node->hasField('field_price') || $node->get('field_price')->isEmpty()) {
+      return NULL;
+    }
+    $amount = (float) $node->get('field_price')->value;
+    return $amount == 0.0 ? t('Free') : '$' . number_format($amount, 2);
   }
 
   /**
