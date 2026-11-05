@@ -1,5 +1,0 @@
-services:
-  lts_chargeback.chargeback_order_type_resolver:
-    class: Drupal\lts_chargeback\Resolver\ChargebackOrderTypeResolver
-    tags:
-      - { name: commerce_order.order_type_resolver, priority: 0 }
